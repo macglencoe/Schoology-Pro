@@ -4,34 +4,38 @@ import requests
 from bs4 import BeautifulSoup
 
 class Course:
-    def __init__(self,data):
+    def __init__(self,data,session_state):
         self.title = data['section_title']
         self.id = data['id']
-        #self.periods = data['grading_periods']
         self.periods = [str(x) for x in data['grading_periods']]
         self.metadata = data
         self.forbidden = False
-        _courses[self.id] = self
+        #_courses[self.id] = self
+        session_state['loaded_courses'].append(self.title)
+        session_state['_courses'][self.id] = self
         
 
 class Period:
-    def __init__(self,data):
+    def __init__(self,data,session_state):
         self.id = data['period_id'].replace('p','')
         self.title = data['period_title']
         self.metadata = data
-        _periods[self.id] = self
+        #_periods[self.id] = self
+        session_state['_periods'][self.id] = self
 
 class Category:
-    def __init__(self,data):
+    def __init__(self,data,session_state):
         self.id = data['id']
         self.title = data['title']
         self.course_id = data['realm_id']
         self.weight = data['weight']
         self.metadata = data
-        _categories[self.id] = self
+        #_categories[self.id] = self
+        session_state['_categories'][self.id] = self
 
 class Assignment:
-    def __init__(self,data,section_id):
+    def __init__(self,data,section_id,session_state):
+        sc = session_state['sc']
         self.enrollment_id = data['enrollment_id']
         self.section_id = section_id
         self.id = data['assignment_id']
@@ -54,14 +58,24 @@ class Assignment:
         except requests.exceptions.HTTPError:
             del self
             return
-        _assignments[self.id] = self
+        #_assignments[self.id] = self
+        session_state['_assignments'][self.id] = self
 
 
-def loadcourse(sel_string):
+def loadcourse(session_state):
+    sc = session_state['sc']
+    olist = session_state['olist']
+    _courses = session_state['_courses']
+    _periods = session_state['_periods']
+    sel_string = session_state['selected_course']
+    loaded_courses = session_state['loaded_courses']
     matches = []
+    returncourses = []
+
+    if sel_string in loaded_courses:
+        return reloadcourse(sel_string, session_state)
+
     for c in olist:
-        print("Loading courses ",end='')
-        advspinner()
         coursetitle = sc.get_section(c['section_id'])['section_title']
         if sel_string in coursetitle or coursetitle in sel_string:
             matches.append(c)
@@ -69,104 +83,95 @@ def loadcourse(sel_string):
     if len(matches) == 0:
         print(f"Course \"{sel_string}\" couldn't be found")
         return
-    returncourses = []
     for course in matches:
         if course['section_id'] not in _courses.keys():
-            Course(sc.get_section(course['section_id']))
-        returncourses.append(_courses[course['section_id']])
+            Course(
+                sc.get_section(course['section_id']),
+                session_state
+            )
+        returncourses.append(
+            _courses[course['section_id']]
+        )
         for period in course['period']:
             if period['period_id'] not in _periods.keys():
-                Period(period)
+                Period(period, session_state)
             for asgn in period['assignment']:
-                print("Loading grades ",end='')
-                advspinner()
-                Assignment(asgn,course['section_id'])
+                Assignment(
+                    asgn,course['section_id'],
+                    session_state
+                )
         try:
             sc.get_grading_categories(course['section_id'])
         except requests.exceptions.HTTPError:
             return
         for category in sc.get_grading_categories(course['section_id']):
-            Category(category)
+            Category(category,session_state)
     return returncourses
 
-
-spinner = '|'
-def advspinner():
-    global spinner
-    spinnerlist = ['|','/','-','\\']
-    index = spinnerlist.index(spinner)
-    if index == 3:
-        index = -1
-    spinner = spinnerlist[index+1]
-    print(spinner+'\r',flush=True,end='')
-
-
+def reloadcourse(sel_string, session_state):
+    print('reloading pre-loaded course')
+    olist = session_state['olist']
+    _courses = session_state['_courses']
+    returncourses = []
+    for c in _courses.values():
+        if c.title == sel_string:
+            returncourses.append(c)
+    return returncourses
+        
 
 apikey = '65d4d1f05710a0eb66658122d7cc426e062100b60'
 apisecret = 'f90c6f8faa564767831e6c4c41acb4f4'
 
 def twolegged(key,secret):
-    global sc
     auth = schoolopy.Auth(key,secret)
     if not auth.authorize():
         raise SystemExit('Key or secret is invalid')
     sc = schoolopy.Schoology(
         auth
     )
-    
-    
+    return sc
 
-def threelegged():
-    global sc
-    global me
-    global olist
-    global courselist
+def threelegged(session_state):
+    auth = session_state['auth']
+    authurl = session_state['auth_url']
     if authurl is not None:
         pass
-        #print("Click the following link to authorize this app with Schoology:")
-        #print(authurl)
     if not auth.authorize():
         raise SystemExit('Account was not authorized.')
     sc = schoolopy.Schoology(auth)
-    me = sc.get_me()['uid']
-    olist = sc.get_user_grades(me)
+    me = sc.get_me()
+    olist = sc.get_user_grades(me['uid'])
     courselist=[]
     for c in olist:
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
-        
-    
-olist=[]
-DOMAIN = 'https://bcs.schoology.com'
-auth = schoolopy.Auth(
-    apikey,apisecret, three_legged=True,
-    domain = DOMAIN
-)
-authurl = auth.request_authorization()
+    session_state['sc'] = sc
+    session_state['me'] = me
+    session_state['olist'] = olist
+    session_state['courselist'] = courselist
+    session_state['_courses'] = {}
+    session_state['_periods'] = {}
+    session_state['_categories'] = {}
+    session_state['_assignments'] = {}
+    session_state['loaded_courses'] = []
+    #return sc, me, olist, courselist
 
-#sc = threelegged(apikey,apisecret)
+def get_auth(session_state):
+    auth = schoolopy.Auth(
+        apikey, apisecret, three_legged = True,
+        domain = school_domain
+    )
+    #return auth
+    session_state['auth'] = auth
+    session_state['auth_url'] = auth.request_authorization()
 
-#sc = twolegged(apikey,apisecret)
+def test_auth(session_state):
+    try:
+        session_state['sc'].get_me()
+    except Exception as err:
+        print(err)
+        return False
+    return True
 
-
-#print('You are logged in as %s' % sc.get_me().name_display)
-
-_courses = {}
-_periods = {}
-_categories = {}
-_assignments = {}
-
-#me = sc.get_me()['uid']
-#olist = sc.get_user_grades(me)
-#print("Initializing...",end='\r')
-#loadcourse('ENG LA 12')
-
-#print('\r',end='')
-#for course in _courses.values():
-#    print(course.title)
-#for asgn in _assignments.values():
-#    print(asgn.title,end='')
-#    print(f' {asgn.grade}/{asgn.max}')
-#    if asgn.exception:
-#        print(asgn.exception)
+school_domain = 'https://bcs.schoology.com'
