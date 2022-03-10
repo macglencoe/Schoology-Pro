@@ -7,6 +7,8 @@ class Course:
     def __init__(self,data):
         self.title = data['section_title']
         self.id = data['id']
+        #self.periods = data['grading_periods']
+        self.periods = [str(x) for x in data['grading_periods']]
         self.metadata = data
         self.forbidden = False
         _courses[self.id] = self
@@ -14,16 +16,18 @@ class Course:
 
 class Period:
     def __init__(self,data):
-        self.id = data['period_id']
+        self.id = data['period_id'].replace('p','')
         self.title = data['period_title']
+        self.metadata = data
         _periods[self.id] = self
 
 class Category:
     def __init__(self,data):
         self.id = data['id']
         self.title = data['title']
-        self.courseid = data['realm_id']
+        self.course_id = data['realm_id']
         self.weight = data['weight']
+        self.metadata = data
         _categories[self.id] = self
 
 class Assignment:
@@ -54,34 +58,36 @@ class Assignment:
 
 
 def loadcourse(sel_string):
-    course = None
+    matches = []
     for c in olist:
         print("Loading courses ",end='')
         advspinner()
-        coursetitle = sc.get_section(c['section_id'])['course_title']
+        coursetitle = sc.get_section(c['section_id'])['section_title']
         if sel_string in coursetitle or coursetitle in sel_string:
-            course = c
-            break
+            matches.append(c)
     print("                  ",end='\r')
-    if course is None:
+    if len(matches) == 0:
         print(f"Course \"{sel_string}\" couldn't be found")
         return
-    if course['section_id'] not in _courses.keys():
-        Course(sc.get_section(course['section_id']))
-    for period in course['period']:
-        if period['period_id'] not in _periods.keys():
-            Period(period)
-        for asgn in period['assignment']:
-            print("Loading grades ",end='')
-            advspinner()
-            Assignment(asgn,course['section_id'])
-    try:
-        sc.get_grading_categories(course['section_id'])
-    except requests.exceptions.HTTPError:
-        return
-    for category in sc.get_grading_categories(course['section_id']):
-        Category(category)
-    print("                  ",end='\r')
+    returncourses = []
+    for course in matches:
+        if course['section_id'] not in _courses.keys():
+            Course(sc.get_section(course['section_id']))
+        returncourses.append(_courses[course['section_id']])
+        for period in course['period']:
+            if period['period_id'] not in _periods.keys():
+                Period(period)
+            for asgn in period['assignment']:
+                print("Loading grades ",end='')
+                advspinner()
+                Assignment(asgn,course['section_id'])
+        try:
+            sc.get_grading_categories(course['section_id'])
+        except requests.exceptions.HTTPError:
+            return
+        for category in sc.get_grading_categories(course['section_id']):
+            Category(category)
+    return returncourses
 
 
 spinner = '|'
@@ -131,7 +137,7 @@ def threelegged():
         courselist.append(sectiontitle)
         
     
-
+olist=[]
 DOMAIN = 'https://bcs.schoology.com'
 auth = schoolopy.Auth(
     apikey,apisecret, three_legged=True,
