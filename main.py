@@ -61,10 +61,11 @@ def overviewpage():
     st.title('Course View')
     st.selectbox(
         'Select a course. (Some courses are duplicate. This is fine, as they will both be loaded.)',
-        st.session_state['courselist'],
-        key = 'selected_course', on_change = cbox_change
+        ['Select a Course'] + st.session_state['courselist'],
+        key = 'selected_course',
+        index = 0
     )
-    if st.session_state['cbox_haschanged']:
+    if st.session_state['selected_course'] != 'Select a course':
         with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
             placeholder = st.empty()
             if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
