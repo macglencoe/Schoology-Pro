@@ -88,9 +88,9 @@ def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
         if cat.course_id == m.id:
             st.subheader(cat.title)
-            display_chart(m,p,cat)
             with st.expander('Edit Assignments'):
                 asg_editors(cat,p,m)
+            display_chart(m,p,cat)
 
 def asg_editors(cat,per,sec):
     dfid = f'{sec.id} {per.id} {cat.id}'
