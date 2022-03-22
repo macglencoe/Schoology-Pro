@@ -312,6 +312,7 @@ def del_chart(dataframe_id):
         st.experimental_rerun()
     else:
         print('No chart was deleted.')
+        st.write('No chart was deleted.')
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide'
