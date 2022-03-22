@@ -302,8 +302,8 @@ def asgs_DataFrame(cat,per,sec):
         asg.category == cat.id and
         asg.period == per.id and
         asg.section_id == sec.id and
-        asg.max not None and
-        asg.grade not None
+        asg.max is not None and
+        asg.grade is not None
     ])
     if len(daf) == 0:
         return None
