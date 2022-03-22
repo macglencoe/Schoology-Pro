@@ -172,7 +172,7 @@ def display_chart(m,p,c):
     refresh = st.button(
         'Refresh Chart',
         key = f'refresh {dataframe_id}',
-        on_change = del_chart,args=([dataframe_id])
+        on_click = del_chart,args=([dataframe_id])
     )
 
     if dataframe_id in st.session_state.charts:
