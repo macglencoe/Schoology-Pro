@@ -309,6 +309,7 @@ def cbox_change():
 def del_chart(dataframe_id):
     if dataframe_id in st.session_state.charts:
         del st.session_state.charts[dataframe_id]
+        st.experimental_rerun()
     else:
         print('No chart was deleted.')
 
