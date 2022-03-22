@@ -131,7 +131,7 @@ def asg_editors(cat,per,sec):
         asg.grade = st.number_input(
             'Earned Points',
             min_value = 0,
-            value = asg.grade,
+            value = int(asg.grade),
             key = f'earned {asg.id}',
             on_change = del_chart,args=([dfid])
         )
