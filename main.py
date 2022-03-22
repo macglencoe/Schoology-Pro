@@ -93,7 +93,7 @@ def display_categories(m,p):
                 asg_editors(cat,p,m)
 
 def asg_editors(cat,per,sec):
-    dfid = f'{cat.id} {per.id} {sec.id}'
+    dfid = f'{sec.id} {per.id} {cat.id}'
     asglist = [asg for asg in
               st.session_state['_assignments'].values() if
               asg.category == cat.id and
