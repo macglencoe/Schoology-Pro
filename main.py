@@ -169,6 +169,11 @@ def display_chart(m,p,c):
         key= f'method {dataframe_id}',
         on_change = del_chart,args=([dataframe_id])
     )
+    refresh = st.button(
+        'Refresh Chart',
+        key = f'refresh {dataframe_id}',
+        on_change = del_chart,args=([dataframe_id])
+    )
 
     if dataframe_id in st.session_state.charts:
         st.altair_chart(
@@ -312,7 +317,6 @@ def del_chart(dataframe_id):
         st.experimental_rerun()
     else:
         print('No chart was deleted.')
-        st.write('No chart was deleted.')
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide'
