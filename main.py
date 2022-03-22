@@ -89,7 +89,7 @@ def display_categories(m,p):
         if cat.course_id == m.id:
             st.subheader(cat.title)
             display_chart(m,p,cat)
-            with st.container():
+            with st.expander('Edit Assignments'):
                 asg_editors(cat,p,m)
 
 def asg_editors(cat,per,sec):
@@ -102,7 +102,8 @@ def asg_editors(cat,per,sec):
     select_asg = st.selectbox(
         'Select an assignment',
         [asg.title for asg in asglist],
-        key = f'selected_assignment {dfid}'
+        key = f'selected_assignment {dfid}',
+        on_change = del_chart,args=(dfid)
     )
     for asg in asglist:
         if asg.title == select_asg:
@@ -110,7 +111,8 @@ def asg_editors(cat,per,sec):
     excused = st.checkbox(
         'Excused',
         value = True if asg.grade is None else False,
-        key = f'excused {asg.id}'
+        key = f'excused {asg.id}',
+        on_change = del_chart,args=(dfid)
     )
     notassigned = st.checkbox(
         'Not Assigned',
@@ -130,13 +132,15 @@ def asg_editors(cat,per,sec):
             'Earned Points',
             min_value = 0,
             value = asg.grade,
-            key = f'earned {asg.id}'
+            key = f'earned {asg.id}',
+            on_change = del_chart,args=(dfid)
         )
         asg.max = st.number_input(
             'Maximum Points',
             min_value = 0,
             value = int(asg.max),
-            key = f'max {asg.id}'
+            key = f'max {asg.id}',
+            on_change = del_chart,args=(dfid)
         )
         asg.percent = round(asg.grade/asg.max,3)
     
