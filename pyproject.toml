@@ -12,6 +12,8 @@ bs4 = "^0.0.1"
 requests = "^2.27.1"
 schoolopy = "^0.2.2"
 streamlit-multipage = "^0.0.18"
+extra-streamlit-components = "^0.1.53"
+altair = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
 

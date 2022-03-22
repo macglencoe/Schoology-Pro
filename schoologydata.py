@@ -2,6 +2,7 @@ import os
 import schoolopy
 import requests
 from bs4 import BeautifulSoup
+import random
 
 class Course:
     def __init__(self,data,session_state):
@@ -40,14 +41,23 @@ class Assignment:
         self.section_id = section_id
         self.id = data['assignment_id']
         self.grade = data['grade']
-        self.exception = data['exception']
+        #self.exception = data['exception']
         self.max = data['max_points']
-        if self.max is None:
-            self.exception = "Not yet assigned"
-        elif self.grade is None:
-            self.exception = "Excused"
-        elif self.exception and self.grade == 0:
-            self.exception = "Missing"
+        if self.max and self.grade:
+            self.percent = round(
+                self.grade / self.max, 3
+            )
+        elif self.grade is 0:
+            self.percent = 0
+        else:
+            self.percent = None
+        
+        #if self.max is None:
+            #self.exception = "Not yet assigned"
+        #elif self.grade is None:
+            #self.exception = "Excused"
+        #elif self.exception and self.grade == 0:
+            #self.exception = "Missing"
         if 'web_url' in data.keys():
             self.url = data['web_url'].replace('app','bcs')
         self.category = data['category_id']
@@ -97,8 +107,8 @@ def loadcourse(session_state):
                 Period(period, session_state)
             for asgn in period['assignment']:
                 Assignment(
-                    asgn,course['section_id'],
-                    session_state
+                    asgn,
+                    course['section_id'],session_state
                 )
         try:
             sc.get_grading_categories(course['section_id'])
@@ -108,8 +118,9 @@ def loadcourse(session_state):
             Category(category,session_state)
     return returncourses
 
+
+    
 def reloadcourse(sel_string, session_state):
-    print('reloading pre-loaded course')
     olist = session_state['olist']
     _courses = session_state['_courses']
     returncourses = []
@@ -117,19 +128,36 @@ def reloadcourse(sel_string, session_state):
         if c.title == sel_string:
             returncourses.append(c)
     return returncourses
-        
+    
 
 apikey = '65d4d1f05710a0eb66658122d7cc426e062100b60'
 apisecret = 'f90c6f8faa564767831e6c4c41acb4f4'
 
-def twolegged(key,secret):
-    auth = schoolopy.Auth(key,secret)
-    if not auth.authorize():
-        raise SystemExit('Key or secret is invalid')
+def twolegged(session_state):
+    auth = schoolopy.Auth(apikey,apisecret)
     sc = schoolopy.Schoology(
         auth
     )
-    return sc
+    me = sc.get_me()
+    olist = sc.get_user_grades(me['uid'])
+    courselist=[]
+    for c in olist:
+        section = sc.get_section(c['section_id'])
+        sectiontitle = section['section_title']
+        courselist.append(sectiontitle)
+    session_state['logged_in'] = True
+    session_state['auth'] = auth
+    session_state['sc'] = sc
+    session_state['me'] = me
+    session_state['olist'] = olist
+    session_state['courselist'] = courselist
+    session_state['_courses'] = {}
+    session_state['_periods'] = {}
+    session_state['_categories'] = {}
+    session_state['_assignments'] = {}
+    session_state['loaded_courses'] = []
+    
+    
 
 def threelegged(session_state):
     auth = session_state['auth']
@@ -157,14 +185,13 @@ def threelegged(session_state):
     session_state['loaded_courses'] = []
     #return sc, me, olist, courselist
 
-def get_auth(session_state):
+def get_auth():
     auth = schoolopy.Auth(
         apikey, apisecret, three_legged = True,
         domain = school_domain
     )
-    #return auth
-    session_state['auth'] = auth
-    session_state['auth_url'] = auth.request_authorization()
+    return auth
+    #session_state['auth_url'] = auth.request_authorization(callback_url='https://schoology-streamlit.macglencoe.repl.co/')
 
 def test_auth(session_state):
     try:
@@ -173,5 +200,18 @@ def test_auth(session_state):
         print(err)
         return False
     return True
+
+def save_cookie(session_state):
+    cookies[session_state['session_id']] = session_state
+    if len(cookies) > 100:
+        first = cookies.keys()[0]
+        cookies.pop(first)
+
+def get_session(id):
+    if id in cookies:
+        return cookies[id]
+    return False
+
+cookies = {}
 
 school_domain = 'https://bcs.schoology.com'
