@@ -103,7 +103,7 @@ def asg_editors(cat,per,sec):
         'Select an assignment',
         [asg.title for asg in asglist],
         key = f'selected_assignment {dfid}',
-        on_change = del_chart,args=(dfid)
+        on_change = del_chart,args=(dfid, )
     )
     for asg in asglist:
         if asg.title == select_asg:
@@ -112,7 +112,7 @@ def asg_editors(cat,per,sec):
         'Excused',
         value = True if asg.grade is None else False,
         key = f'excused {asg.id}',
-        on_change = del_chart,args=(dfid)
+        on_change = del_chart,args=(dfid, )
     )
     notassigned = st.checkbox(
         'Not Assigned',
@@ -133,14 +133,14 @@ def asg_editors(cat,per,sec):
             min_value = 0,
             value = asg.grade,
             key = f'earned {asg.id}',
-            on_change = del_chart,args=(dfid)
+            on_change = del_chart,args=(dfid, )
         )
         asg.max = st.number_input(
             'Maximum Points',
             min_value = 0,
             value = int(asg.max),
             key = f'max {asg.id}',
-            on_change = del_chart,args=(dfid)
+            on_change = del_chart,args=(dfid, )
         )
         asg.percent = round(asg.grade/asg.max,3)
     
