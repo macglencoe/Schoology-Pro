@@ -220,8 +220,6 @@ def save_userstate(session_state):
     sc = schoolopy.Schoology(session_state['auth'])
     uid = sc.get_me()['uid']
 
-    if uid in user_states:
-        del user_states[uid]
     user_states[uid] = session_state
 
 def get_userstate(session_state):

@@ -53,9 +53,9 @@ def overviewpage():
                     'session_id',
                     st.session_state['session_id']
                 )
-                scdata.save_cookie(st.session_state)
-                scdata.save_userstate(st.session_state)
         st.experimental_rerun()
+        
+        scdata.save_userstate(st.session_state)
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
