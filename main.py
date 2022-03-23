@@ -33,9 +33,7 @@ def overviewpage():
             st.sesson_state = newstate
         else:
             scdata.save_userstate(st.session_state)
-    st.write(scdata.user_states)
-    for state in scdata.user_states.values():
-        st.write(state)
+
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
             st.info(
