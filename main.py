@@ -15,7 +15,7 @@ def overviewpage():
         st.experimental_rerun()
 
     if 'logged_in' not in st.session_state:
-        session_id = st.session_state['cookie_manager'].get('session_id')
+        cookiemanager.get('session_id')
         if scdata.get_session(session_id):
             st.session_state.update(scdata.get_session(session_id))
     
@@ -56,7 +56,7 @@ def overviewpage():
                 st.session_state.clear()
             else:
                 st.session_state['session_id'] = secrets.token_hex(16)
-                st.session_state['cookie_manager'].set(
+                cookiemanager.set(
                     'session_id',
                     st.session_state['session_id']
                 )
@@ -333,6 +333,10 @@ def del_chart(dataframe_id):
     else:
         print('No chart was deleted.')
 
+@st.cache(allow_output_mutation=True)
+def get_manager():
+    return stx.CookieManager()
+
 st.set_page_config(
     page_title = 'Schoology', layout='wide'
 )
@@ -343,11 +347,11 @@ if 'charts' not in st.session_state:
 if 'dataframes' not in st.session_state:
     st.session_state['dataframes'] = {}
 
-if 'cookie_manager' not in st.session_state:
-    st.session_state['cookie_manager'] = stx.CookieManager()
 
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
+
+cookiemanager = get_manager()
 
 try:
     overviewpage()
