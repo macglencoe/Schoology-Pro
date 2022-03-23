@@ -42,9 +42,10 @@ def overviewpage():
                     )
                     scdata.save_cookie(st.session_state)
                     break
+        st.header('Outside of spinner')
         with st.spinner('Logging in...'):
             scdata.threelegged(st.session_state)
-            st.title('You should see this')
+            st.header('Inside of spinner')
             #scdata.twolegged(st.session_state)
             if not st.session_state['auth']:
                 raise SystemExit('Unauthorized')
