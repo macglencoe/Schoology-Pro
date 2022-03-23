@@ -13,11 +13,6 @@ def overviewpage():
     if st.button("Clear Cache"):
         st.session_state.clear()
         st.experimental_rerun()
-
-    if 'logged_in' not in st.session_state:
-        session_id = cookiemanager.get('session_id')
-        if scdata.get_session(session_id):
-            st.session_state.update(scdata.get_session(session_id))
     
     if 'logged_in' not in st.session_state:
         st.session_state['auth'] = scdata.get_auth()
@@ -32,20 +27,10 @@ def overviewpage():
         
         with st.spinner('Waiting for authorization...'):
             authorize()
-            #while True:
-                #time.sleep(3)
-                #st.header('In auth spinner')
-                #if st.session_state['auth'].authorize():
-                    #st.session_state['logged_in'] = True
-                    #st.session_state['session_id'] = secrets.token_hex(16)
-                    #st.session_state['cookie_manager'].set(
-                    #    'session_id',
-                    #    st.session_state['session_id']
-                    #)
-                    #scdata.save_cookie(st.session_state)
-                    #break
+
         if scdata.get_userstate(st.session_state):
-            st.session_state.update(scdata.get_userstate(st.session_state))
+            newstate = scdata.get_userstate(st.session_state)
+            st.sesson_state = newstate
         else:
             scdata.save_userstate(st.session_state)
     st.write(scdata.user_states)
