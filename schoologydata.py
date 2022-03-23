@@ -216,7 +216,20 @@ def get_session(session_id):
         return cookie_datas[session_id]
     return False
 
+def save_userstate(session_state):
+    uid = session_state.me['uid']
+    if uid in user_states:
+        del user_states[uid]
+    user_states[uid] = session_state
+
+def get_userstate(session_state):
+    uid = session_state.me['uid']
+    if uid in user_states:
+        return user_states[uid]
+    return False
+
 cookie_datas = {}
 user_cookies = {}
+user_states = {}
 
 school_domain = 'https://bcs.schoology.com'

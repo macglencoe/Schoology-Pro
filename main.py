@@ -44,7 +44,11 @@ def overviewpage():
                     #)
                     #scdata.save_cookie(st.session_state)
                     #break
-        with st.spinner('Logging in...'):
+    if scdata.get_userstate(st.session_state):
+        st.session_state.update(scdata.get_userstate(st.session_state))
+    
+    if 'logged_in' not in st.session_state:
+        with st.spinner('Loading courses...'):
             st.info(
                 'Loading all of your courses can be pretty time-consuming.\n Luckily, if you have cookies enabled, you won\'t have to wait every time.'
             )
