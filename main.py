@@ -44,10 +44,10 @@ def overviewpage():
                     #)
                     #scdata.save_cookie(st.session_state)
                     #break
-    if scdata.get_userstate(st.session_state):
-        st.session_state.update(scdata.get_userstate(st.session_state))
-    else:
-        scdata.save_userstate(st.session_state)
+        if scdata.get_userstate(st.session_state):
+            st.session_state.update(scdata.get_userstate(st.session_state))
+        else:
+            scdata.save_userstate(st.session_state)
     st.write(scdata.user_states)
     for state in scdata.user_states.values():
         st.write(state)
