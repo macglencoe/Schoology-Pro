@@ -36,21 +36,15 @@ def overviewpage():
 
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
-            st.info(
-                'Loading all of your courses can be pretty time-consuming.\n Luckily, if you have cookies enabled, you won\'t have to wait every time.'
-            )
+            #st.info(
+            #    'Loading all of your courses can be pretty time-consuming.\n Luckily, if you have cookies enabled, you won\'t have to wait every time.'
+            #)
             scdata.threelegged(st.session_state)
             #scdata.twolegged(st.session_state)
             if not st.session_state['auth']:
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
-            else:
-                st.session_state['session_id'] = secrets.token_hex(16)
-                cookiemanager.set(
-                    'session_id',
-                    st.session_state['session_id']
-                )
         st.experimental_rerun()
         
     scdata.save_userstate(st.session_state)
