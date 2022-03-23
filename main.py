@@ -54,7 +54,7 @@ def overviewpage():
             #    raise SystemExit('Unauthorized')
         st.experimental_rerun()
         
-    st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+    #st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
     st.title('Course View')
     st.selectbox(
