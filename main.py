@@ -41,6 +41,7 @@ def overviewpage():
                         st.session_state['session_id']
                     )
                     scdata.save_cookie(st.session_state)
+                    st.header('In auth header')
                     break
         st.header('Outside of spinner')
         with st.spinner('Logging in...'):
