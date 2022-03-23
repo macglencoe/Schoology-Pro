@@ -106,7 +106,7 @@ def authorize():
         if st.session_state['auth'].authorize():
             return
     
-
+#f
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
         if cat.course_id == m.id:
