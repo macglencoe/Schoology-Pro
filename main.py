@@ -68,6 +68,7 @@ def overviewpage():
                     st.session_state['session_id']
                 )
                 scdata.save_cookie(st.session_state)
+                scdata.save_userstate(st.session_state)
         st.experimental_rerun()
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
@@ -85,6 +86,7 @@ def overviewpage():
             if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
                 placeholder.info('This might take a while, since this is the first time loading this course. Afterwards, loading this course should be instant.')
             matches = scdata.loadcourse(st.session_state)
+            scdata.save_userstate(st.session_state)
             for m in matches:
                 st.header(m.title)
                 for id in m.periods:
