@@ -217,7 +217,9 @@ def get_session(session_id):
     return False
 
 def save_userstate(session_state):
-    uid = session_state.me['uid']
+    sc = schoolopy.Schoology(session_state['auth'])
+    uid = sc.get_me()['uid']
+
     if uid in user_states:
         del user_states[uid]
     user_states[uid] = session_state
