@@ -45,15 +45,15 @@ def overviewpage():
                     #scdata.save_cookie(st.session_state)
                     #break
         with st.spinner('Logging in...'):
-            log_in()
-            #scdata.threelegged(st.session_state)
-            #st.header('Inside of spinner')
+            scdata.threelegged(st.session_state)
             #scdata.twolegged(st.session_state)
-            #if not st.session_state['auth']:
-            #    raise SystemExit('Unauthorized')
+            if not st.session_state['auth']:
+                st.error('Not Authorized. Refreshing in 5 seconds.')
+                time.sleep(5)
+                st.session_state.clear()
         st.experimental_rerun()
         
-    #st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+    st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
     st.title('Course View')
     st.selectbox(
@@ -86,10 +86,6 @@ def authorize():
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
-
-def log_in():
-    scdata.threelegged(st.session_state)
-    
     
 
 def display_categories(m,p):
