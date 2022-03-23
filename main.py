@@ -33,6 +33,7 @@ def overviewpage():
         with st.spinner('Waiting for authorization...'):
             while True:
                 time.sleep(3)
+                st.header('In auth spinner')
                 if st.session_state['auth'].authorize():
                     st.session_state['logged_in'] = True
                     st.session_state['session_id'] = secrets.token_hex(16)
@@ -41,7 +42,6 @@ def overviewpage():
                         st.session_state['session_id']
                     )
                     scdata.save_cookie(st.session_state)
-                    st.header('In auth header')
                     break
         st.header('Outside of spinner')
         with st.spinner('Logging in...'):
