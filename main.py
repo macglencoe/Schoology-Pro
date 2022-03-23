@@ -46,12 +46,6 @@ def overviewpage():
             scdata.threelegged(st.session_state)
             #scdata.twolegged(st.session_state)
         st.experimental_rerun()
-    elif 'logged_in' in st.session_state:
-        if not scdata.test_auth(st.session_state):
-            st.error("Authorization token invalid. Refreshing in 5 seconds.")
-            time.sleep(5)
-            st.session_state.clear()
-            st.experimental_rerun()
         
     st.write('You are logged in as %s' % 
              st.session_state['me']['name_display'])
