@@ -15,9 +15,9 @@ def overviewpage():
         st.experimental_rerun()
 
     if 'logged_in' not in st.session_state:
-        id = st.session_state['cookie_manager'].get('session_id')
-        if scdata.get_session(id):
-            st.session_state.update(scdata.get_session(id))
+        session_id = st.session_state['cookie_manager'].get('session_id')
+        if scdata.get_session(session_id):
+            st.session_state.update(scdata.get_session(session_id))
     
     if 'logged_in' not in st.session_state:
         st.session_state['auth'] = scdata.get_auth()
@@ -45,12 +45,22 @@ def overviewpage():
                     #scdata.save_cookie(st.session_state)
                     #break
         with st.spinner('Logging in...'):
+            st.info(
+                'Loading all of your courses can be pretty time-consuming. Luckily, if you have cookies enabled, you won\'t have to wait every time.'
+            )
             scdata.threelegged(st.session_state)
             #scdata.twolegged(st.session_state)
             if not st.session_state['auth']:
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
+            else:
+                st.session_state['session_id'] = secrets.token_hex(16)
+                st.session_state['cookie_manager'].set(
+                    'session_id',
+                    st.session_state['session_id']
+                )
+                scdata.save_cookie(st.session_state)
         st.experimental_rerun()
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
