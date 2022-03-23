@@ -161,7 +161,7 @@ def twolegged(session_state):
 
 def threelegged(session_state):
     auth = session_state['auth']
-    authurl = session_state['auth_url']
+    authurl = session_state['auth'].request_authorization()
     if authurl is not None:
         pass
     if not auth.authorize():
