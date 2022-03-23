@@ -14,14 +14,12 @@ def overviewpage():
         st.session_state.clear()
         st.experimental_rerun()
 
-    #if 'logged_in' not in st.session_state:
-    #    id = st.session_state['cookie_manager'].get('session_id')
-    #    if scdata.get_session(id):
-    #        st.session_state.update(scdata.get_session(id))
+    if 'logged_in' not in st.session_state:
+        id = st.session_state['cookie_manager'].get('session_id')
+        if scdata.get_session(id):
+            st.session_state.update(scdata.get_session(id))
     
     if 'logged_in' not in st.session_state:
-        
-        
         st.session_state['auth'] = scdata.get_auth()
         print(st.session_state['auth'].request_authorization())
         logincol,loginheader = st.columns(2)
@@ -32,21 +30,21 @@ def overviewpage():
         with loginheader:
             st.write('Logging in with Schoology ensures that your credentials are secure.')
         
-#        with st.spinner('Waiting for authorization...'):
-#            while True:
-#                time.sleep(3)
-#                if st.session_state['auth'].authorize():
-#                    st.session_state['logged_in'] = True
-#                    st.session_state['session_id'] = secrets.token_hex(16)
-#                    st.session_state['cookie_manager'].set(
-#                        'session_id',
-#                        st.session_state['session_id']
-#                    )
-#                    scdata.save_cookie(st.session_state)
-#                    break
+        with st.spinner('Waiting for authorization...'):
+            while True:
+                time.sleep(3)
+                if st.session_state['auth'].authorize():
+                    st.session_state['logged_in'] = True
+                    st.session_state['session_id'] = secrets.token_hex(16)
+                    st.session_state['cookie_manager'].set(
+                        'session_id',
+                        st.session_state['session_id']
+                    )
+                    scdata.save_cookie(st.session_state)
+                    break
         with st.spinner('Logging in...'):
-            #scdata.threelegged(st.session_state)
-            scdata.twolegged(st.session_state)
+            scdata.threelegged(st.session_state)
+            #scdata.twolegged(st.session_state)
         st.experimental_rerun()
     elif 'logged_in' in st.session_state:
         if not scdata.test_auth(st.session_state):
