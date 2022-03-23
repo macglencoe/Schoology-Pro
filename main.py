@@ -44,8 +44,9 @@ def overviewpage():
                     break
         with st.spinner('Logging in...'):
             scdata.threelegged(st.session_state)
+            st.title('You should see this')
             #scdata.twolegged(st.session_state)
-            if st.session_state['auth']:
+            if not st.session_state['auth']:
                 raise SystemExit('Unauthorized')
         st.experimental_rerun()
         
