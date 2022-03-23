@@ -31,25 +31,27 @@ def overviewpage():
             st.write('Logging in with Schoology ensures that your credentials are secure.')
         
         with st.spinner('Waiting for authorization...'):
-            while True:
-                time.sleep(3)
-                st.header('In auth spinner')
-                if st.session_state['auth'].authorize():
-                    st.session_state['logged_in'] = True
-                    st.session_state['session_id'] = secrets.token_hex(16)
-                    st.session_state['cookie_manager'].set(
-                        'session_id',
-                        st.session_state['session_id']
-                    )
-                    scdata.save_cookie(st.session_state)
-                    break
+            authorize()
+            #while True:
+                #time.sleep(3)
+                #st.header('In auth spinner')
+                #if st.session_state['auth'].authorize():
+                    #st.session_state['logged_in'] = True
+                    #st.session_state['session_id'] = secrets.token_hex(16)
+                    #st.session_state['cookie_manager'].set(
+                    #    'session_id',
+                    #    st.session_state['session_id']
+                    #)
+                    #scdata.save_cookie(st.session_state)
+                    #break
         st.header('Outside of spinner')
         with st.spinner('Logging in...'):
-            scdata.threelegged(st.session_state)
-            st.header('Inside of spinner')
+            log_in()
+            #scdata.threelegged(st.session_state)
+            #st.header('Inside of spinner')
             #scdata.twolegged(st.session_state)
-            if not st.session_state['auth']:
-                raise SystemExit('Unauthorized')
+            #if not st.session_state['auth']:
+            #    raise SystemExit('Unauthorized')
         st.experimental_rerun()
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
@@ -79,6 +81,19 @@ def overviewpage():
                         if showper:
                             display_categories(m,period)
     print("overviewpage() ended")
+
+def authorize():
+    while True:
+        time.sleep(3)
+        st.write('In auth spinner')
+        if st.session_state['auth'].authorize():
+            return
+
+def log_in():
+    scdata.threelegged(st.session_state)
+    st.write('in login spinner')
+    
+    
 
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
