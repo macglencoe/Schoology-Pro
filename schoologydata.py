@@ -174,6 +174,7 @@ def threelegged(session_state):
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
+    session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
     session_state['olist'] = olist

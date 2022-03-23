@@ -44,7 +44,6 @@ def overviewpage():
                     #)
                     #scdata.save_cookie(st.session_state)
                     #break
-        st.header('Outside of spinner')
         with st.spinner('Logging in...'):
             log_in()
             #scdata.threelegged(st.session_state)
@@ -85,13 +84,11 @@ def overviewpage():
 def authorize():
     while True:
         time.sleep(3)
-        st.write('In auth spinner')
         if st.session_state['auth'].authorize():
             return
 
 def log_in():
     scdata.threelegged(st.session_state)
-    st.write('in login spinner')
     
     
 
