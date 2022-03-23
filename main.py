@@ -15,7 +15,7 @@ def overviewpage():
         st.experimental_rerun()
 
     if 'logged_in' not in st.session_state:
-        cookiemanager.get('session_id')
+        session_id = cookiemanager.get('session_id')
         if scdata.get_session(session_id):
             st.session_state.update(scdata.get_session(session_id))
     
