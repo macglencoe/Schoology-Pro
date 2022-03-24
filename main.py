@@ -32,7 +32,7 @@ def overviewpage():
             oldstate = scdata.get_userstate(st.session_state)
             st.write('Old session state recovered')
             st.write([key for key in oldstate.keys()])
-            [st.session_state[key] = val for
+            [update_session_state(key,val) for
                 (key,val) in oldstate.items()
             ]
         #else:
@@ -329,6 +329,9 @@ def del_chart(dataframe_id):
         st.experimental_rerun()
     else:
         print('No chart was deleted.')
+
+def update_session_state(key,val):
+    st.session_state[key] = val
 
 @st.cache(allow_output_mutation=True)
 def get_manager():
