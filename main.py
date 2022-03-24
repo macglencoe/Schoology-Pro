@@ -52,6 +52,12 @@ def overviewpage():
         st.experimental_rerun()
         
     scdata.save_userstate(st.session_state)
+    st.write('saved userstate: ')
+    st.write([
+        key for key in scdata.user_states[
+        st.session_state.me['uid']
+        ]
+    ])
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
