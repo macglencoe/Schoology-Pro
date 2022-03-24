@@ -32,8 +32,7 @@ def overviewpage():
             oldstate = scdata.get_userstate(st.session_state)
             st.write('Old session state recovered')
             st.write([key for key in oldstate.keys()])
-            [
-                st.session_state[key] = val for
+            [st.session_state[key] = val for
                 (key,val) in oldstate.items()
             ]
         #else:
