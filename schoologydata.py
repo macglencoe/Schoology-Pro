@@ -221,7 +221,7 @@ def save_userstate(session_state):
     sc = schoolopy.Schoology(session_state['auth'])
     uid = sc.get_me()['uid']
 
-    user_states[uid] = session_state.__dict__
+    user_states[uid] = {key:val for (key,val) in session_state.items()}
 
 def get_userstate(session_state):
     auth = session_state['auth']
