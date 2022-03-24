@@ -232,6 +232,9 @@ def get_userstate(session_state):
         return user_states[uid]
     return False
 
+def clearstates():
+    user_states.clear()
+
 cookie_datas = {}
 user_cookies = {}
 user_states = {}
