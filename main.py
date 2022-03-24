@@ -30,15 +30,12 @@ def overviewpage():
 
         if scdata.get_userstate(st.session_state):
             newstate = scdata.get_userstate(st.session_state)
+            st.write('Old session state recovered')
+            st.write(newstate.keys())
             st.sesson_state = newstate
         else:
             scdata.save_userstate(st.session_state)
     st.write(scdata.user_states)
-    if st.button('Show my uid'):
-        if 'me' in st.session_state:
-            st.write(st.session_state.me['uid'])
-        else:
-            st.write('\'me\'not found in session state')
 
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
