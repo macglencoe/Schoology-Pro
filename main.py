@@ -35,7 +35,7 @@ def overviewpage():
             scdata.save_userstate(st.session_state)
     st.write(scdata.user_states)
     if st.button('Show session state'):
-        st.write(st.session_state.__dict__)
+        st.write({key:val for (key,val) in st.session_state.items()})
 
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
