@@ -30,16 +30,10 @@ def overviewpage():
 
         if scdata.get_userstate(st.session_state):
             oldstate = scdata.get_userstate(st.session_state)
-            st.write('Old session state recovered')
-            st.write([key for key in oldstate.keys()])
+            st.info('Recovered session data')
             for key,val in oldstate.items():
                 st.session_state[key] = val
-        #else:
-            #scdata.save_userstate(st.session_state)
-    if st.button('clear user states'):
-        scdata.clearstates()
-    #st.write(scdata.user_states)
-    #st.write([key for key in st.session_state.keys()])
+                
 
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
@@ -52,7 +46,7 @@ def overviewpage():
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
-        st.experimental_rerun()
+    st.experimental_rerun()
 
 
         
