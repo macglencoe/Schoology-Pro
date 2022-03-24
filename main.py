@@ -29,10 +29,10 @@ def overviewpage():
             authorize()
 
         if scdata.get_userstate(st.session_state):
-            newstate = scdata.get_userstate(st.session_state)
+            oldstate = scdata.get_userstate(st.session_state)
             st.write('Old session state recovered')
-            st.write(newstate.keys())
-            st.sesson_state = newstate
+            st.write([key for key in oldstate.keys()])
+            st.sesson_state = oldstate
         else:
             scdata.save_userstate(st.session_state)
     st.write(scdata.user_states)
