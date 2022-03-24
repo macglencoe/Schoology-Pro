@@ -32,9 +32,8 @@ def overviewpage():
             oldstate = scdata.get_userstate(st.session_state)
             st.write('Old session state recovered')
             st.write([key for key in oldstate.keys()])
-            [update_session_state(key,val) for
-                (key,val) in oldstate.items()
-            ]
+            for key,val in oldstate.items():
+                st.session_state[key] = val
         #else:
             #scdata.save_userstate(st.session_state)
     if st.button('clear user states'):
@@ -53,8 +52,6 @@ def overviewpage():
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
-            #else:
-                #scdata.save_userstate(st.session_state)
         st.experimental_rerun()
 
 
