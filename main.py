@@ -33,8 +33,8 @@ def overviewpage():
             st.write('Old session state recovered')
             st.write([key for key in oldstate.keys()])
             st.sesson_state = oldstate
-        else:
-            scdata.save_userstate(st.session_state)
+        #else:
+            #scdata.save_userstate(st.session_state)
     if st.button('clear user states'):
         scdata.clearstates()
     st.write(scdata.user_states)
