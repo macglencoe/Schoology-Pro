@@ -20,7 +20,7 @@ def overviewpage():
         disabled = False if 'logged_in' in st.session_state
         else True
     ):
-        cleared = scdata.del_userdata(st.session_state.me['uid'])
+        cleared = scdata.del_userstate(st.session_state.me['uid'])
         if not cleared:
             st.error('Your data is either already cleared or not saved yet.')
 
@@ -120,7 +120,6 @@ def asg_editors(cat,per,sec):
         on_change = del_chart,args=([dfid])
     )
     for asg in asglist:
-        st.write(f'{asg.title} {select_asg}')
         if asg.title == select_asg:
             break
     excused = st.checkbox(
