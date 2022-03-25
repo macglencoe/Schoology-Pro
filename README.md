@@ -1,4 +1,6 @@
 
+
+![](favicon.ico)
 <h2 align="center">Schoology Pro</h3>
 <h4 align="center">(ScPro)</h4>
 
