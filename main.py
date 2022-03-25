@@ -341,8 +341,6 @@ if 'dataframes' not in st.session_state:
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
 
-cookiemanager = get_manager()
-
 try:
     overviewpage()
 except requests.exceptions.HTTPError as err:
