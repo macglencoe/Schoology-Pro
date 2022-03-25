@@ -171,6 +171,7 @@ def threelegged(session_state):
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
+        print(sectiontitle)
     session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
@@ -181,8 +182,7 @@ def threelegged(session_state):
     session_state['_categories'] = {}
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
-    #save_userstate(session_state)
-    #fix
+    save_userstate(session_state)
 
 def get_auth():
     auth = schoolopy.Auth(
