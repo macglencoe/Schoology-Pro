@@ -233,8 +233,12 @@ def get_userstate(session_state):
         return user_states[uid]
     return False
 
-def clearstates():
-    user_states.clear()
+def del_userstate(uid):
+    if uid in user_states.keys():
+        del user_states[uid]
+        return True
+    else:
+        return False
 
 cookie_datas = {}
 user_cookies = {}

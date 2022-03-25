@@ -10,10 +10,20 @@ import time
 def overviewpage():
     print("overviewpage() was called")
 
-    if st.button("Clear Cache"):
+    cachecol,userdatacol = st.columns(2)
+    
+    if cachecol.button("Clear Cache"):
         st.session_state.clear()
         st.experimental_rerun()
-    
+    if userdatacol.button(
+        "Clear User Data",
+        disabled = False if 'logged_in' in st.session_state
+        else True
+    ):
+        cleared = scdata.del_userdata(st.session_state.me['uid'])
+        if not cleared:
+            st.error('Your data is either already cleared or not saved yet.')
+
     if 'logged_in' not in st.session_state:
         st.session_state['auth'] = scdata.get_auth()
         print(st.session_state['auth'].request_authorization())
