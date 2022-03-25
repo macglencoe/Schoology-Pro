@@ -41,7 +41,7 @@ def overviewpage():
             #st.info(
             #    'Loading all of your courses can be pretty time-consuming.\n Luckily, if you have cookies enabled, you won\'t have to wait every time.'
             #)
-            scdata.threelegged(st.session_state,progbar)
+            scdata.threelegged(st.session_state, progbar)
             #scdata.twolegged(st.session_state)
             if not st.session_state['auth']:
                 st.error('Not Authorized. Refreshing in 5 seconds.')

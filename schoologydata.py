@@ -159,7 +159,7 @@ def twolegged(session_state):
     
     
 
-def threelegged(session_state,progbar):
+def threelegged(session_state, progbar):
     auth = session_state['auth']
     if not auth.authorize():
         raise SystemExit('Account was not authorized.')
