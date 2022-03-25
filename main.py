@@ -120,10 +120,9 @@ def asg_editors(cat,per,sec):
         on_change = del_chart,args=([dfid])
     )
     for asg in asglist:
+        st.write(f'{asg.title} {select_asg}')
         if asg.title == select_asg:
             break
-    else:
-        asg = None
     excused = st.checkbox(
         'Excused',
         value = True if asg.grade is None else False,
