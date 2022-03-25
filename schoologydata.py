@@ -159,7 +159,7 @@ def twolegged(session_state):
     
     
 
-def threelegged(session_state, progbar):
+def threelegged(session_state):
     auth = session_state['auth']
     if not auth.authorize():
         raise SystemExit('Account was not authorized.')
@@ -173,8 +173,6 @@ def threelegged(session_state, progbar):
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
-        progress += progstep
-        progbar.progress(progress)
     session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
@@ -186,7 +184,6 @@ def threelegged(session_state, progbar):
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
     save_userstate(session_state)
-    progbar.progress(1.0)
 
 def get_auth():
     auth = schoolopy.Auth(
