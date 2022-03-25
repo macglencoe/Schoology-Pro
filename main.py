@@ -10,8 +10,9 @@ import time
 def overviewpage():
     print("overviewpage() was called")
 
-    cachecol,userdatacol = st.columns(2)
-    
+    logocol,cachecol,userdatacol = st.columns(3)
+
+    logocol.image('logo.png')
     if cachecol.button("Clear Cache"):
         st.session_state.clear()
         st.experimental_rerun()
@@ -348,8 +349,6 @@ st.set_page_config(
     page_title = 'Schoology', layout='wide',
     page_icon = 'favicon.ico'
 )
-
-st.image('logo.png')
 
 if 'charts' not in st.session_state:
     st.session_state['charts'] = {}
