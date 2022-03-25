@@ -122,6 +122,8 @@ def asg_editors(cat,per,sec):
     for asg in asglist:
         if asg.title == select_asg:
             break
+    else:
+        asg = None
     excused = st.checkbox(
         'Excused',
         value = True if asg.grade is None else False,
