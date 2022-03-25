@@ -48,7 +48,7 @@ def overviewpage():
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
-    st.experimental_rerun()
+    #st.experimental_rerun()
 
 
         
