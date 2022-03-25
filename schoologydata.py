@@ -159,21 +159,21 @@ def twolegged(session_state):
     
     
 
-def threelegged(session_state):
+def threelegged(session_state,progbar):
     auth = session_state['auth']
-    authurl = session_state['auth'].request_authorization()
-    if authurl is not None:
-        pass
     if not auth.authorize():
         raise SystemExit('Account was not authorized.')
     sc = schoolopy.Schoology(auth)
     me = sc.get_me()
     olist = sc.get_user_grades(me['uid'])
     courselist=[]
+    progstep = 1 / len(olist)
+    progress = 0.0
     for c in olist:
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
+        progbar.progress(progress += progstep)
     session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
