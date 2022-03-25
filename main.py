@@ -338,7 +338,8 @@ def update_session_state(key,val):
 
 
 st.set_page_config(
-    page_title = 'Schoology', layout='wide'
+    page_title = 'Schoology', layout='wide',
+    page_icon = 'favicon.ico'
 )
 
 if 'charts' not in st.session_state:
