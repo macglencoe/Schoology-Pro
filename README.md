@@ -1,6 +1,8 @@
 
 
-![](favicon.ico)
+<p align='center'>
+    <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/favicon.ico'/>
+</p>
 <h2 align="center">Schoology Pro</h3>
 <h4 align="center">(ScPro)</h4>
 
