@@ -182,6 +182,7 @@ def threelegged(session_state):
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
     #save_userstate(session_state)
+    #fix
 
 def get_auth():
     auth = schoolopy.Auth(
