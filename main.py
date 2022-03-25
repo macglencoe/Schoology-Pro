@@ -103,8 +103,9 @@ def display_categories(m,p):
         if cat.course_id == m.id:
             st.subheader(cat.title)
             with st.expander('Edit Assignments'):
-                asg_editors(cat,p,m)
-            display_chart(m,p,cat)
+                has_asgs = asg_editors(cat,p,m)
+            if has_asgs:
+                display_chart(m,p,cat)
 
 def asg_editors(cat,per,sec):
     dfid = f'{sec.id} {per.id} {cat.id}'
@@ -117,7 +118,7 @@ def asg_editors(cat,per,sec):
         st.error(
             'No assignments were found in this category!\nIf you think this is incorrect, please [tell me about it](https://github.com/macglencoe/Schoology-Pro#bugs-and-feature-requests)'
         )
-        st.stop()
+        return False
     select_asg = st.selectbox(
         'Select an assignment',
         [asg.title for asg in asglist],
@@ -162,6 +163,7 @@ def asg_editors(cat,per,sec):
             on_change = del_chart,args=([dfid])
         )
         asg.percent = round(asg.grade/asg.max,3)
+    return True
     
     
                 
