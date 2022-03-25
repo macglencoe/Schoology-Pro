@@ -167,8 +167,6 @@ def threelegged(session_state):
     me = sc.get_me()
     olist = sc.get_user_grades(me['uid'])
     courselist=[]
-    progstep = 1 / len(olist)
-    progress = 0.0
     for c in olist:
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
@@ -183,7 +181,7 @@ def threelegged(session_state):
     session_state['_categories'] = {}
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
-    save_userstate(session_state)
+    #save_userstate(session_state)
 
 def get_auth():
     auth = schoolopy.Auth(
