@@ -38,11 +38,12 @@ def overviewpage():
     if 'logged_in' not in st.session_state:
         with st.spinner('Loading courses...'):
             progbar = st.progress(0.0)
-            #st.info(
-            #    'Loading all of your courses can be pretty time-consuming.\n Luckily, if you have cookies enabled, you won\'t have to wait every time.'
-            #)
+            st.info(
+                'Loading up all of your courses is pretty time-consuming.\nLuckily, this data is saved for you, so next time you authorize, everything should already be there for you.'
+            )
             scdata.threelegged(st.session_state,progbar)
             #scdata.twolegged(st.session_state)
+            progbar.progress(1.0)
             if not st.session_state['auth']:
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
