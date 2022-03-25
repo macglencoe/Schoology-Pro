@@ -1,7 +1,7 @@
 
 
 <p align='center'>
-    <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/favicon.ico'/>
+    <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
 </p>
 <h2 align="center">Schoology Pro</h3>
 <h4 align="center">(ScPro)</h4>
