@@ -159,7 +159,7 @@ def twolegged(session_state):
     
     
 
-def threelegged(session_state):
+def threelegged(session_state,progbar):
     auth = session_state['auth']
     if not auth.authorize():
         raise SystemExit('Account was not authorized.')
@@ -167,11 +167,14 @@ def threelegged(session_state):
     me = sc.get_me()
     olist = sc.get_user_grades(me['uid'])
     courselist=[]
+    progstep = 1 / len(olist)
+    progress = 0.0
     for c in olist:
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
-        print(sectiontitle)
+        progress += progstep
+        progbar.progress(progress)
     session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
