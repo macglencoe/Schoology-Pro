@@ -186,6 +186,7 @@ def threelegged(session_state, progbar):
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
     save_userstate(session_state)
+    progbar.progress(1.0)
     #return sc, me, olist, courselist
 
 def get_auth():
