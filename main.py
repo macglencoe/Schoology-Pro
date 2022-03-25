@@ -341,9 +341,7 @@ if 'dataframes' not in st.session_state:
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
 
-try:
-    overviewpage()
-except requests.exceptions.HTTPError as err:
-    print(err)
+overviewpage()
+
 print("last line")
 #gaega
