@@ -173,7 +173,8 @@ def threelegged(session_state, progbar):
         section = sc.get_section(c['section_id'])
         sectiontitle = section['section_title']
         courselist.append(sectiontitle)
-        progbar.progress(progress += progstep)
+        progress += progstep
+        progbar.progress(progress)
     session_state['logged_in'] = True
     session_state['sc'] = sc
     session_state['me'] = me
