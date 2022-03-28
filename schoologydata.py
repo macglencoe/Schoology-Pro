@@ -30,6 +30,10 @@ class Category:
         self.title = data['title']
         self.course_id = data['realm_id']
         self.weight = data['weight']
+        if 'calculation_type' in data:
+            self.method = data['calculation_type']
+        else:
+            self.method = 2
         self.metadata = data
         #_categories[self.id] = self
         session_state['_categories'][self.id] = self
