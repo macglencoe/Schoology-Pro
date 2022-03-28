@@ -10,7 +10,7 @@
 ## Table of Contents
 - [About The Project](#about-the-project)
     - [Built With](#built-with)
-    - [Grade Calculation Methods: An Explanation](#grade-calculation-methods:-an-explanation)
+    - [Grade Calculation Methods: An Explanation](#grade-calculation-methods-an-explanation)
 - [Getting Started](#getting-started)
     - [Authorization with OAuth](#authorization-with-oauth)
 - [Bugs and Feature Requests](#bugs-and-feature-requests)
@@ -58,7 +58,10 @@ There are two methods for individual-assigment grading:
 
 *Example: A student has the following graded assignments in a Percent Average category*
 
-| Assignment Name | Earned Points | Max Points | <img src='https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D%5Cfg%7Bwhite%7D%5Cfrac%7BEarned%5C:Points%7D%7BMax%5C:Points%7D' alt='Percent Score Formula'/> |
+
+<img src='https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D%5Cfg%7Bwhite%7DDecimal%5C:Score=%5Cfrac%7BEarned%5C:Points%7D%7BMax%5C:Points%7D' alt='Decimal Score Formula'/>
+
+| Assignment Name | Earned Points | Max Points | Decimal Score |
 |---|:---:|:---:|:---:|
 | Assignment 1 | 60 | 100 | 0.6 |
 | Assignment 2 | 10 | 10 | 1.0 |
