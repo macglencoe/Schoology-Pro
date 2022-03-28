@@ -239,7 +239,7 @@ def get_userstate(session_state):
 
 def del_userstate(uid):
     if uid in user_states.keys():
-        del user_states[uid]
+        del user_states.pop(uid)
         return True
     else:
         return False
