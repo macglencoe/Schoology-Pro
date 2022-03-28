@@ -103,7 +103,10 @@ def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
         if cat.course_id == m.id:
             st.subheader(cat.title)
-            st.write(str(cat.method))
+            if cat.method == 1:
+                st.write('Percent')
+            else:
+                st.write('Point')
             with st.expander('Edit Assignments'):
                 has_asgs = asg_editors(cat,p,m)
             if has_asgs:
