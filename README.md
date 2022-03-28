@@ -56,3 +56,5 @@ Encountered an error or a bug? Have an idea for a future feature? Here's how you
 - Contact me personally at [macglencoe3d@gmail.com](mailto:macglencoe3d@gmail.com)
 
 If you have a bug, and it involved an exception (red error message), please include a screenshot or text copy of the message
+
+$$example\:equation$$
