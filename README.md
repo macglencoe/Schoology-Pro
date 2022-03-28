@@ -1,4 +1,6 @@
-
+<style TYPE="text/css">
+    code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+</style>
 
 <p align='center'>
     <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
@@ -56,5 +58,3 @@ Encountered an error or a bug? Have an idea for a future feature? Here's how you
 - Contact me personally at [macglencoe3d@gmail.com](mailto:macglencoe3d@gmail.com)
 
 If you have a bug, and it involved an exception (red error message), please include a screenshot or text copy of the message
-
-$$example\:equation$$
