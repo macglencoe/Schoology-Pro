@@ -439,6 +439,12 @@ st.set_page_config(
     page_icon = 'favicon.ico'
 )
 
+if 'percharts' not in st.session_state:
+    st.session_state['percharts'] = {}
+
+if 'period_dfs' not in st.session_state:
+    st.session_state['period_dfs'] = {}
+
 if 'charts' not in st.session_state:
     st.session_state['charts'] = {}
 
