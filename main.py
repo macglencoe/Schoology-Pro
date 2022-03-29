@@ -341,7 +341,7 @@ def period_chart(sec,per):
         x = alt.X('sum(factor)',
                 scale=alt.Scale(
                      domain=(0,domainmax),nice=False),
-                axis=alt.Axis(labels=False)),
+                axis=alt.Axis(labels=True)),
         color = alt.Color('title',legend=alt.Legend(
             orient='bottom',direction='vertical',
             columns = 1
@@ -351,7 +351,7 @@ def period_chart(sec,per):
         x = alt.X('sum(weight)',
                  scale=alt.Scale(
                      domain=(0,domainmax),nice = False),
-                 axis=alt.Axis(labels=False)),
+                 axis=alt.Axis(labels=True)),
         color = alt.Color('title',legend=alt.Legend(
             orient='bottom',direction='vertical',
             columns = 1
