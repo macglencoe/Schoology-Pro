@@ -315,7 +315,7 @@ def display_perchart(sec,per):
     dfid = f'{sec.id} {per.id}'
     refresh = st.button(
         'Refresh Chart',
-        key = f'refresh {dataframe_id}',
+        key = f'refresh {dfid}',
         on_click = del_perchart,args=([dfid])
     )
     if dfid in st.session_state.percharts:
