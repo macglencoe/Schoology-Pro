@@ -419,7 +419,7 @@ def cats_DataFrame(sec,per):
         return None
     daf['factor'] =daf['grade']*(daf['weight'])
     st.write(daf['factor'])
-    st.write(dat['weight'])
+    st.write(daf['weight'])
     
     return daf
 
