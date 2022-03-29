@@ -86,7 +86,6 @@ def overviewpage():
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
-                m.even_catweights(st.session_state)
                 st.header(m.title)
                 for id in m.periods:
                     if id in st.session_state['_periods']:
@@ -407,6 +406,8 @@ def cats_DataFrame(sec,per):
             if dfid == id
         ]
         catdf_tuples.extend([(cat,df) for df in dfs])
+
+    even_catweights([cat for cat,df in catdf_tuples])
     
     daf = pd.DataFrame([
         {
@@ -423,6 +424,13 @@ def cats_DataFrame(sec,per):
     daf['factor'] =daf['grade']*(daf['weight'])
     st.write(daf)
     return daf
+
+def even_catweights(categories):
+    new_weight = 100 / len(categories)
+    for cat in categories:
+        if cat.weight != 0:
+            return
+        cat.weight = new_weight
 
 def cbox_change():
     st.session_state['cbox_haschanged'] = True
