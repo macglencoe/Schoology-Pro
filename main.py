@@ -374,7 +374,7 @@ def period_chart(sec,per):
     )
     earnlayer = (earnbar+rule+text)
     bars = alt.vconcat(earnlayer,maxbar)
-    st.session_state.percharts[dataframe_id] = bars
+    st.session_state.percharts[dfid] = bars
     return bars
     
 
