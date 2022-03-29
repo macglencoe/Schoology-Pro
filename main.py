@@ -372,7 +372,7 @@ def period_chart(sec,per):
             'TotalPercent:O',format=',.0f'
         ),
     )
-    earnlayer = (earn+rule+text)
+    earnlayer = (earnbar+rule+text)
     bars = alt.vconcat(earnlayer,maxbar)
     st.session_state.percharts[dataframe_id] = bars
     return bars
