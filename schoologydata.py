@@ -249,9 +249,11 @@ def get_userstate(session_state):
 def del_userstate(uid):
     if uid in user_states.keys():
         user_states.pop(uid)
+
+def check_userstate(uid):
+    if uid in user_states.keys():
         return True
-    else:
-        return False
+    return False
 
 cookie_datas = {}
 user_cookies = {}

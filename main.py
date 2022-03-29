@@ -20,10 +20,13 @@ def overviewpage():
     if userdatacol.button(
         "Clear User Data",
         disabled = False if 'logged_in' in st.session_state
-        else True
+        else True,
+        on_click = scdata.del_userstate,
+        args = ([st.session_state.me['uid']])
     ):
-        cleared = scdata.del_userstate(st.session_state.me['uid'])
-        if not cleared:
+        if not check_userstate(
+            st.session_state.me['uid']
+        ):
             st.error('Your data is either already cleared or not saved yet.')
 
     if 'logged_in' not in st.session_state:
