@@ -14,7 +14,7 @@ class Course:
         #_courses[self.id] = self
         session_state['loaded_courses'].append(self.title)
         session_state['_courses'][self.id] = self
-    def even_catweights(ss):
+    def even_catweights(self,ss):
         categories = [
             cat for cat in ss._categories if
             cat.course_id == self.id and
