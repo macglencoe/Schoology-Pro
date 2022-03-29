@@ -196,6 +196,7 @@ def display_catchart(m,p,c):
         )
         return
     if method == 'Point Average':
+        c.method = 2
         chart = pointaverage_chart(c,p,m)
         if chart:
             st.altair_chart(
@@ -203,6 +204,7 @@ def display_catchart(m,p,c):
                 use_container_width=True
             )
     if method == 'Percent Average':
+        c.method = 1
         chart = percentaverage_chart(c,p,m)
         if chart:
             st.altair_chart(
