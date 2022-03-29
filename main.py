@@ -86,6 +86,7 @@ def overviewpage():
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
+                m.even_catweights(st.session_state)
                 st.header(m.title)
                 for id in m.periods:
                     if id in st.session_state['_periods']:
