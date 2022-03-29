@@ -422,7 +422,7 @@ def cats_DataFrame(sec,per):
     ])
     if len(daf) == 0:
         return None
-    daf['factor'] = daf['grade'] * (daf['weight']/100)
+    daf['factor'] =(daf['grade']*(daf['weight']/100))/2
     return daf
 
 def cbox_change():
