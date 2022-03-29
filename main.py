@@ -353,7 +353,7 @@ def period_chart(sec,per):
         ))
     )
     maxbar = alt.Chart(source).mark_bar().encode(
-        x = alt.X('sum(divweight)',
+        x = alt.X('sum(weight)',
                  scale=alt.Scale(
                      domain=(0,domainmax),nice = False),
                  axis=alt.Axis(labels=True)),
@@ -409,16 +409,15 @@ def cats_DataFrame(sec,per):
         {
             'title' : cat.title,
             'weight' : cat.weight,
-            'grade' : (df['grade'].sum()/df['max'].sum()*50 if
+            'grade' : df['grade'].sum()/df['max'].sum() if
             cat.method == 2 else
-            df['percent'].sum()/len(df)*50)
+            df['percent'].sum()/len(df)
         }
         for cat,df in catdf_tuples
     ])
     if len(daf) == 0:
         return None
-    daf['factor'] =daf['grade']*(daf['weight']/100)
-    daf['divweight'] = daf['weight']/2
+    daf['factor'] =daf['grade']*(daf['weight'])
     
     return daf
 
