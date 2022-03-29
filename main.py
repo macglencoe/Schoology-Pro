@@ -340,7 +340,7 @@ def period_chart(sec,per):
     if source is None:
         return False
     st.session_state.period_dfs[dfid] = source
-    domainmax = 100.0
+    domainmax = 200.0
 
     earnbar = alt.Chart(source).mark_bar().encode(
         x = alt.X('sum(factor)',
@@ -356,7 +356,7 @@ def period_chart(sec,per):
         x = alt.X('sum(weight)',
                  scale=alt.Scale(
                      domain=(0,domainmax),nice = False),
-                 axis=alt.Axis(labels=True)),
+                 axis=alt.Axis(labels=False)),
         color = alt.Color('title',legend=alt.Legend(
             orient='bottom',direction='vertical',
             columns = 1
@@ -414,15 +414,15 @@ def cats_DataFrame(sec,per):
         {
             'title' : cat.title,
             'weight' : cat.weight,
-            'grade' : ((df['grade'].sum()/df['max'].sum())*100)/2 if
+            'grade' : (df['grade'].sum()/df['max'].sum())*100) if
             cat.method == 2 else
-            ((df['percent'].sum()/len(df))*100)/2
+            (df['percent'].sum()/len(df))*100
         }
         for cat,df in catdf_tuples
     ])
     if len(daf) == 0:
         return None
-    daf['factor'] =(daf['grade']*(daf['weight']/100))/2
+    daf['factor'] =daf['grade']*(daf['weight']/100)
     return daf
 
 def cbox_change():
