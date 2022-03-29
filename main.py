@@ -2,6 +2,7 @@ import streamlit as st
 import extra_streamlit_components as stx
 import altair as alt
 import pandas as pd
+import numpy as np
 import secrets
 import schoologydata as scdata
 import requests.exceptions
@@ -89,8 +90,10 @@ def overviewpage():
                             key = f'showper {m.id} {period.id}'
                         )
                         if showper:
+                            display_perchart(m,period)
                             display_categories(m,period)
     print("overviewpage() ended")
+
 
 def authorize():
     while True:
@@ -106,8 +109,7 @@ def display_categories(m,p):
             with st.expander('Edit Assignments'):
                 has_asgs = asg_editors(cat,p,m)
             if has_asgs:
-                display_chart(m,p,cat)
-
+                display_catchart(m,p,cat)
 def asg_editors(cat,per,sec):
     dfid = f'{sec.id} {per.id} {cat.id}'
     asglist = [asg for asg in
@@ -165,24 +167,9 @@ def asg_editors(cat,per,sec):
         )
         asg.percent = round(asg.grade/asg.max,3)
     return True
-    
-    
-                
-                    
 
-def display_chart(m,p,c):
-    #asgndict = {}
-    #for asgn in st.session_state['_assignments'].values():
-    #    if(
-    #        asgn.section_id == m.id and 
-    #        asgn.period == p.id and 
-    #        asgn.category == c.id
-    #    ):
-    #        asgndict[asgn.title] = asgn.grade 
-    #        st.button(
-    #            f'{asgn.title}   {asgn.grade}/{asgn.max}',
-    #            key = f'{m.id} {p.id} {c.id} {asgn.id}'
-    #        )
+
+def display_catchart(m,p,c):
     dataframe_id = (f'{m.id} {p.id} {c.id}')
     method = st.radio(
         'Calculation Type',
@@ -315,6 +302,75 @@ def pointaverage_chart(cat,per,sec):
     bars = alt.vconcat(earnlayer,maxbar)
     st.session_state.charts[dataframe_id] = bars
     return bars
+
+
+
+
+def display_perchart(sec,per):
+    dfid = f'{sec.id} {per.id}'
+    if dfid in st.session_state.percharts:
+        st.altair_chart(
+            st.session_state.percharts[dfid],
+            use_container_width=True
+        )
+        return
+    chart = period_chart(sec,per)
+    if chart:
+        st.altair_chart(
+            chart,
+            use_container_width=True
+        )
+    else:
+        print('chart fail')
+
+
+def period_chart(sec,per):
+    dfid = f'{sec.id} {per.id}'
+    source = cats_DataFrame(sec,per)
+    if source is None:
+        return False
+    st.session_state.period_dfs[dfid] = source
+    domainmax = 100.0
+
+    earnbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('sum(factor)',
+                scale=alt.Scale(
+                     domain=(0,domainmax),nice=False),
+                axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    maxbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('sum(weight)',
+                 scale=alt.Scale(
+                     domain=(0,domainmax),nice = False),
+                 axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    rule = alt.Chart(source).mark_rule(color='white').encode(
+        x='sum(factor)'
+    )
+    text = alt.Chart(source).transform_joinaggregate(
+        TotalMax = 'sum(weight)',
+        TotalGrade = 'sum(factor)',
+    ).transform_calculate(
+        TotalPercent = 'datum.TotalGrade / datum.TotalMax * 100'
+    ).mark_text(
+        align='left',dx=5,dy=-8,color='white').encode(
+        x = 'sum(factor)',
+        text = alt.Text(
+            'TotalPercent:O',format=',.0f'
+        ),
+    )
+    earnlayer = (earn+rule+text)
+    bars = alt.vconcat(earnlayer,maxbar)
+    st.session_state.percharts[dataframe_id] = bars
+    return bars
     
 
 def asgs_DataFrame(cat,per,sec):
@@ -329,6 +385,34 @@ def asgs_DataFrame(cat,per,sec):
     ])
     if len(daf) == 0:
         return None
+    return daf
+
+
+def cats_DataFrame(sec,per):
+    catdf_tuples = []
+    for cat in st.session_state._categories.values():
+        if cat.course_id != sec.id:
+            continue
+        dfid = f'{sec.id} {per.id}'
+        dfs = [
+            df for id,df in st.session_state.dataframes.items()
+            if dfid in id
+        ]
+        catdf_tuples.extend([(cat,df) for df in dfs])
+    
+    daf = pd.DataFrame([
+        {
+            'title' : cat.title,
+            'weight' : cat.weight,
+            'grade' : (df['grade'].sum()/df['max'].sum)*100 if
+            cat.method == 2 else
+            (df['percent'].sum()/len(df))*100
+        }
+        for cat,df in catdf_tuples
+    ])
+    if len(daf) == 0:
+        return None
+    daf['factor'] = daf['grade'] * (daf['weight']/100)
     return daf
 
 def cbox_change():

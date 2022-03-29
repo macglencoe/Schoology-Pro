@@ -14,13 +14,22 @@ class Course:
         #_courses[self.id] = self
         session_state['loaded_courses'].append(self.title)
         session_state['_courses'][self.id] = self
-        
+    def even_catweights(ss):
+        categories = [
+            cat for cat in ss._categories if
+            cat.course_id == self.id and
+            cat.weight == 0
+        ]
+        new_weight = 100 / len(categories)
+        for cat in categories:
+            cat.weight = new_weight
 
 class Period:
     def __init__(self,data,session_state):
         self.id = data['period_id'].replace('p','')
         self.title = data['period_title']
         self.metadata = data
+        self.grade = None
         #_periods[self.id] = self
         session_state['_periods'][self.id] = self
 
