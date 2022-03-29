@@ -365,16 +365,11 @@ def period_chart(sec,per):
     rule = alt.Chart(source).mark_rule(color='white').encode(
         x='sum(factor)'
     )
-    text = alt.Chart(source).transform_joinaggregate(
-        TotalMax = 'sum(weight)',
-        TotalGrade = 'sum(factor)',
-    ).transform_calculate(
-        TotalPercent = 'datum.TotalGrade / datum.TotalMax * 100'
-    ).mark_text(
+    text = alt.Chart(source).mark_text(
         align='left',dx=5,dy=-8,color='white').encode(
         x = 'sum(factor)',
         text = alt.Text(
-            'TotalPercent:O',format=',.0f'
+            'sum(factor):O',format=',.0f'
         ),
     )
     earnlayer = (earnbar+rule+text)
