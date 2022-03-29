@@ -398,10 +398,10 @@ def cats_DataFrame(sec,per):
     for cat in st.session_state._categories.values():
         if cat.course_id != sec.id:
             continue
-        dfid = f'{sec.id} {per.id}'
+        dfid = f'{sec.id} {per.id} {cat.id}'
         dfs = [
             df for id,df in st.session_state.dataframes.items()
-            if dfid in id
+            if dfid == id
         ]
         catdf_tuples.extend([(cat,df) for df in dfs])
     
