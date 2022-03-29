@@ -22,7 +22,7 @@ def overviewpage():
         disabled = False if 'logged_in' in st.session_state
         else True,
         on_click = scdata.del_userstate,
-        args = ([st.session_state.me['uid']])
+        args = ([st.session_state])
     ):
         if not check_userstate(
             st.session_state.me['uid']

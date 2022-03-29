@@ -246,7 +246,8 @@ def get_userstate(session_state):
         return user_states[uid]
     return False
 
-def del_userstate(uid):
+def del_userstate(ss):
+    uid = ss.me['uid']
     if uid in user_states.keys():
         user_states.pop(uid)
 
