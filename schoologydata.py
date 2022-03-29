@@ -20,6 +20,8 @@ class Course:
             cat.course_id == self.id and
             cat.weight == 0
         ]
+        if len(categories) == 0:
+            return
         new_weight = 100 / len(categories)
         for cat in categories:
             cat.weight = new_weight
