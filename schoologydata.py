@@ -16,7 +16,7 @@ class Course:
         session_state['_courses'][self.id] = self
     def even_catweights(self,ss):
         categories = [
-            cat for cat in ss._categories if
+            cat for cat in ss._categories.values() if
             cat.course_id == self.id and
             cat.weight == 0
         ]
