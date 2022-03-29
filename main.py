@@ -369,7 +369,7 @@ def period_chart(sec,per):
         align='left',dx=5,dy=-8,color='white').encode(
         x = 'sum(factor)',
         text = alt.Text(
-            'TotalPercent:O',format=',.0f'
+            'sum(factor):O',format=',.0f'
         ),
     )
     earnlayer = (earnbar+rule+text)
