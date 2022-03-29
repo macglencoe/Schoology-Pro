@@ -436,7 +436,7 @@ def del_chart(dataframe_id):
         print('No chart was deleted.')
 def del_perchart(dataframe_id):
     if dataframe_id in st.session_state.percharts:
-        del st.session_state.charts[dataframe_id]
+        del st.session_state.percharts[dataframe_id]
         st.experimental_rerun()
     else:
         print('No chart was deleted.')
