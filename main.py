@@ -428,7 +428,7 @@ def cats_DataFrame(sec,per):
 def even_catweights(categories):
     if len(categories) == 0:
         return
-    if [cat.weight for cat in categories].sum()==0:
+    if sum([cat.weight for cat in categories])==0:
         return
     new_weight = 100 / len(categories)
     for cat in categories:
