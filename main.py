@@ -340,7 +340,7 @@ def period_chart(sec,per):
     if source is None:
         return False
     st.session_state.period_dfs[dfid] = source
-    domainmax = 200.0
+    domainmax = 100.0
 
     earnbar = alt.Chart(source).mark_bar().encode(
         x = alt.X('sum(factor)',
@@ -356,7 +356,7 @@ def period_chart(sec,per):
         x = alt.X('sum(weight)',
                  scale=alt.Scale(
                      domain=(0,domainmax),nice = False),
-                 axis=alt.Axis(labels=False)),
+                 axis=alt.Axis(labels=True)),
         color = alt.Color('title',legend=alt.Legend(
             orient='bottom',direction='vertical',
             columns = 1
