@@ -418,6 +418,7 @@ def cats_DataFrame(sec,per):
     if len(daf) == 0:
         return None
     daf['factor'] =daf['grade']*(daf['weight']/100)
+    daf['divweight'] = daf['weight']/2
     
     return daf
 
