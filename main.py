@@ -353,7 +353,7 @@ def period_chart(sec,per):
         ))
     )
     maxbar = alt.Chart(source).mark_bar().encode(
-        x = alt.X('sum(weight)',
+        x = alt.X('sum(divweight)',
                  scale=alt.Scale(
                      domain=(0,domainmax),nice = False),
                  axis=alt.Axis(labels=True)),
