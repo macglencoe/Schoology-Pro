@@ -416,7 +416,7 @@ def cats_DataFrame(sec,per):
             'weight' : cat.weight,
             'grade' : (df['grade'].sum()/df['max'].sum()*100 if
             cat.method == 2 else
-            df['percent'].sum()/len(df)*100) / 2
+            df['percent'].sum()/len(df)*100)
         }
         for cat,df in catdf_tuples
     ])
