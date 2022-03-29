@@ -426,10 +426,12 @@ def cats_DataFrame(sec,per):
     return daf
 
 def even_catweights(categories):
+    if len(categories) == 0:
+        return
+    if [cat.weight for cat in categories].sum()==0:
+        return
     new_weight = 100 / len(categories)
     for cat in categories:
-        if cat.weight != 0:
-            return
         cat.weight = new_weight
 
 def cbox_change():
