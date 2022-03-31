@@ -111,7 +111,6 @@ def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
         if cat.course_id == m.id:
             st.subheader(cat.title)
-            st.write(cat.weight)
             with st.expander('Edit Assignments'):
                 has_asgs = asg_editors(cat,p,m)
             if has_asgs:
@@ -194,7 +193,7 @@ def display_catchart(m,p,c):
         on_click = del_chart,args=([dataframe_id])
     )
 
-    if dataframe_id in st.session_state.dataframes[dataframe_id]:
+    if dataframe_id in st.session_state.dataframes[dataframe_id].keys():
         if method == 'Point Average' and advanced:
             df = st.session_state.dataframes[dataframe_id]
             display_df = df[['title','grade','max','url']].copy()
@@ -207,7 +206,6 @@ def display_catchart(m,p,c):
             st.latex(
                 r'\frac{'+total_earned+r'}{'+total_max+r'}='+gradedecimal+r'\times100='+gradepercent+r'%'
             )
-#
     if dataframe_id in st.session_state.charts:
         st.altair_chart(
             st.session_state.charts[dataframe_id],
