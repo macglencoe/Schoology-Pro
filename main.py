@@ -14,22 +14,22 @@ def login():
 
     with st.sidebar:
         st.image('logo.png')
-    if cachecol.button("Clear Cache"):
-        st.session_state.clear()
-        st.experimental_rerun()
-    if userdatacol.button(
-        "Clear User Data",
-        disabled = False if 'logged_in' in st.session_state
-        else True
-    ):
-        cleared = scdata.del_userstate(
-            st.session_state.me['uid']
-        )
-        if cleared:
+        if st.button("Clear Cache"):
             st.session_state.clear()
             st.experimental_rerun()
-        else:
-            st.error('Your data is either already cleared or not saved yet.')
+        if st.button(
+            "Clear User Data",
+            disabled = False if 'logged_in' in st.session_state
+            else True
+        ):
+            cleared = scdata.del_userstate(
+                st.session_state.me['uid']
+            )
+            if cleared:
+                st.session_state.clear()
+                st.experimental_rerun()
+            else:
+                st.error('Your data is either already cleared or not saved yet!')
 
     if 'logged_in' not in st.session_state:
         st.session_state['auth'] = scdata.get_auth()
