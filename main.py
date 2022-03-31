@@ -202,7 +202,7 @@ def display_catchart(m,p,c):
             gradefloat = round(df['grade'].sum()/df['max'].sum(), 4)
             gradedecimal = str(gradefloat)
             gradepercent = str(gradefloat*100)
-            st.dataframe(df)
+            st.dataframe(display_df)
             st.latex(
                 r'\frac{'+total_earned+r'}{'+total_max+r'}='+gradedecimal+r'\times100='+gradepercent+r'%'
             )
