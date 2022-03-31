@@ -35,7 +35,8 @@ def login():
         st.session_state['auth'] = scdata.get_auth()
         print(st.session_state['auth'].request_authorization())
 
-        st.subheader('[Log in with Schoology](%s)'% st.session_state['auth'].request_authorization())
+        st.header('Log in')
+        st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
         st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
         
         with st.spinner('Waiting for authorization...'):
