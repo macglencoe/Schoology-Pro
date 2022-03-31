@@ -36,8 +36,10 @@ def overviewpage():
         print(st.session_state['auth'].request_authorization())
         logincol,loginheader = st.columns(2)
         with logincol:
-            st.subheader(
-                '[Login with Schoology](%s)' % st.session_state['auth'].request_authorization()
+            st.button(
+                '[Log in with Schoology](%s)'% st.session_state['auth'].request_authorization(),
+                help = 'Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth'
+                
             )
         with loginheader:
             st.write('Logging in with Schoology ensures that your credentials are secure.')
