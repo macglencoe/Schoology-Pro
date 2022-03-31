@@ -6,9 +6,10 @@ import numpy as np
 import secrets
 import schoologydata as scdata
 import requests.exceptions
+import webbrowser
 import time
 
-def overviewpage():
+def login()
     print("overviewpage() was called")
 
     logocol,cachecol,userdatacol = st.columns(3)
@@ -34,15 +35,9 @@ def overviewpage():
     if 'logged_in' not in st.session_state:
         st.session_state['auth'] = scdata.get_auth()
         print(st.session_state['auth'].request_authorization())
-        logincol,loginheader = st.columns(2)
-        with logincol:
-            st.button(
-                '[Log in with Schoology](%s)'% st.session_state['auth'].request_authorization(),
-                help = 'Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth'
-                
-            )
-        with loginheader:
-            st.write('Logging in with Schoology ensures that your credentials are secure.')
+
+        st.subheader('[Log in with Schoology](%s)'% st.session_state['auth'].request_authorization())
+        st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
         
         with st.spinner('Waiting for authorization...'):
             authorize()
@@ -69,7 +64,11 @@ def overviewpage():
                 st.session_state.clear()
     #st.experimental_rerun()
 
-
+def overviewpage():
+    placeholder = st.empty()
+    with placeholder.container():
+        login()
+    placeholder.empty()
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
