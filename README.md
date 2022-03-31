@@ -1,6 +1,4 @@
 
-<img src='https://latex.codecogs.com/svg.image?%5Cfrac%7Ba%7D%7Bb%7D' alt='Equation'/>
-
 <p align='center'>
     <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
 </p>

@@ -184,11 +184,16 @@ def display_catchart(m,p,c):
         key= f'method {dataframe_id}',
         on_change = del_chart,args=([dataframe_id])
     )
+    advanced = st.checkbox(
+        'Advanced',
+        key = f'advanced {dataframe_id}'
+    )
     refresh = st.button(
         'Refresh Chart',
         key = f'refresh {dataframe_id}',
         on_click = del_chart,args=([dataframe_id])
     )
+
 
     if dataframe_id in st.session_state.charts:
         st.altair_chart(
@@ -204,6 +209,17 @@ def display_catchart(m,p,c):
                 chart,
                 use_container_width=True
             )
+            if advanced:
+                df = st.session_state.dataframes[dataframe_id]
+                total_earned = str(df['grade'].sum())
+                total_max = str(df['max'].sum())
+                gradefloat = round(df['grade'].sum()/df['max'].sum(), 4)
+                gradedecimal = str(gradefloat)
+                gradepercent = str(gradefloat*100)
+                st.dataframe(df)
+                st.latex(
+                    r'\frac{'+total_earned+r'}{'+total_max+r'}='+gradedecimal+r'\times100='+gradepercent+r'%'
+                )
     if method == 'Percent Average':
         c.method = 1
         chart = percentaverage_chart(c,p,m)
