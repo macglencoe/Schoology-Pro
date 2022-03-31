@@ -9,7 +9,7 @@ import requests.exceptions
 import webbrowser
 import time
 
-def login()
+def login():
     print("overviewpage() was called")
 
     logocol,cachecol,userdatacol = st.columns(3)
