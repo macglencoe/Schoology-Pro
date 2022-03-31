@@ -193,7 +193,7 @@ def display_catchart(m,p,c):
         on_click = del_chart,args=([dataframe_id])
     )
 
-    if dataframe_id in st.session_state.dataframes[dataframe_id].keys():
+    if True:
         if method == 'Point Average' and advanced:
             df = st.session_state.dataframes[dataframe_id]
             display_df = df[['title','grade','max','url']].copy()
