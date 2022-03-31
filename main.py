@@ -12,9 +12,8 @@ import time
 def login():
     print("overviewpage() was called")
 
-    logocol,cachecol,userdatacol = st.columns(3)
-
-    logocol.image('logo.png')
+    with st.sidebar:
+        st.image('logo.png')
     if cachecol.button("Clear Cache"):
         st.session_state.clear()
         st.experimental_rerun()
