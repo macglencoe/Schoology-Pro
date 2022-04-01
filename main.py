@@ -359,7 +359,7 @@ def display_perchart(sec,per):
             
         st.latex(
             r'\begin{array}{r}'+multstring+
-            r'\ \end{array} \begin{array}{r}'+
+            r'\\ \end{array} \begin{array}{r}'+
             addstring+r'\hline\ ='+totalfactor+r'\:%\end{array}'
         )
         st.markdown(r'$$\begin{matrix}a&b\\c&d\\\hline\end{matrix}$$')
