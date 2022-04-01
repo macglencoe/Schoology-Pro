@@ -350,7 +350,7 @@ def display_perchart(sec,per):
                 weight + r'&\times' + grade + r'=\\'
             )
         for index,row in df.iterrows():
-            factor = str(round(row['factor']),4)
+            factor = str(round(row['factor'],4))
             if index == lastind:
                 addstring += r'+'
             addstring += (
