@@ -492,7 +492,7 @@ def del_chart(dataframe_id):
         st.error('No category chart found')
     if period_dfid in st.session_state.percharts:
         del st.session_state.percharts[period_dfid]
-        del st.session_state.period_dfs[period_dfid]
+        #del st.session_state.period_dfs[period_dfid]
     else:
         st.error('No period chart found')
     
