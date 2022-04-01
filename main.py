@@ -87,7 +87,7 @@ def overviewpage():
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
-                st.header(m.title)
+                st.title(m.title)
                 for id in m.periods:
                     if id in st.session_state['_periods']:
                         period = st.session_state['_periods'][id]
@@ -188,11 +188,6 @@ def display_catchart(m,p,c):
     advanced = st.checkbox(
         'Advanced',
         key = f'advanced {dataframe_id}'
-    )
-    refresh = st.button(
-        'Refresh Chart',
-        key = f'refresh {dataframe_id}',
-        on_click = del_chart,args=([dataframe_id])
     )
 
     if True:
@@ -337,11 +332,36 @@ def pointaverage_chart(cat,per,sec):
 
 def display_perchart(sec,per):
     dfid = f'{sec.id} {per.id}'
-    refresh = st.button(
-        'Refresh Chart',
-        key = f'refresh {dfid}',
-        on_click = del_perchart,args=([dfid])
+    advanced = st.checkbox(
+        'Advanced',
+        key = f'advanced {dfid}'
     )
+    if advanced:
+        df = st.session_state.period_dfs[dfid]
+        st.dataframe(df)
+        multstring = r''
+        addstring = r''
+        lastind = len(df.iterrows())
+        totalfactor df['factor'].sum()
+        for index,row in df.iterrows():
+            weight = str(row['weight'])
+            grade = str(row['grade'])
+            multstring += (
+                weight + r'\times' + grade + r'=\\'
+            )
+        for index,row in df.iterrows():
+            factor = str(row['factor'])
+            if index == lastind:
+                addstring += r'+'
+            addstring += (
+                factor + r'\\'
+            )
+            
+        st.latex(
+            r'\begin{array}{r}'+multstring+
+            r'\ \end{array} \begin{array}{r}'+
+            addstring+r'\hline\='+totalfactor+r'\:%'
+        )
     if dfid in st.session_state.percharts:
         st.altair_chart(
             st.session_state.percharts[dfid],
@@ -444,7 +464,6 @@ def cats_DataFrame(sec,per):
     if len(daf) == 0:
         return None
     daf['factor'] =daf['grade']*(daf['weight'])
-    st.write(daf)
     return daf
 
 def even_catweights(categories):
