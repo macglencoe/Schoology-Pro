@@ -344,8 +344,8 @@ def display_perchart(sec,per):
         lastind = df.shape[0]
         totalfactor = df['factor'].sum()
         for index,row in df.iterrows():
-            weight = str(int(row['weight']))
-            grade = str(float(row['grade']))
+            weight = str(row['weight'])
+            grade = str(row['grade'])
             multstring += (
                 weight + r'\times' + grade + r'=\\'
             )
@@ -358,9 +358,7 @@ def display_perchart(sec,per):
             )
             
         st.latex(
-            r'\begin{array}{r}'+multstring+
-            r'\ \end{array} \begin{array}{r}'+
-            addstring+r'\hline\='+totalfactor+r'\:%'
+            r'\begin{array}{r}'+multstring+r'\ \end{array} \begin{array}{r}'+addstring+r'\hline\='+totalfactor+r'\:%'
         )
     if dfid in st.session_state.percharts:
         st.altair_chart(
