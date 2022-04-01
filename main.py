@@ -338,6 +338,8 @@ def display_perchart(sec,per):
         'Advanced',
         key = f'advanced {dfid}'
     )
+    if dfid not in st.session_state.period_dfs:
+        st.session_state.period_dfs[dfid] = cats_DataFrame(sec,per)
     if advanced:
         df = st.session_state.period_dfs[dfid]
         st.dataframe(df)
@@ -383,10 +385,13 @@ def display_perchart(sec,per):
 
 def period_chart(sec,per):
     dfid = f'{sec.id} {per.id}'
-    source = cats_DataFrame(sec,per)
-    if source is None:
-        return False
-    st.session_state.period_dfs[dfid] = source
+    if dfid not in st.session_state.period_dfs:
+        source = cats_DataFrame(sec,per)
+        if source is None:
+            return False
+        st.session_state.period_dfs[dfid] = source
+    else:
+        source = st.session_state.period_dfs[dfid]
     domainmax = 100.0
 
     earnbar = alt.Chart(source).mark_bar().encode(
