@@ -347,7 +347,7 @@ def display_perchart(sec,per):
             weight = str(round(row['weight'],4))
             grade = str(round(row['grade'],4))
             multstring += (
-                weight + r'\times&' + grade + r'=\\'
+                weight + r'\times' + grade + r'=\\'
             )
         for index,row in df.iterrows():
             factor = str(round(row['factor'],4))
