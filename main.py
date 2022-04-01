@@ -354,7 +354,7 @@ def display_perchart(sec,per):
             if index == lastind:
                 addstring += r'+'
             addstring += (
-                r'&' + factor + r'\\'
+                r'\:&' + factor + r'\\'
             )
             
         st.latex(
