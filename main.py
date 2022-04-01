@@ -338,36 +338,9 @@ def display_perchart(sec,per):
         'Advanced',
         key = f'advanced {dfid}'
     )
-    if dfid not in st.session_state.period_dfs:
-        st.session_state.period_dfs[dfid] = cats_DataFrame(sec,per)
-    if advanced:
-        df = st.session_state.period_dfs[dfid]
-        st.dataframe(df)
-        multstring = r''
-        addstring = r''
-        lastind = df.shape[0]
-        totalfactor = str(round(df['factor'].sum(),4))
-        for index,row in df.iterrows():
-            weight = str(round(row['weight'],4))
-            grade = str(round(row['grade'],4))
-            multstring += (
-                weight + r'\times' + grade + r'&=\\'
-            )
-        for index,row in df.iterrows():
-            factor = str(round(row['factor'],4))
-            if index == lastind:
-                addstring += r'+'
-            addstring += (
-                r'&' + factor + r'\\'
-            )
-            
-        st.latex(
-            r'\begin{array}{cc}'+multstring+
-            r'\\ \end{array} \begin{array}{cc}'+
-            addstring+r'\hline&='+totalfactor+
-            r'\%\end{array}'
-        )
     if dfid in st.session_state.percharts:
+        if advanced:
+            period_advanced(sec,per)
         st.altair_chart(
             st.session_state.percharts[dfid],
             use_container_width=True
@@ -375,6 +348,7 @@ def display_perchart(sec,per):
         return
     chart = period_chart(sec,per)
     if chart:
+        period_advanced(sec,per)
         st.altair_chart(
             chart,
             use_container_width=True
@@ -382,6 +356,35 @@ def display_perchart(sec,per):
     else:
         print('chart fail')
 
+
+
+def period_advanced(sec,per):
+    df = st.session_state.period_dfs[dfid]
+    st.dataframe(df)
+    multstring = r''
+    addstring = r''
+    lastind = df.shape[0]
+    totalfactor = str(round(df['factor'].sum(),4))
+    for index,row in df.iterrows():
+        weight = str(round(row['weight'],4))
+        grade = str(round(row['grade'],4))
+        multstring += (
+            weight + r'\times' + grade + r'&=\\'
+        )
+    for index,row in df.iterrows():
+        factor = str(round(row['factor'],4))
+        if index == lastind:
+            addstring += r'+'
+        addstring += (
+            r'&' + factor + r'\\'
+        )
+        
+    st.latex(
+        r'\begin{array}{cc}'+multstring+
+        r'\\ \end{array} \begin{array}{cc}'+
+        addstring+r'\hline&='+totalfactor+
+        r'\%\end{array}'
+    )
 
 def period_chart(sec,per):
     dfid = f'{sec.id} {per.id}'
@@ -492,7 +495,7 @@ def del_chart(dataframe_id):
         st.error('No category chart found')
     if period_dfid in st.session_state.percharts:
         del st.session_state.percharts[period_dfid]
-        #del st.session_state.period_dfs[period_dfid]
+        del st.session_state.period_dfs[period_dfid]
     else:
         st.error('No period chart found')
     
