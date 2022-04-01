@@ -362,8 +362,7 @@ def display_perchart(sec,per):
             r'\\ \end{array} \begin{array}{r}'+
             addstring+r'\hline\ ='+totalfactor+r'\:%\end{array}'
         )
-        st.markdown(r'$$\begin{array}{cc}1&32.0682\\1&15.0000\\1&=47\end{array}$$')
-        st.latex(r'\begin{array}{cc}1&32.0682\\1&15.0000\\1&=47\end{array}')
+        st.latex(r'\begin{array}{cc}1&32.0682\\1&15.0000\\\hline1&=47\end{array}')
     if dfid in st.session_state.percharts:
         st.altair_chart(
             st.session_state.percharts[dfid],
