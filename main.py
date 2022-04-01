@@ -217,6 +217,7 @@ def display_catchart(m,p,c):
                 chart,
                 use_container_width=True
             )
+            st.experimental_rerun()
                 
     if method == 'Percent Average':
         c.method = 1
@@ -226,6 +227,7 @@ def display_catchart(m,p,c):
                 chart,
                 use_container_width=True
             )
+            st.experimental_rerun()
         else:
             print('chart fail')
     if rerun:
@@ -354,7 +356,7 @@ def display_perchart(sec,per):
             if index == lastind:
                 addstring += r'+'
             addstring += (
-                r'\:&' + factor + r'\\'
+                r'&' + factor + r'\\'
             )
             
         st.latex(
