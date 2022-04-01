@@ -338,14 +338,6 @@ def display_perchart(sec,per):
         'Advanced',
         key = f'advanced {dfid}'
     )
-    #if dfid in st.session_state.percharts:
-    #    if advanced:
-    #        period_advanced(dfid)
-    #    st.altair_chart(
-    #        st.session_state.percharts[dfid],
-    #        use_container_width=True
-    #    )
-    #    return
     chart = period_chart(sec,per)
     if chart:
         period_advanced(dfid)
@@ -488,16 +480,10 @@ def cbox_change():
 
 def del_chart(dataframe_id):
     sec_id,per_id,cat_id = dataframe_id.split()
-    period_dfid = f'{sec_id} {per_id}'
     if dataframe_id in st.session_state.charts:
         del st.session_state.charts[dataframe_id]
     else:
         st.error('No category chart found')
-    if period_dfid in st.session_state.percharts:
-        del st.session_state.percharts[period_dfid]
-        del st.session_state.period_dfs[period_dfid]
-    else:
-        st.error('No period chart found')
     
 def del_perchart(dataframe_id):
     if dataframe_id in st.session_state.percharts:
