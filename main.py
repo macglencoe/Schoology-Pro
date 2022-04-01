@@ -347,20 +347,20 @@ def display_perchart(sec,per):
             weight = str(row['weight'])
             grade = str(row['grade'])
             multstring += (
-                weight + r'\times' + grade + r'=\\'
+                weight + r'&\times' + grade + r'=\\'
             )
         for index,row in df.iterrows():
             factor = str(row['factor'])
             if index == lastind:
                 addstring += r'+'
             addstring += (
-                factor + r'\\'
+                r'&' + factor + r'\\'
             )
             
         st.latex(
-            r'\begin{array}{r}'+multstring+
-            r'\\ \end{array} \begin{array}{r}'+
-            addstring+r'\hline\ ='+totalfactor+r'\:%\end{array}'
+            r'\begin{array}{cc}'+multstring+
+            r'\\ \end{array} \begin{array}{cc}'+
+            addstring+r'\hline\&='+totalfactor+r'\end{array}'
         )
         st.latex(r'\begin{array}{cc}&32.0682\\&15.0000\\\hline&=47\end{array}')
     if dfid in st.session_state.percharts:
