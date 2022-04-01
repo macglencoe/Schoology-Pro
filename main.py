@@ -344,8 +344,8 @@ def display_perchart(sec,per):
         lastind = df.shape[0]
         totalfactor = df['factor'].sum()
         for index,row in df.iterrows():
-            weight = repr(row['weight'])
-            grade = repr(row['grade'])
+            weight = str(int(row['weight']))
+            grade = str(float(row['grade']))
             multstring += (
                 weight + r'\times' + grade + r'=\\'
             )
