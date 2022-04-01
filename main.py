@@ -338,6 +338,12 @@ def display_perchart(sec,per):
         'Advanced',
         key = f'advanced {dfid}'
     )
+    st.button(
+        'Reset',
+        key = f'reset {dfid}',
+        on_click = resetperiod,
+        args = (sec,per)
+    )
     chart = period_chart(sec,per)
     if chart:
         if advanced:
@@ -466,6 +472,12 @@ def cats_DataFrame(sec,per):
         return None
     daf['factor'] =daf['grade']*(daf['weight'])
     return daf
+
+def resetperiod(sec,per):
+    for asg in st.session_state._assignments:
+        if asg.section_id == sec.id and
+        asg.period == per.id:
+            asg.reset()
 
 def even_catweights(categories):
     if len(categories) == 0:

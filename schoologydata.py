@@ -56,8 +56,9 @@ class Assignment:
         self.section_id = section_id
         self.id = data['assignment_id']
         self.grade = data['grade']
-        #self.exception = data['exception']
+        self.grade_original = data['grade']
         self.max = data['max_points']
+        self.max_original = data['grade']
         if self.max and self.grade:
             self.percent = round(
                 self.grade / self.max, 3
@@ -85,6 +86,9 @@ class Assignment:
             return
         #_assignments[self.id] = self
         session_state['_assignments'][self.id] = self
+    def reset(self):
+        self.grade = self.grade_original
+        self.max = self.max_original
 
 
 def loadcourse(session_state):
