@@ -338,14 +338,14 @@ def display_perchart(sec,per):
         'Advanced',
         key = f'advanced {dfid}'
     )
-    if dfid in st.session_state.percharts:
-        if advanced:
-            period_advanced(dfid)
-        st.altair_chart(
-            st.session_state.percharts[dfid],
-            use_container_width=True
-        )
-        return
+    #if dfid in st.session_state.percharts:
+    #    if advanced:
+    #        period_advanced(dfid)
+    #    st.altair_chart(
+    #        st.session_state.percharts[dfid],
+    #        use_container_width=True
+    #    )
+    #    return
     chart = period_chart(sec,per)
     if chart:
         period_advanced(dfid)
