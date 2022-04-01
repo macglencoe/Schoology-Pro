@@ -340,7 +340,8 @@ def display_perchart(sec,per):
     )
     chart = period_chart(sec,per)
     if chart:
-        period_advanced(dfid)
+        if advanced:
+            period_advanced(dfid)
         st.altair_chart(
             chart,
             use_container_width=True
