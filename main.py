@@ -475,8 +475,7 @@ def cats_DataFrame(sec,per):
 
 def resetperiod(sec,per):
     for asg in st.session_state._assignments:
-        if asg.section_id == sec.id and
-        asg.period == per.id:
+        if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
 
 def even_catweights(categories):
