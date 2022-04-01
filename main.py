@@ -385,13 +385,10 @@ def display_perchart(sec,per):
 
 def period_chart(sec,per):
     dfid = f'{sec.id} {per.id}'
-    if dfid not in st.session_state.period_dfs:
-        source = cats_DataFrame(sec,per)
-        if source is None:
-            return False
-        st.session_state.period_dfs[dfid] = source
-    else:
-        source = st.session_state.period_dfs[dfid]
+    source = cats_DataFrame(sec,per)
+    if source is None:
+        return False
+    st.session_state.period_dfs[dfid] = source
     domainmax = 100.0
 
     earnbar = alt.Chart(source).mark_bar().encode(
