@@ -360,7 +360,7 @@ def display_perchart(sec,per):
         st.latex(
             r'\begin{array}{r}'+multstring+
             r'\ \end{array} \begin{array}{r}'+
-            addstring+r'\hline\ ='+totalfactor+r'\:%'
+            addstring+r'\hline\ ='+totalfactor+r'\:%\end{array}'
         )
     if dfid in st.session_state.percharts:
         st.altair_chart(
