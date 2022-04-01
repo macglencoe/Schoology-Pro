@@ -101,3 +101,23 @@ Encountered an error or a bug? Have an idea for a future feature? Here's how you
 - Contact me personally at [macglencoe3d@gmail.com](mailto:macglencoe3d@gmail.com)
 
 If you have a bug, and it involved an exception (red error message), please include a screenshot or text copy of the message
+
+## Troubleshooting
+
+- Incorrect Calculations
+
+    Most of the time, this is a result of one or both of two things:
+    The Method is wrong, or there are other assignments that have been changed in this app, altering the results.
+    
+    First, make sure there are no edited assignments, by resetting that course.
+    Compare the resulting grade with your grade on Schoology.
+    (Make sure you're on the correct Grading Period!)
+
+    If it still doesn't match, it's most likely an incorrect Calculation Method.
+    Under each category title, there are buttons indicating "Calculation Type" which often default to "Point Average".
+    Change these for your different categories, and compare each with Schoology to get the right configuration.
+
+    It's possible that there are still issues with the calculation, such as certain assignments or categories not being counted.
+    Carefully check your Schoology and compare it with the app to see if everything's there.
+    Then, look at the [issues](https://github.com/macglencoe/Schoology-Streamlit/issues) on GitHub to see if anything there matches your issue.
+    If not, please submit an issue detailing what is going wrong.
