@@ -176,6 +176,8 @@ def asg_editors(cat,per,sec):
 
 def display_catchart(m,p,c):
     dataframe_id = (f'{m.id} {p.id} {c.id}')
+    period_dfid = f'{m.id} {p.id}'
+    rerun = False if period_dfid in st.session_state.percharts else True
     method = st.radio(
         'Calculation Type',
         ('Point Average','Percent Average'),
@@ -231,6 +233,8 @@ def display_catchart(m,p,c):
             )
         else:
             print('chart fail')
+    if rerun:
+        st.experimental_rerun()
 
 def percentaverage_chart(cat,per,sec):
     dataframe_id = (f'{sec.id} {per.id} {cat.id}')
@@ -456,17 +460,22 @@ def cbox_change():
     st.session_state['cbox_haschanged'] = True
 
 def del_chart(dataframe_id):
+    sec_id,per_id,cat_id = dataframe_id.split()
+    period_dfid = f'{sec_id} {per_id}'
     if dataframe_id in st.session_state.charts:
         del st.session_state.charts[dataframe_id]
-        st.experimental_rerun()
     else:
-        print('No chart was deleted.')
+        st.error('No category chart found')
+    if period_dfid in st.session_state.percharts:
+        del st.session_state.percharts[period_dfid]
+    else:
+        st.error('No period chart found')
+    
 def del_perchart(dataframe_id):
     if dataframe_id in st.session_state.percharts:
         del st.session_state.percharts[dataframe_id]
-        st.experimental_rerun()
     else:
-        print('No chart was deleted.')
+        st.error('No period chart found')
 
 def update_session_state(key,val):
     st.session_state[key] = val
