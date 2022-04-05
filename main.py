@@ -550,13 +550,14 @@ with st.sidebar:
         else:
             st.error('Your data is either already cleared or not saved yet!')
     debug = True
-    if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
-        st.session_state['debug'] = True
-        if st.checkbox('Show Users'):
-            userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
-            st.write(userdict)
-    elif debug:
-        st.error('Invalid User for debug')
+    if 'logged_in' in st.session_state:
+        if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
+            st.session_state['debug'] = True
+            if st.checkbox('Show Users'):
+                userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
+                st.write(userdict)
+        elif debug:
+            st.error('Invalid User for debug')
 
 if 'logged_in' not in st.session_state:
     login()
