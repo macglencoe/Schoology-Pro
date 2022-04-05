@@ -513,7 +513,7 @@ def has_changes(sec,per):
 def update_session_state(key,val):
     st.session_state[key] = val
 
-@st.cache(persist=True, allow_ouput_mutation=True)
+@st.cache(persist=True, allow_output_mutation=True)
 def get_auth_cached():
     return scdata.get_auth()
 
