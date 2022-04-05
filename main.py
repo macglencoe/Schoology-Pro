@@ -565,7 +565,9 @@ if 'page' in params:
     if params['page'] == ['Login']:
         login()
     if params['page'] == ['Period']:
-        sec,per = params['id'][0].split()
+        sec_id,per_id = params['id'][0].split()
+        sec = st.session_state._courses[sec_id]
+        per = st.session_state._periods[per_id]
         display_perchart(sec,per)
         display_categories(sec,per)
 
