@@ -573,7 +573,7 @@ if 'page' in params:
         sec = st.session_state._courses[sec_id]
         per = st.session_state._periods[per_id]
         page.empty()
-        with page.container()
+        with page.container():
             display_perchart(sec,per)
             display_categories(sec,per)
 else:
