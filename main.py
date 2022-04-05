@@ -9,7 +9,7 @@ import requests.exceptions
 import webbrowser
 import time
 
-def login():
+def login(redirect=None):
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
         st.session_state['auth'] = get_auth_cached()
@@ -43,7 +43,6 @@ def login():
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
-    st.experimental_set_query_params(page='Course')
     #st.experimental_rerun()
 
 def overviewpage():
@@ -561,14 +560,12 @@ with st.sidebar:
         st.error('Invalid User for debug')
 
 if 'logged_in' not in st.session_state:
-    st.experimental_set_query_params(page='Login')
+    login()
 
 params = st.experimental_get_query_params()
 if 'page' in params:
     if params['page'] == ['Course']:
         overviewpage()
-    if params['page'] == ['Login']:
-        login()
     if params['page'] == ['Period']:
         sec_id,per_id = params['id'][0].split()
         sec = st.session_state._courses[sec_id]
