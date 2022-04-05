@@ -58,7 +58,7 @@ class Assignment:
         self.grade = data['grade']
         self.grade_original = data['grade']
         self.max = data['max_points']
-        self.max_original = data['grade']
+        self.max_original = data['max_points']
         if self.max and self.grade:
             self.percent = round(
                 self.grade / self.max, 3
