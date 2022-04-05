@@ -32,7 +32,8 @@ def login():
                 st.error('Your data is either already cleared or not saved yet!')
 
     if 'logged_in' not in st.session_state:
-        st.session_state['auth'] = scdata.get_auth()
+        #st.session_state['auth'] = scdata.get_auth()
+        st.session_state['auth'] = get_auth_cached()
         print(st.session_state['auth'].request_authorization())
 
         st.header('Log in')
@@ -99,7 +100,6 @@ def overviewpage():
                             display_perchart(m,period)
                             display_categories(m,period)
     print("overviewpage() ended")
-
 
 def authorize():
     while True:
@@ -512,6 +512,10 @@ def has_changes(sec,per):
 
 def update_session_state(key,val):
     st.session_state[key] = val
+
+@st.cache(persist=True)
+def get_auth_cached():
+    return scdata.get_auth()
 
 
 st.set_page_config(
