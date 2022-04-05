@@ -9,7 +9,7 @@ import requests.exceptions
 import webbrowser
 import time
 
-def login(redirect=None):
+def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
         st.session_state['auth'] = get_auth_cached()
@@ -50,8 +50,7 @@ def overviewpage():
     #with placeholder.container():
     #    login()
     #placeholder.empty()
-
-        
+    
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
     st.title('Course View')
@@ -563,15 +562,20 @@ if 'logged_in' not in st.session_state:
     login()
 
 params = st.experimental_get_query_params()
+page = st.empty()
 if 'page' in params:
     if params['page'] == ['Course']:
-        overviewpage()
+        page.empty()
+        with page.container():
+            overviewpage()
     if params['page'] == ['Period']:
         sec_id,per_id = params['id'][0].split()
         sec = st.session_state._courses[sec_id]
         per = st.session_state._periods[per_id]
-        display_perchart(sec,per)
-        display_categories(sec,per)
+        page.empty()
+        with page.container()
+            display_perchart(sec,per)
+            display_categories(sec,per)
 else:
     overviewpage()
 
