@@ -345,6 +345,8 @@ def display_perchart(sec,per):
         on_click = resetperiod,
         args = (sec,per)
     )
+    if st.session_state.changed[dfid]:
+        st.caption('Changes are currently in place. This does not reflect your real grade!')
     chart = period_chart(sec,per)
     if chart:
         if advanced:
@@ -514,6 +516,9 @@ st.set_page_config(
     page_title = 'Schoology', layout='wide',
     page_icon = 'favicon.ico'
 )
+
+if 'changed' not in st.session_state:
+    st.session_state['changed'] = {}
 
 if 'percharts' not in st.session_state:
     st.session_state['percharts'] = {}
