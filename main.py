@@ -572,6 +572,8 @@ if 'page' in params:
         per = st.session_state._periods[per_id]
         display_perchart(sec,per)
         display_categories(sec,per)
+else:
+    overviewpage()
 
 print("last line")
 #gaega
