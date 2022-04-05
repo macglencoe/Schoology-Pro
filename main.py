@@ -10,34 +10,6 @@ import webbrowser
 import time
 
 def login():
-    print("overviewpage() was called")
-    with st.sidebar:
-        st.image('logo.png')
-        if st.button("Clear Cache"):
-            st.session_state.clear()
-            st.experimental_rerun()
-        if st.button(
-            "Clear User Data",
-            disabled = False if 'logged_in' in st.session_state
-            else True
-        ):
-            cleared = scdata.del_userstate(
-                st.session_state.me['uid']
-            )
-            if cleared:
-                st.session_state.clear()
-                st.experimental_rerun()
-            else:
-                st.error('Your data is either already cleared or not saved yet!')
-        debug = st.checkbox('debug',key='debugcheck')
-        if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
-            st.session_state['debug'] = True
-            if st.checkbox('Show Users'):
-                userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
-                st.write(userdict)
-        elif debug:
-            st.error('Invalid User for debug')
-
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
         st.session_state['auth'] = get_auth_cached()
@@ -71,13 +43,15 @@ def login():
                 st.error('Not Authorized. Refreshing in 5 seconds.')
                 time.sleep(5)
                 st.session_state.clear()
+    st.experimental_set_query_params(page='Course')
     #st.experimental_rerun()
 
 def overviewpage():
-    placeholder = st.empty()
-    with placeholder.container():
-        login()
-    placeholder.empty()
+    #placeholder = st.empty()
+    #with placeholder.container():
+    #    login()
+    #placeholder.empty()
+
         
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
 
@@ -100,13 +74,21 @@ def overviewpage():
                 for id in m.periods:
                     if id in st.session_state['_periods']:
                         period = st.session_state['_periods'][id]
-                        showper = st.checkbox(
+                        #showper = st.checkbox(
+                        #    period.title,
+                        #    key = f'showper {m.id} {period.id}'
+                        #)
+                        if st.button(
                             period.title,
                             key = f'showper {m.id} {period.id}'
-                        )
-                        if showper:
-                            display_perchart(m,period)
-                            display_categories(m,period)
+                        ):
+                            st.experimental_set_query_params(
+                                page='Period',
+                                id=f'{m.id} {period.id}'
+                            )
+                        #if showper:
+                        #    display_perchart(m,period)
+                        #    display_categories(m,period)
     print("overviewpage() ended")
 
 def authorize():
@@ -543,9 +525,49 @@ if 'charts' not in st.session_state:
 if 'dataframes' not in st.session_state:
     st.session_state['dataframes'] = {}
 
-
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
+
+with st.sidebar:
+    st.image('logo.png')
+    if st.button("Clear Cache"):
+        st.session_state.clear()
+        st.experimental_rerun()
+    if st.button(
+        "Clear User Data",
+        disabled = False if 'logged_in' in st.session_state
+        else True
+    ):
+        cleared = scdata.del_userstate(
+            st.session_state.me['uid']
+        )
+        if cleared:
+            st.session_state.clear()
+            st.experimental_rerun()
+        else:
+            st.error('Your data is either already cleared or not saved yet!')
+    debug = st.checkbox('debug',key='debugcheck')
+    if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
+        st.session_state['debug'] = True
+        if st.checkbox('Show Users'):
+            userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
+            st.write(userdict)
+    elif debug:
+        st.error('Invalid User for debug')
+
+if 'logged_in' not in st.session_state:
+    st.experimental_set_query_params(page='Login')
+
+params = st.experimental_get_query_params()
+if 'page' in params:
+    if params['page'] == ['Course']:
+        overviewpage()
+    if params['page'] == ['Login']:
+        login()
+    if params['page'] == ['Period']:
+        sec,per = params['id'][0].split()
+        display_perchart(sec,per)
+        display_categories(sec,per)
 
 overviewpage()
 
