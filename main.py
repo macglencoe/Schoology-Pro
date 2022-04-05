@@ -345,7 +345,7 @@ def display_perchart(sec,per):
         on_click = resetperiod,
         args = (sec,per)
     )
-    if dfid in st.session_state.changed:
+    if has_changes(sec,per)
         st.caption('Changes are currently in place. This does not reflect your real grade!')
     chart = period_chart(sec,per)
     if chart:
@@ -477,7 +477,6 @@ def cats_DataFrame(sec,per):
     return daf
 
 def resetperiod(sec,per):
-    st.session_state.changed.remove(f'{sec.id} {per.id}')
     for asg in st.session_state._assignments.values():
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
@@ -498,19 +497,19 @@ def cbox_change():
 
 def del_chart(dataframe_id):
     sec_id,per_id,cat_id = dataframe_id.split()
-    st.session_state.changed.append(
-        f'{sec_id} {per_id}'
-    )
     if dataframe_id in st.session_state.charts:
         del st.session_state.charts[dataframe_id]
     else:
         st.error('No category chart found')
     
-def del_perchart(dataframe_id):
-    if dataframe_id in st.session_state.percharts:
-        del st.session_state.percharts[dataframe_id]
-    else:
-        st.error('No period chart found')
+def has_changes(sec,per):
+    for asg in st.session_state._assignments.values():
+        if asg.period == per.id and
+        asg.section_id == sec.id:
+            if asg.grade != grade_original or
+            asg.max != max_original:
+                return True
+    return False
 
 def update_session_state(key,val):
     st.session_state[key] = val
@@ -520,9 +519,6 @@ st.set_page_config(
     page_title = 'Schoology', layout='wide',
     page_icon = 'favicon.ico'
 )
-
-if 'changed' not in st.session_state:
-    st.session_state['changed'] = []
 
 if 'percharts' not in st.session_state:
     st.session_state['percharts'] = {}
