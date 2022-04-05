@@ -474,7 +474,7 @@ def cats_DataFrame(sec,per):
     return daf
 
 def resetperiod(sec,per):
-    for asg in st.session_state._assignments:
+    for asg in st.session_state._assignments.values():
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
 
