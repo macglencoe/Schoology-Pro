@@ -345,7 +345,7 @@ def display_perchart(sec,per):
         on_click = resetperiod,
         args = (sec,per)
     )
-    if has_changes(sec,per)
+    if has_changes(sec,per):
         st.caption('Changes are currently in place. This does not reflect your real grade!')
     chart = period_chart(sec,per)
     if chart:
