@@ -323,6 +323,9 @@ def pointaverage_chart(cat,per,sec):
 
 
 def display_perchart(sec,per):
+    if st.button('Back to Courses'):
+        st.experimental_set_query_params(page='Course')
+        return
     st.title(sec.title)
     st.header(per.title)
     dfid = f'{sec.id} {per.id}'
