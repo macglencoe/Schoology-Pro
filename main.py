@@ -323,6 +323,8 @@ def pointaverage_chart(cat,per,sec):
 
 
 def display_perchart(sec,per):
+    st.title(sec.title)
+    st.header(per.title)
     dfid = f'{sec.id} {per.id}'
     resetcol,advcol,nonecol = st.columns([1,1,3])
     advanced = advcol.checkbox(
@@ -570,8 +572,6 @@ if 'page' in params:
         per = st.session_state._periods[per_id]
         display_perchart(sec,per)
         display_categories(sec,per)
-
-overviewpage()
 
 print("last line")
 #gaega
