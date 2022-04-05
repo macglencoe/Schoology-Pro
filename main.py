@@ -481,6 +481,7 @@ def resetperiod(sec,per):
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
     for cat_id in sec.periods:
+        st.write(cat_id)
         del_chart(f'{sec.id} {per.id} {cat_id}')
 
 def even_catweights(categories):
