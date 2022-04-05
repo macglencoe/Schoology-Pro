@@ -33,7 +33,7 @@ def login():
         if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
             st.session_state['debug'] = True
             if st.checkbox('Show Users'):
-                st.write([state['me']['name_display'] for state in scdata.user_states.values()])
+                userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
         elif debug:
             st.error('Invalid User for debug')
 
