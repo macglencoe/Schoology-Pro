@@ -334,11 +334,12 @@ def pointaverage_chart(cat,per,sec):
 
 def display_perchart(sec,per):
     dfid = f'{sec.id} {per.id}'
-    advanced = st.checkbox(
+    advcol,resetcol,nonecol = st.columns([1,1,3])
+    advanced = advcol.checkbox(
         'Advanced',
         key = f'advanced {dfid}'
     )
-    st.button(
+    resetcol.button(
         'Reset',
         key = f'reset {dfid}',
         on_click = resetperiod,
