@@ -36,12 +36,13 @@ def login():
         st.session_state['auth'] = get_auth_cached()
         print(st.session_state['auth'].request_authorization())
 
-        st.header('Log in')
-        st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
-        st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
+        if not st.session_state.auth.authorize():
+            st.header('Log in')
+            st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
+            st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
         
-        with st.spinner('Waiting for authorization...'):
-            authorize()
+            with st.spinner('Waiting for authorization...'):
+                authorize()
 
         if scdata.get_userstate(st.session_state):
             oldstate = scdata.get_userstate(st.session_state)
