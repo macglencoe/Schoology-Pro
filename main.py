@@ -546,7 +546,7 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
-    debug = st.checkbox('debug',key='debugcheck')
+    debug = st.checkbox('debug',key='debugbutton')
     if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
         st.session_state['debug'] = True
         if st.checkbox('Show Users'):
