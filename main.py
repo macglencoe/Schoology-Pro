@@ -477,7 +477,7 @@ def cats_DataFrame(sec,per):
     return daf
 
 def resetperiod(sec,per):
-    st.session_state.changes.remove(f'{sec.id} {per.id}')
+    st.session_state.changed.remove(f'{sec.id} {per.id}')
     for asg in st.session_state._assignments.values():
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
@@ -498,7 +498,7 @@ def cbox_change():
 
 def del_chart(dataframe_id):
     sec_id,per_id,cat_id = dataframe_id.split()
-    st.session_state.changes.append(
+    st.session_state.changed.append(
         f'{sec_id} {per_id}'
     )
     if dataframe_id in st.session_state.charts:
