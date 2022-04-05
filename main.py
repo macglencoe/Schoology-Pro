@@ -334,7 +334,7 @@ def pointaverage_chart(cat,per,sec):
 
 def display_perchart(sec,per):
     dfid = f'{sec.id} {per.id}'
-    advcol,resetcol,nonecol = st.columns([1,1,3])
+    resetcol,advcol,nonecol = st.columns([1,1,3])
     advanced = advcol.checkbox(
         'Advanced',
         key = f'advanced {dfid}'
