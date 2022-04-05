@@ -505,7 +505,7 @@ def del_chart(dataframe_id):
 def has_changes(sec,per):
     for asg in st.session_state._assignments.values():
         if asg.period == per.id and asg.section_id == sec.id:
-            if asg.grade != grade_original or asg.max != max_original:
+            if asg.grade != asg.grade_original or asg.max != asg.max_original:
                 return True
     return False
 
