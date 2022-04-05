@@ -34,8 +34,8 @@ def login():
         if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
             st.session_state['debug'] = True
             if st.button('Show Users'):
-                debugcont.write([state[me]['name_display'] for state in scdata.user_states.values()])
-        else:
+                debugcont.write([state['me']['name_display'] for state in scdata.user_states.values()])
+        elif debug:
             st.error('Invalid User for debug')
 
     if 'logged_in' not in st.session_state:
