@@ -345,7 +345,7 @@ def display_perchart(sec,per):
         on_click = resetperiod,
         args = (sec,per)
     )
-    if st.session_state.changed[dfid]:
+    if [dfid] in st.session_state.changed:
         st.caption('Changes are currently in place. This does not reflect your real grade!')
     chart = period_chart(sec,per)
     if chart:
@@ -477,6 +477,7 @@ def cats_DataFrame(sec,per):
     return daf
 
 def resetperiod(sec,per):
+    st.session_state.changes.remove(f'{sec.id} {per.id}')
     for asg in st.session_state._assignments.values():
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
@@ -497,6 +498,9 @@ def cbox_change():
 
 def del_chart(dataframe_id):
     sec_id,per_id,cat_id = dataframe_id.split()
+    st.session_state.changes.append(
+        f'{sec_id} {per_id}'
+    )
     if dataframe_id in st.session_state.charts:
         del st.session_state.charts[dataframe_id]
     else:
@@ -518,7 +522,7 @@ st.set_page_config(
 )
 
 if 'changed' not in st.session_state:
-    st.session_state['changed'] = {}
+    st.session_state['changed'] = []
 
 if 'percharts' not in st.session_state:
     st.session_state['percharts'] = {}
