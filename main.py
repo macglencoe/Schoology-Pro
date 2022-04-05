@@ -480,9 +480,9 @@ def resetperiod(sec,per):
     for asg in st.session_state._assignments.values():
         if asg.section_id == sec.id and asg.period == per.id:
             asg.reset()
-    for cat_id in sec.periods:
-        st.write(cat_id)
-        del_chart(f'{sec.id} {per.id} {cat_id}')
+    for cat in st.session_state._categories.values():
+        if cat.course_id == sec.id:
+            del_chart(f'{sec.id} {per.id} {cat.id}')
 
 def even_catweights(categories):
     if len(categories) == 0:
