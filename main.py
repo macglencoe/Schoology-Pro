@@ -11,7 +11,7 @@ import time
 
 def login():
     print("overviewpage() was called")
-
+    debugcont = st.container()
     with st.sidebar:
         st.image('logo.png')
         if st.button("Clear Cache"):
@@ -30,6 +30,13 @@ def login():
                 st.experimental_rerun()
             else:
                 st.error('Your data is either already cleared or not saved yet!')
+        debug = st.checkbox('debug',key='debugcheck')
+        if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
+            st.session_state['debug'] = True
+            if st.button('Show Users'):
+                debugcont.write([state[me]['name_display'] for state in scdata.user_states.values()])
+        else:
+            st.error('Invalid User for debug')
 
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
