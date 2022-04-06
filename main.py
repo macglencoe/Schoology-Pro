@@ -78,6 +78,7 @@ def overviewpage():
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
+                period_grades = []
                 st.title(m.title)
                 for id in m.periods:
                     if id in st.session_state['_periods']:
@@ -92,9 +93,15 @@ def overviewpage():
                                 id=f'{m.id} {period.id}'
                             )
                         if period.grade is not None:
-                            st.caption(round(period.grade,4))
+                            st.caption(str(round(period.grade,4))+'%')
                         else:
                             st.caption('Grade not calculated yet.\nClick the button to calculate.')
+                        period_grades.append(period.grade)
+                if None not in period_grades:
+                    avg = sum(period_grades) / len(period_grades)
+                    st.write(str(avg)+'%')
+                else:
+                    st.write('All periods in semester must be calculated to show the semester grade.')
 
     print("overviewpage() ended")
 
