@@ -82,10 +82,7 @@ def overviewpage():
                 for id in m.periods:
                     if id in st.session_state['_periods']:
                         period = st.session_state['_periods'][id]
-                        #showper = st.checkbox(
-                        #    period.title,
-                        #    key = f'showper {m.id} {period.id}'
-                        #)
+
                         if st.button(
                             period.title,
                             key = f'showper {m.id} {period.id}'
@@ -94,9 +91,11 @@ def overviewpage():
                                 page='Period',
                                 id=f'{m.id} {period.id}'
                             )
-                        #if showper:
-                        #    display_perchart(m,period)
-                        #    display_categories(m,period)
+                        if period.grade is not None:
+                            st.caption(period.grade)
+                        else:
+                            st.caption('Grade not calculated yet.\nClick the button to calculate.')
+
     print("overviewpage() ended")
 
 def authorize():
@@ -399,6 +398,7 @@ def period_chart(sec,per):
     source = cats_DataFrame(sec,per)
     if source is None:
         return False
+    per.grade = source['factor'].sum()
     st.session_state.period_dfs[dfid] = source
     domainmax = 100.0
 
