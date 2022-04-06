@@ -52,8 +52,10 @@ def overviewpage():
     #placeholder.empty()
     
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
-    if 'index' in params:
-        ind = int(params['index'][0])
+    if 'title' in params:
+        ind = st.session_state.courselist.index(
+            params['title'][0]
+        )
     else:
         ind = 0
     
@@ -67,9 +69,7 @@ def overviewpage():
     if st.session_state['selected_course'] != 'Select a Course':
         st.experimental_set_query_params(
             page='Course',
-            index=st.session_state.courselist.index(
-                st.session_state.selected_course
-            )
+            title=st.session_state.selected_course
         )
         with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
             placeholder = st.empty()
@@ -334,9 +334,7 @@ def display_perchart(sec,per):
     if st.button('Back to Courses'):
         st.experimental_set_query_params(
             page='Course',
-            index=st.session_state.courselist.index(
-                sec.title
-            )
+            title=sec.title
         )
         return
     st.title(sec.title)
