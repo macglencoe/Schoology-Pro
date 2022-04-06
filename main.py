@@ -102,6 +102,17 @@ def overviewpage():
                 if None not in period_grades:
                     avg = sum(period_grades) / len(period_grades)
                     st.write('Semester: '+str(round(avg,2))+'%')
+                    if avg < 60:
+                        letter='F'
+                    elif avg < 70:
+                        letter='D'
+                    elif avg < 80:
+                        letter='C'
+                    elif avg < 90:
+                        letter='B'
+                    else:
+                        letter='A'
+                    st.header(letter)
                 else:
                     st.write('All periods in semester must be calculated to show the semester grade.')
 
