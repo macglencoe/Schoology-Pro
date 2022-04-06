@@ -92,7 +92,7 @@ def overviewpage():
                                 id=f'{m.id} {period.id}'
                             )
                         if period.grade is not None:
-                            round(st.caption(period.grade),4)
+                            st.caption(round(period.grade,4))
                         else:
                             st.caption('Grade not calculated yet.\nClick the button to calculate.')
 
