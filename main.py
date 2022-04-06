@@ -99,7 +99,7 @@ def overviewpage():
                         period_grades.append(period.grade)
                 if None not in period_grades:
                     avg = sum(period_grades) / len(period_grades)
-                    st.write('Semester: 'str(round(avg,2))+'%')
+                    st.write('Semester: '+str(round(avg,2))+'%')
                 else:
                     st.write('All periods in semester must be calculated to show the semester grade.')
 
