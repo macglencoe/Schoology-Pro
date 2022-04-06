@@ -32,6 +32,7 @@ class Period:
         self.title = data['period_title']
         self.metadata = data
         self.grade = None
+        self.modified = False
         #_periods[self.id] = self
         session_state['_periods'][self.id] = self
 

@@ -96,6 +96,8 @@ def overviewpage():
                             st.caption(str(round(period.grade,4))+'%')
                         else:
                             st.caption('Grade not calculated yet.\nClick the button to calculate.')
+                        if period.modified:
+                            st.caption('❗ This Grading Period is modified.')
                         period_grades.append(period.grade)
                 if None not in period_grades:
                     avg = sum(period_grades) / len(period_grades)
