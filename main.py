@@ -52,15 +52,25 @@ def overviewpage():
     #placeholder.empty()
     
     st.write('You are logged in as %s' % st.session_state['me']['name_display'])
-
+    if 'index' in params:
+        ind = int(params['index'][0])
+    else:
+        ind = 0
+    
     st.title('Course View')
     st.selectbox(
         'Select a course. (Some courses are duplicate. This is fine, as they will both be loaded.)',
         ['Select a Course'] + st.session_state['courselist'],
         key = 'selected_course',
-        index = 0
+        index = ind
     )
     if st.session_state['selected_course'] != 'Select a Course':
+        st.experimental_set_query_params(
+            page='Course',
+            index=st.session_state.courselist.index(
+                st.session_state.selected_course
+            )
+        )
         with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
             placeholder = st.empty()
             if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
