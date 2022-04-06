@@ -361,6 +361,7 @@ def display_perchart(sec,per):
     )
     if has_changes(sec,per):
         st.caption('Changes are currently in place. This does not reflect your real grade!')
+        per.modified=True
     chart = period_chart(sec,per)
     if chart:
         if advanced:
@@ -498,6 +499,7 @@ def resetperiod(sec,per):
     for cat in st.session_state._categories.values():
         if cat.course_id == sec.id:
             del_chart(f'{sec.id} {per.id} {cat.id}')
+    per.modified=False
 
 def even_catweights(categories):
     if len(categories) == 0:
