@@ -55,7 +55,7 @@ def overviewpage():
     if 'title' in params:
         ind = st.session_state.courselist.index(
             params['title'][0]
-        )
+        ) + 1
     else:
         ind = 0
     
