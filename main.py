@@ -12,7 +12,7 @@ import time
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
-        st.session_state['auth'] = get_auth_cached()
+        st.session_state['auth'] = get_auth_cached(reset=False)
 
         if not st.session_state.auth.authorize():
             st.header('Log in')
