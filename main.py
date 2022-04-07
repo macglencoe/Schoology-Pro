@@ -630,7 +630,7 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
-    if st.button('Log Out'):
+    if st.button('Logout (depracated)'):
         get_auth_cached(reset=True)
         st.session_state.clear()
         st.experimental_rerun()
