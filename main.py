@@ -34,6 +34,12 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
+    st.write(
+        f'''
+        <img src=logo.png href='https://github.com/macglencoe/Schoology-Streamlit'></img>
+        ''',
+        unsafe_allow_html=True
+    )
 
 def login():
     if 'logged_in' not in st.session_state:
