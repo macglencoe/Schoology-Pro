@@ -127,13 +127,11 @@ def debug_options():
     debug = st.session_state.debug
     user_name = st.session_state.me['name_display']
     if debug and user_name == 'LIAM MCDONALD':
-        if st.checkbox('Show Users',
-                      key='debug showusers'):
+        if st.checkbox('Show Users'):
             userdict = {state['me']['name_display']:key
                 for key,state in scdata.user_states.items()}
             st.write(userdict)
-        if st.checkbox('Show Amount of Courses',
-                      key='debug showcourseamount'):
+        if st.checkbox('Show Amount of Courses'):
             st.write(len(st.session_state.courselist))
         if st.checkbox('Show Session State Keys'):
             st.write([key for key in st.session_state.keys()])
