@@ -31,27 +31,7 @@ def homepage():
     with wikicol:
         st.image('logo.png')
         st.write('[Wiki](https://github.com/macglencoe/Schoology-Pro/wiki)')
-    st.write(
-        f'''
-        <a href='https://github.com/macglencoe/Schoology-Streamlit'>
-            <button>
-                Wiki
-            </button>
-        </a>
-        ''',
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        '''
-        <a href='https://github.com/macglencoe/Schoology-Streamlit'>
-            <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo' />
-        </a>
-        ''',
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        "[![Wiki](upload://logo.png)](https://streamlit.io)"
-    )
+        st.write('![Wiki image](https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png)')
 
 def login():
     if 'logged_in' not in st.session_state:
