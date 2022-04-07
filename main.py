@@ -135,6 +135,8 @@ def debug_options():
         if st.checkbox('Show Amount of Courses',
                       key='debug showcourseamount'):
             st.write(len(st.session_state.courselist))
+        if st.checkbox('Show Session State Keys'):
+            st.write(st.session_state.keys())
     elif debug:
         st.error('Invalid User for debug')
 
