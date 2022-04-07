@@ -617,11 +617,12 @@ with st.sidebar:
     if 'logged_in' in st.session_state:
         debug_options()
 
-if 'logged_in' not in st.session_state:
-    login()
-
 params = st.experimental_get_query_params()
 page = st.empty()
+if 'logged_in' not in st.session_state:
+    page.empty()
+    with page.container():
+        login()
 if 'page' in params:
     if params['page'] == ['Course']:
         page.empty()
