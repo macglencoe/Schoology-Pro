@@ -24,6 +24,16 @@ def homepage():
         st.experimental_set_query_params(
             page='Course'
         )
+    st.write(
+        f'''
+        <a target="_self" href='https://github.com/macglencoe/Schoology-Streamlit'>
+            <button>
+                Wiki
+            </button>
+        </a>
+        ''',
+        unsafe_allow_html=True
+    )
 
 def login():
     if 'logged_in' not in st.session_state:
