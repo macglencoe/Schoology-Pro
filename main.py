@@ -12,14 +12,14 @@ import time
 def homepage():
     if 'logged_in' in st.session_state:
         st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+        if st.button('Log Out'):
+            pass
     else:
         st.write('You are not logged in')
-    if st.button(
-        'Log in' if 'logged_in' not in st.session_state else 'Log Out'
-    ):
-        st.experimental_set_query_params(
-            page='Login'
-        )
+        if st.button('Log In'):
+            st.experimental_set_query_params(
+                page='Login'
+            )
     if st.button(
         'View and edit grades'
     ):
