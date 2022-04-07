@@ -43,6 +43,7 @@ def homepage():
         st.experimental_set_query_params(
             page='Course'
         )
+    clicked = None
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
