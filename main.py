@@ -598,7 +598,7 @@ with st.sidebar:
     debug = st.session_state.debug
     user_name = st.session_state.me['name_display']
     if 'logged_in' in st.session_state:
-        if debug and user_name == 'LIAM MCDONALD':
+        if debug and user_name == 'LIAMMCDONALD':
             st.session_state['debug'] = True
             if st.checkbox('Show Users'):
                 userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
