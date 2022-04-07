@@ -22,6 +22,9 @@ def homepage():
         <a href='#' id='Grader'>
             <h2 align="center">Grader</h3>
         </a>
+        <a href='#' id='Graderimage'>
+            <img src='https://github.com/macglencoe/Schoology-Pro/blob/5cc253ea96207ebc008709af048fa8a8e86c51ee/logo.png' alt='Logo'/>
+        </a>
         <h4 align="center">View and edit your grades</h4>
         <a href='#' id='GPA'>
             <h2 align="center">GPA (Coming Soon)</h3>
