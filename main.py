@@ -589,9 +589,6 @@ if 'debug' not in st.session_state:
 
 with st.sidebar:
     st.image('logo.png')
-    if st.button("Clear Cache"):
-        st.session_state.clear()
-        st.experimental_rerun()
     if st.button(
         "Clear User Data",
         disabled = False if 'logged_in' in st.session_state
