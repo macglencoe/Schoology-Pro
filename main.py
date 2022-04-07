@@ -26,7 +26,7 @@ def homepage():
         )
     st.write(
         f'''
-        <a target="_self" href='https://github.com/macglencoe/Schoology-Streamlit'>
+        <a href='https://github.com/macglencoe/Schoology-Streamlit'>
             <button>
                 Wiki
             </button>
