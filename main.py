@@ -23,12 +23,16 @@ def homepage():
             <h2 align="center">Grader</h3>
         </a>
         <h4 align="center">View and edit your grades</h4>
+        <a href='#' id='GPA'>
+            <h2 align="center">GPA Calculator (Coming Soon)</h3>
+        </a>
+        <h4 align="center">Get a GPA of selected courses</h4>
         '''
     clicked = click_detector(content)
     st.markdown(
         '''
         <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
-            <h2 align="center">Wiki</h2>
+            <h2 align="center">Wiki (Under Construction)</h2>
         </a>
         <h4 align="center">Read about the project</h2>
         </a>
