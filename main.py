@@ -41,7 +41,10 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
-    st.write(clicked)
+    if clicked == 'Grader':
+        st.experimental_set_query_params(
+            page='Course'
+        )
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
