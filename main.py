@@ -24,6 +24,13 @@ def homepage():
         st.experimental_set_query_params(
             page='Course'
         )
+    viewercol,gpacol,wikicol = st.columns(3)
+    with viewercol:
+        st.image('logo.png')
+        st.button('Grader')
+    with wikicol:
+        st.image('logo.png')
+        st.write('[Wiki](https://github.com/macglencoe/Schoology-Pro/wiki)')
     st.write(
         f'''
         <a href='https://github.com/macglencoe/Schoology-Streamlit'>
