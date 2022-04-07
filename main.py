@@ -137,9 +137,6 @@ def debug_options():
             st.write(len(st.session_state.courselist))
     elif debug:
         st.error('Invalid User for debug')
-    else:
-        del st.session_state['debug showusers']
-        del st.session_state['debug showcourseamount']
 
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
