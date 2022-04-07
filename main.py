@@ -18,10 +18,6 @@ def homepage():
             st.experimental_rerun()
     else:
         st.write('You are not logged in')
-        if st.button('Log In'):
-            st.experimental_set_query_params(
-                page='Login'
-            )
     if st.button(
         'View and edit grades'
     ):
@@ -70,7 +66,11 @@ def overviewpage():
     #    login()
     #placeholder.empty()
     
-    st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+    if st.button('Return to Home'):
+        st.experimental_set_query_params(
+            page='Home'
+        )
+        st.experimental_rerun()
     if 'title' in params:
         ind = st.session_state.courselist.index(
             params['title'][0]
@@ -632,7 +632,7 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
-    if st.button('Logout (depracated)'):
+    if st.button('Log Out'):
         get_auth_cached(reset=True)
         st.session_state.clear()
         st.experimental_rerun()
