@@ -33,11 +33,10 @@ def homepage():
         st.write('[Wiki](https://github.com/macglencoe/Schoology-Pro/wiki)')
         st.markdown(
             '''
-            <p align='center'>
-                <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
-            </p>
-            <h2 align="center">Schoology Pro</h3>
-            <h4 align="center">(ScPro)</h4>
+            <a href='https://share.streamlit.io/macglencoe/schoology-pro/main/main.py?page=Course'
+                <h2 align="center">Grader</h3>
+            </a>
+            <h4 align="center">View and edit your grades</h4>
             ''',
             unsafe_allow_html=True
         )
