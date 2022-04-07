@@ -607,6 +607,8 @@ with st.sidebar:
             st.error('Your data is either already cleared or not saved yet!')
     if st.button('Log Out'):
         get_auth_cached(reset=True)
+        st.session_state.clear()
+        st.experimental_rerun()
     st.button(
         'Debug: '+('ON' if st.session_state.debug else 'OFF'),
         key = 'debug_button',
