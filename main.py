@@ -42,7 +42,7 @@ def homepage():
         )
         #
         content = '''
-            <a href='#'>
+            <a href='#' id='Grader'>
                 <h2 align="center">Grader</h3>
             </a>
             <h4 align="center">View and edit your grades</h4>
