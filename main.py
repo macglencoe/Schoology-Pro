@@ -640,7 +640,6 @@ with st.sidebar:
     )
     if 'logged_in' in st.session_state:
         debug_options()
-
 params = st.experimental_get_query_params()
 page = st.empty()
 if 'page' in params:
@@ -649,7 +648,7 @@ if 'page' in params:
         with page.container():
             homepage()
     if params['page'] == ['Login']:
-        page.empty():
+        page.empty()
         with page.container():
             login()
         st.experimental_set_query_params(
