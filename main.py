@@ -13,7 +13,9 @@ def homepage():
     if 'logged_in' in st.session_state:
         st.write('You are logged in as %s' % st.session_state['me']['name_display'])
         if st.button('Log Out'):
-            pass
+            get_auth_cached(reset=True)
+            st.session_state.clear()
+            st.experimental_rerun()
     else:
         st.write('You are not logged in')
         if st.button('Log In'):
