@@ -541,6 +541,9 @@ def has_changes(sec,per):
 def update_session_state(key,val):
     st.session_state[key] = val
 
+def toggle_debug():
+    st.session_state.debug = not st.session_state.debug
+
 @st.cache(persist=True, allow_output_mutation=True)
 def get_auth_cached():
     return scdata.get_auth()
@@ -566,6 +569,9 @@ if 'dataframes' not in st.session_state:
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
 
+if 'debug' not in st.session_state:
+    st.session_state['debug'] = False
+
 with st.sidebar:
     st.image('logo.png')
     if st.button("Clear Cache"):
@@ -584,9 +590,15 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
-    debug = True
+    st.button(
+        'Debug: '+('ON' if st.session_state.debug, else 'OFF'),
+        key = 'debug_button',
+        on_click = toggle_debug
+    )
+    debug = st.session_state.debug
+    user_name = st.session_state.me['name_display']
     if 'logged_in' in st.session_state:
-        if debug and st.session_state.me['name_display'] == 'LIAM MCDONALD':
+        if debug and user_name == 'LIAM MCDONALD':
             st.session_state['debug'] = True
             if st.checkbox('Show Users'):
                 userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
