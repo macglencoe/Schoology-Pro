@@ -123,7 +123,23 @@ def authorize():
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
-    
+
+def debug_options():
+    debug = st.session_state.debug
+    user_name = st.session_state.me['name_display']
+    if debug and user_name == 'LIAM MCDONALD':
+        if st.checkbox('Show Users'):
+            userdict = {state['me']['name_display']:key
+                for key,state in scdata.user_states.items()}
+            st.write(userdict)
+        if st.checkbox('Show Amount of Courses'):
+            st.write(len(st.session_state.courselist))
+    elif debug:
+        st.error('Invalid User for debug')
+    else:
+        del st.session_state['Show Users']
+        del st.session_state['Show Amount of Courses']
+
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
         if cat.course_id == m.id:
@@ -595,16 +611,8 @@ with st.sidebar:
         key = 'debug_button',
         on_click = toggle_debug
     )
-    debug = st.session_state.debug
-    user_name = st.session_state.me['name_display']
     if 'logged_in' in st.session_state:
-        if debug and user_name == 'LIAMMCDONALD':
-            st.session_state['debug'] = True
-            if st.checkbox('Show Users'):
-                userdict = {state['me']['name_display']:key for key,state in scdata.user_states.items()}
-                st.write(userdict)
-        elif debug:
-            st.error('Invalid User for debug')
+        debug_options()
 
 if 'logged_in' not in st.session_state:
     login()
