@@ -42,6 +42,9 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
+    st.markdown(
+        "[![Wiki](https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png)](https://github.com/macglencoe/Schoology-Streamlit)
+    )
 
 def login():
     if 'logged_in' not in st.session_state:
