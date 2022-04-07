@@ -611,7 +611,6 @@ with st.sidebar:
         st.experimental_rerun()
     st.button(
         'Debug: '+('ON' if st.session_state.debug else 'OFF'),
-        key = 'debug_button',
         on_click = toggle_debug
     )
     if 'logged_in' in st.session_state:
