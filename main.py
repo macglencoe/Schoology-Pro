@@ -29,13 +29,17 @@ def homepage():
             <h2 align="center">Grader</h3>
         </a>
         <h4 align="center">View and edit your grades</h4>
+        '''
+    clicked = click_detector(content)
+    st.markdown(
+        '''
         <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
             <h2 align="center">Wiki</h2>
         </a>
         <h4 align="center">Read about the project</h2>
         </a>
         '''
-    clicked = click_detector(content)
+    )
     st.write(clicked)
 def login():
     if 'logged_in' not in st.session_state:
