@@ -31,8 +31,15 @@ def homepage():
     with wikicol:
         st.image('logo.png')
         st.write('[Wiki](https://github.com/macglencoe/Schoology-Pro/wiki)')
-        st.write('![Wiki image](upload://github.com/macglencoe/Schoology-Pro/blob/main/logo.png)')
-
+        st.markdown(
+            '''
+            <p align='center'>
+                <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
+            </p>
+            <h2 align="center">Schoology Pro</h3>
+            <h4 align="center">(ScPro)</h4>
+            '''
+        )
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
