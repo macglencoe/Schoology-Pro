@@ -82,7 +82,7 @@ def overviewpage():
                 for id in m.periods:
                     if id in st.session_state['_periods']:
                         period = st.session_state['_periods'][id]
-
+                        dfid = f'{m.id} {period.id}'
                         if st.button(
                             period.title,
                             key = f'showper {m.id} {period.id}'
@@ -91,13 +91,17 @@ def overviewpage():
                                 page='Period',
                                 id=f'{m.id} {period.id}'
                             )
-                        if period.grade is not None:
-                            st.caption(str(round(period.grade,4))+'%')
+                        if dfid in st.session_state.period_grades:
+                            grade = st.session_state.period_grades[dfid]
+                            st.caption(
+                                str(round(grade,4))+'%'
+                            )
                         else:
+                            grade = None
                             st.caption('Grade not calculated yet.\nClick the button to calculate.')
-                        if period.modified:
+                        if dfid in st.session_state.period_mod:
                             st.caption('❗ This Grading Period is modified.')
-                        period_grades.append(period.grade)
+                        period_grades.append(grade)
                 if None not in period_grades:
                     avg = sum(period_grades) / len(period_grades)
                     st.write('Semester: '+str(round(avg,2))+'%')
@@ -386,7 +390,7 @@ def display_perchart(sec,per):
     )
     if has_changes(sec,per):
         st.caption('Changes are currently in place. This does not reflect your real grade!')
-        per.modified=True
+        st.session_state.period_mod[dfid] = True
     chart = period_chart(sec,per)
     if chart:
         if advanced:
@@ -433,7 +437,7 @@ def period_chart(sec,per):
     source = cats_DataFrame(sec,per)
     if source is None:
         return False
-    per.grade = source['factor'].sum()
+    st.session_state.period_grades[dfid] = source['factor'].sum()
     st.session_state.period_dfs[dfid] = source
     domainmax = 100.0
 
@@ -524,7 +528,7 @@ def resetperiod(sec,per):
     for cat in st.session_state._categories.values():
         if cat.course_id == sec.id:
             del_chart(f'{sec.id} {per.id} {cat.id}')
-    per.modified=False
+    del st.session_state.period_mod[f'{sec.id} {per.id}']
 
 def even_catweights(categories):
     if len(categories) == 0:
@@ -586,6 +590,12 @@ if 'cbox_haschanged' not in st.session_state:
 
 if 'debug' not in st.session_state:
     st.session_state['debug'] = False
+
+if 'period_grades' not in st.session_state:
+    st.session_state['period_grades'] = {}
+
+if 'period_mod' not in st.session_state:
+    st.session_state['period_mod'] = {}
 
 with st.sidebar:
     st.image('logo.png')
