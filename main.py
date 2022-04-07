@@ -13,7 +13,6 @@ def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
         st.session_state['auth'] = get_auth_cached()
-        print(st.session_state['auth'].request_authorization())
 
         if not st.session_state.auth.authorize():
             st.header('Log in')
@@ -128,17 +127,19 @@ def debug_options():
     debug = st.session_state.debug
     user_name = st.session_state.me['name_display']
     if debug and user_name == 'LIAM MCDONALD':
-        if st.checkbox('Show Users'):
+        if st.checkbox('Show Users',
+                      key='debug showusers'):
             userdict = {state['me']['name_display']:key
                 for key,state in scdata.user_states.items()}
             st.write(userdict)
-        if st.checkbox('Show Amount of Courses'):
+        if st.checkbox('Show Amount of Courses',
+                      key='debug showcourseamount'):
             st.write(len(st.session_state.courselist))
     elif debug:
         st.error('Invalid User for debug')
     else:
-        del st.session_state['Show Users']
-        del st.session_state['Show Amount of Courses']
+        del st.session_state['debug showusers']
+        del st.session_state['debug showcourseamount']
 
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
@@ -560,9 +561,10 @@ def update_session_state(key,val):
 def toggle_debug():
     st.session_state.debug = not st.session_state.debug
 
-@st.cache(persist=True, allow_output_mutation=True)
-def get_auth_cached():
-    return scdata.get_auth()
+@st.cache(persist=True, allow_output_mutation=True, max_entries=1)
+def get_auth_cached(reset=False):
+    if not reset:
+        return scdata.get_auth()
 
 
 st.set_page_config(
@@ -606,6 +608,8 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
+    if st.button('Log Out'):
+        get_auth_cached(reset=True)
     st.button(
         'Debug: '+('ON' if st.session_state.debug else 'OFF'),
         key = 'debug_button',
