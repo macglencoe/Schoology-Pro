@@ -34,9 +34,9 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
-    st.write(
-        f'''
-        <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo'/>
+    st.markdown(
+        '''
+        <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo' />
         ''',
         unsafe_allow_html=True
     )
