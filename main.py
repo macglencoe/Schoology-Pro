@@ -18,12 +18,6 @@ def homepage():
             st.experimental_rerun()
     else:
         st.write('You are not logged in')
-    if st.button(
-        'View and edit grades'
-    ):
-        st.experimental_set_query_params(
-            page='Course'
-        )
     content = '''
         <a href='#' id='Grader'>
             <h2 align="center">Grader</h3>
