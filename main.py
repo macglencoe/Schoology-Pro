@@ -36,7 +36,9 @@ def homepage():
     )
     st.markdown(
         '''
-        <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo' />
+        <a href='https://github.com/macglencoe/Schoology-Streamlit'>
+            <img src='https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png' alt='Logo' />
+        </a>
         ''',
         unsafe_allow_html=True
     )
