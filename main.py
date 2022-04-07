@@ -22,9 +22,6 @@ def homepage():
         <a href='#' id='Grader'>
             <h2 align="center">Grader</h3>
         </a>
-        <a href='#' id='Graderimage'>
-            <img src='https://github.com/macglencoe/Schoology-Pro/blob/5cc253ea96207ebc008709af048fa8a8e86c51ee/logo.png' alt='Logo'/>
-        </a>
         <h4 align="center">View and edit your grades</h4>
         <a href='#' id='GPA'>
             <h2 align="center">GPA (Coming Soon)</h3>
@@ -45,6 +42,10 @@ def homepage():
     if clicked == 'Grader':
         st.experimental_set_query_params(
             page='Course'
+        )
+    if clicked == 'GPA':
+        st.experimental_set_query_params(
+            page='GPA'
         )
     clicked = None
 def login():
@@ -167,6 +168,22 @@ def authorize():
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
+
+def gpapage():
+    if st.button('Return to Home'):
+        st.experimental_set_query_params(
+            page='Home'
+        )
+    st.title('GPA Calculator')
+    st.multiselect(
+        'Select a combination of courses (Some courses are duplicate. This is fine, as they will both be loaded.)',
+        st.session_state['courselist'],
+        key = 'gpa_courses'
+    )
+    st.button(
+        'Calculate',
+        disabled = True if len(st.session_state.gpa_courses) < 2 else False
+    )
 
 def debug_options():
     debug = st.session_state.debug
@@ -681,6 +698,10 @@ if 'page' in params:
         page.empty()
         with page.container():
             login()
+    if params['page'] == ['GPA']:
+        page.empty()
+        with page.container():
+            gpapage()
     if params['page'] == ['Course']:
         page.empty()
         with page.container():
