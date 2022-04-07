@@ -36,7 +36,7 @@ def homepage():
     )
     st.write(
         f'''
-        <img src=logo.png href='https://github.com/macglencoe/Schoology-Streamlit'></img>
+        <img src='logo.png' href='https://github.com/macglencoe/Schoology-Streamlit'/>
         ''',
         unsafe_allow_html=True
     )
