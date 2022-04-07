@@ -24,7 +24,7 @@ def homepage():
         </a>
         <h4 align="center">View and edit your grades</h4>
         <a href='#' id='GPA'>
-            <h2 align="center">GPA Calculator (Coming Soon)</h3>
+            <h2 align="center">GPA (Coming Soon)</h3>
         </a>
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
