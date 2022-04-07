@@ -38,7 +38,8 @@ def homepage():
             </p>
             <h2 align="center">Schoology Pro</h3>
             <h4 align="center">(ScPro)</h4>
-            '''
+            ''',
+            unsafe_allow_html=True
         )
 def login():
     if 'logged_in' not in st.session_state:
