@@ -38,7 +38,8 @@ def homepage():
         </a>
         <h4 align="center">Read about the project</h2>
         </a>
-        '''
+        ''',
+        unsafe_allow_html=True
     )
     st.write(clicked)
 def login():
