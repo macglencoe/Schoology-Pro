@@ -656,7 +656,7 @@ if 'page' in params:
         st.experimental_set_query_params(
             page='Home'
         )
-    if 'logged_in' not in st.session_state:
+    elif 'logged_in' not in st.session_state:
         page.empty()
         with page.container():
             login()
