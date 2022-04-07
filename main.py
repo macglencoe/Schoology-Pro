@@ -9,6 +9,24 @@ import requests.exceptions
 import webbrowser
 import time
 
+def homepage():
+    if 'logged_in' in st.session_state:
+        st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+    else:
+        st.write('You are not logged in')
+    if st.button(
+        'Log in' if 'logged_in' not in st.session_state else 'Log Out'
+    ):
+        st.experimental_set_query_params(
+            page='Login'
+        )
+    if st.button(
+        'View and edit grades'
+    ):
+        st.experimental_set_query_params(
+            page='Course'
+        )
+
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
@@ -625,11 +643,15 @@ with st.sidebar:
 
 params = st.experimental_get_query_params()
 page = st.empty()
-if 'logged_in' not in st.session_state:
-    page.empty()
-    with page.container():
-        login()
 if 'page' in params:
+    if params['page'] == ['Home']:
+        page.empty()
+        with page.container():
+            homepage()
+    if 'logged_in' not in st.session_state or params['page'] == ['Login']:
+        page.empty()
+        with page.container():
+            login()
     if params['page'] == ['Course']:
         page.empty()
         with page.container():
@@ -645,7 +667,7 @@ if 'page' in params:
 else:
     page.empty()
     with page.container():
-        overviewpage()
+        homepage()
 
 print("last line")
 #gaega
