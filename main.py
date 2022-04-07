@@ -24,31 +24,19 @@ def homepage():
         st.experimental_set_query_params(
             page='Course'
         )
-    viewercol,gpacol,wikicol = st.columns(3)
-    with viewercol:
-        st.image('logo.png')
-        st.button('Grader')
-    with wikicol:
-        st.image('logo.png')
-        st.write('[Wiki](https://github.com/macglencoe/Schoology-Pro/wiki)')
-        st.markdown(
-            '''
-            <a href='https://share.streamlit.io/macglencoe/schoology-pro/main/main.py?page=Course'>
-                <h2 align="center">Grader</h3>
-            </a>
-            <h4 align="center">View and edit your grades</h4>
-            ''',
-            unsafe_allow_html=True
-        )
-        #
-        content = '''
-            <a href='#' id='Grader'>
-                <h2 align="center">Grader</h3>
-            </a>
-            <h4 align="center">View and edit your grades</h4>
-            '''
-        clicked = click_detector(content)
-        st.write(clicked)
+    content = '''
+        <a href='#' id='Grader'>
+            <h2 align="center">Grader</h3>
+        </a>
+        <h4 align="center">View and edit your grades</h4>
+        <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
+            <h2 align="center">Wiki</h2>
+        </a>
+        <h4 align="center">Read about the project</h2>
+        </a>
+        '''
+    clicked = click_detector(content)
+    st.write(clicked)
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
