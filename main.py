@@ -591,7 +591,7 @@ with st.sidebar:
         else:
             st.error('Your data is either already cleared or not saved yet!')
     st.button(
-        'Debug: '+('ON' if st.session_state.debug, else 'OFF'),
+        'Debug: '+('ON' if st.session_state.debug else 'OFF'),
         key = 'debug_button',
         on_click = toggle_debug
     )
