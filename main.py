@@ -48,8 +48,7 @@ def homepage():
             <h4 align="center">View and edit your grades</h4>
             '''
         clicked = click_detector(content)
-        if clicked != '':
-            st.write(clicked)
+        st.write(clicked)
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
