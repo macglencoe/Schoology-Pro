@@ -649,7 +649,7 @@ if 'page' in params:
         page.empty()
         with page.container():
             homepage()
-    if params['page'] == ['Login']:
+    elif params['page'] == ['Login']:
         page.empty()
         with page.container():
             login()
