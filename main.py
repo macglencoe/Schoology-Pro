@@ -648,7 +648,14 @@ if 'page' in params:
         page.empty()
         with page.container():
             homepage()
-    if 'logged_in' not in st.session_state or params['page'] == ['Login']:
+    if params['page'] == ['Login']:
+        page.empty():
+        with page.container():
+            login()
+        st.experimental_set_query_params(
+            page='Home'
+        )
+    if 'logged_in' not in st.session_state:
         page.empty()
         with page.container():
             login()
