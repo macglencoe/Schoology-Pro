@@ -43,7 +43,7 @@ def homepage():
         unsafe_allow_html=True
     )
     st.markdown(
-        "[![Wiki](https://github.com/macglencoe/Schoology-Pro/blob/main/logo.png)](https://streamlit.io)"
+        "[![Wiki](upload://logo.png)](https://streamlit.io)"
     )
 
 def login():
