@@ -1,13 +1,12 @@
 import streamlit as st
 import extra_streamlit_components as stx
-from st_click_detector import click_detector
+import st_click_detector
 import altair as alt
 import pandas as pd
 import numpy as np
 import secrets
 import schoologydata as scdata
 import requests.exceptions
-import webbrowser
 import time
 
 def homepage():
