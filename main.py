@@ -1,6 +1,6 @@
 import streamlit as st
 import extra_streamlit_components as stx
-import st_click_detector
+from st_click_detector import click_detector
 import altair as alt
 import pandas as pd
 import numpy as np
