@@ -637,7 +637,9 @@ if 'page' in params:
             display_perchart(sec,per)
             display_categories(sec,per)
 else:
-    overviewpage()
+    page.empty()
+    with page.container():
+        overviewpage()
 
 print("last line")
 #gaega
