@@ -206,7 +206,7 @@ def gpapage():
                                 continue
                             df = asgs_DataFrame(cat,period,m)
                             st.session_state.dataframes[f'{dfid} {cat.id}'] = df
-                        per_df = cats.DataFrame(m,period)
+                        per_df = cats_DataFrame(m,period)
                         st.session_state.period_dfs[dfid] = per_df
                         st.write(per_df['factor'].sum())
                         
