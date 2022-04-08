@@ -184,6 +184,34 @@ def gpapage():
         'Calculate',
         disabled = True if len(st.session_state.gpa_courses) < 2 else False
     )
+    if len(st.session_state.gpa_courses) < 2:
+        st.stop()
+    for course in st.session_state.gpa_courses:
+        st.session_state.selected_course = course
+        with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
+            placeholder = st.empty()
+            if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
+                placeholder.info('This might take a while, since this is the first time loading this course. Afterwards, loading this course should be instant.')
+            matches = scdata.loadcourse(st.session_state)
+            for m in matches:
+                period_grades = []
+                for id in m.periods:
+                    if id in st.session_state['_periods']:
+                        period = st.session_state['_periods'][id]
+                        dfid = f'{m.id} {period.id}'
+                        if dfid in st.session_state.period_dfs:
+                            continue
+                        for cat in st.session_state._categories.values():
+                            if cat.course_id != m.id:
+                                continue
+                            df = asgs_DataFrame(cat,p,m)
+                            st.session_state.dataframes[f'{dfid} {cat.id}'] = df
+                        per_df = cats.DataFrame(m,p)
+                        st.session_state.period_dfs[dfid] = per_df
+                        st.write(per_df['factor'].sum())
+                        
+    scdata.save_userstate(st.session_state)
+    
 
 def debug_options():
     debug = st.session_state.debug
