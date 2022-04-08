@@ -180,11 +180,11 @@ def gpapage():
         st.session_state['courselist'],
         key = 'gpa_courses'
     )
-    st.button(
+    go = st.button(
         'Calculate',
         disabled = True if len(st.session_state.gpa_courses) < 2 else False
     )
-    if len(st.session_state.gpa_courses) < 2:
+    if len(st.session_state.gpa_courses) < 2 or go is False:
         st.stop()
     for course in st.session_state.gpa_courses:
         st.session_state.selected_course = course
@@ -204,9 +204,9 @@ def gpapage():
                         for cat in st.session_state._categories.values():
                             if cat.course_id != m.id:
                                 continue
-                            df = asgs_DataFrame(cat,p,m)
+                            df = asgs_DataFrame(cat,period,m)
                             st.session_state.dataframes[f'{dfid} {cat.id}'] = df
-                        per_df = cats.DataFrame(m,p)
+                        per_df = cats.DataFrame(m,period)
                         st.session_state.period_dfs[dfid] = per_df
                         st.write(per_df['factor'].sum())
                         
