@@ -24,7 +24,6 @@ def homepage():
     gradercont = f'''
         <a href='#' id='Grader'>
             {grader_html}
-            <h2 align="center">Grader</h3>
         </a>
         <h4 align="center">View and edit your grades</h4>
         '''
