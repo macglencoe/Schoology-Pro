@@ -8,6 +8,8 @@ import secrets
 import schoologydata as scdata
 import requests.exceptions
 import time
+import os
+import base64
 
 def homepage():
     if 'logged_in' in st.session_state:
@@ -30,6 +32,8 @@ def homepage():
         </a>
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
+    grader_html = get_img_with_href('Visual_Grader.png')
+    st.markdown(grader_html, unsafe_allow_html=True)
 
     st.image('Visual_grader_banner.jpg',use_column_width=True)
     graderclicked = click_detector(gradercont)
@@ -663,6 +667,20 @@ def get_auth_cached(reset=False):
     if not reset:
         return scdata.get_auth()
 
+@st.cache(allow_output_mutation=True)
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+@st.cache(allow_output_mutation=True)
+def get_img_with_href(local_img_path):
+    img_format = os.path.splitext(local_img_path)[-1].replace('.', '')
+    bin_str = get_base64_of_bin_file(local_img_path)
+    html_code = f'''
+        <img src="data:image/{img_format};base64,{bin_str}" />
+        '''
+    return html_code
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide',
