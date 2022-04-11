@@ -88,13 +88,14 @@ def overviewpage():
     #with placeholder.container():
     #    login()
     #placeholder.empty()
-
-    st.image('Visual_grader_banner.jpg')
     
     if st.button('Return to Home'):
         st.experimental_set_query_params(
             page='Home'
         )
+    
+    st.image('Visual_Grader.png',width=100)
+
     if 'title' in params:
         ind = st.session_state.courselist.index(
             params['title'][0]
