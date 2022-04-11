@@ -21,23 +21,20 @@ def homepage():
     else:
         st.write('You are not logged in')
     grader_html = get_img_with_href('Visual_Grader.png')
-    gradercont = f'''
+    content = f'''
         <a href='#' id='Grader'>
             <p align="center">
                 {grader_html}
             </p>
         </a>
         <h4 align="center">View and edit your grades</h4>
-        '''
-    gpacont = '''
         <a href='#' id='GPA'>
             <h2 align="center">GPA (Coming Soon)</h3>
         </a>
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
 
-    graderclicked = click_detector(gradercont)
-    gpaclicked = click_detector(gpacont)
+    clicked = click_detector(content)
     st.markdown(
         '''
         <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
@@ -48,16 +45,15 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
-    if graderclicked == 'Grader':
+    if clicked == 'Grader':
         st.experimental_set_query_params(
             page='Course'
         )
-    if gpaclicked == 'GPA':
+    if clicked == 'GPA':
         st.experimental_set_query_params(
             page='GPA'
         )
-    del graderclicked
-    del gpaclicked
+    del clicked
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
