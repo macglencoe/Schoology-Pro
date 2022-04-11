@@ -96,12 +96,7 @@ def overviewpage():
     #with placeholder.container():
     #    login()
     #placeholder.empty()
-    
-    if st.button('Return to Home'):
-        st.experimental_set_query_params(
-            page='Home'
-        )
-        st.experimental_rerun()
+    go_home = st.button('Return to Home')
     
     st.image('Visual_Grader.png',width=125)
 
@@ -172,7 +167,10 @@ def overviewpage():
                     st.header(letter)
                 else:
                     st.write('All periods in semester must be calculated to show the semester grade.')
-
+    if go_home:
+        st.experimental_set_query_params(
+            page='Home'
+        )
     print("overviewpage() ended")
 
 def authorize():
