@@ -20,7 +20,7 @@ def homepage():
             st.experimental_rerun()
     else:
         st.write('You are not logged in')
-    grader_html = get_img_with_href('Visual_grader_banner.jpg')
+    grader_html = get_img_with_href('Visual_Grader.png')
     gradercont = f'''
         <a href='#' id='Grader'>
             <p align="center">
