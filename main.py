@@ -23,7 +23,9 @@ def homepage():
     grader_html = get_img_with_href('Visual_grader_banner.jpg')
     gradercont = f'''
         <a href='#' id='Grader'>
-            {grader_html}
+            <p align="center">
+                {grader_html}
+            </p>
         </a>
         <h4 align="center">View and edit your grades</h4>
         '''
@@ -34,7 +36,6 @@ def homepage():
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
 
-    st.image('Visual_grader_banner.jpg',use_column_width=True)
     graderclicked = click_detector(gradercont)
     gpaclicked = click_detector(gpacont)
     st.markdown(
