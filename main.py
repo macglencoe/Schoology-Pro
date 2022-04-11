@@ -31,7 +31,7 @@ def homepage():
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
 
-    st.image('Visual_grader_banner.jpg',use_columm_width=True)
+    st.image('Visual_grader_banner.jpg',use_column_width=True)
     graderclicked = click_detector(gradercont)
     gpaclicked = click_detector(gpacont)
     st.markdown(
