@@ -94,7 +94,7 @@ def overviewpage():
             page='Home'
         )
     
-    st.image('Visual_Grader.png',width=100)
+    st.image('Visual_Grader.png',width=125)
 
     if 'title' in params:
         ind = st.session_state.courselist.index(
