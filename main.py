@@ -53,7 +53,7 @@ def homepage():
         st.experimental_set_query_params(
             page='GPA'
         )
-    del clicked
+    clicked = ""
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
