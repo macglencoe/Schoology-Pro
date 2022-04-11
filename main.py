@@ -20,8 +20,10 @@ def homepage():
             st.experimental_rerun()
     else:
         st.write('You are not logged in')
-    gradercont = '''
+    grader_html = get_img_with_href('Visual_grader_banner.jpg')
+    gradercont = f'''
         <a href='#' id='Grader'>
+            {grader_html}
             <h2 align="center">Grader</h3>
         </a>
         <h4 align="center">View and edit your grades</h4>
@@ -32,7 +34,6 @@ def homepage():
         </a>
         <h4 align="center">Get a GPA of selected courses</h4>
         '''
-    grader_html = get_img_with_href('Visual_Grader.png')
     st.markdown(grader_html, unsafe_allow_html=True)
 
     st.image('Visual_grader_banner.jpg',use_column_width=True)
