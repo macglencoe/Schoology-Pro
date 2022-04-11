@@ -93,6 +93,7 @@ def overviewpage():
         st.experimental_set_query_params(
             page='Home'
         )
+        st.experimental_rerun()
     
     st.image('Visual_Grader.png',width=125)
 
