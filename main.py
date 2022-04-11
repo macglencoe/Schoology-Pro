@@ -674,7 +674,7 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 @st.cache(allow_output_mutation=True)
-def get_img_with_href(local_img_path,height=100):
+def get_img_with_href(local_img_path,height=150):
     img_format = os.path.splitext(local_img_path)[-1].replace('.', '')
     bin_str = get_base64_of_bin_file(local_img_path)
     html_code = f'''
