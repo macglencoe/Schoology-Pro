@@ -40,14 +40,15 @@ def homepage():
         unsafe_allow_html=True
     )
     if clicked == 'Grader':
+        del clicked
         st.experimental_set_query_params(
             page='Course'
         )
     if clicked == 'GPA':
+        del clicked
         st.experimental_set_query_params(
             page='GPA'
         )
-    clicked = None
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
