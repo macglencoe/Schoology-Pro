@@ -88,6 +88,8 @@ def overviewpage():
     #with placeholder.container():
     #    login()
     #placeholder.empty()
+
+    st.image('Visual_Grader.png')
     
     if st.button('Return to Home'):
         st.experimental_set_query_params(
