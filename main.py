@@ -49,13 +49,12 @@ def homepage():
         st.experimental_set_query_params(
             page='Course'
         )
-        st.write("Grader clicked")
+        
     if clicked == 'GPA':
         st.experimental_set_query_params(
             page='GPA'
         )
-        st.write("GPA clicked")
-    st.write(clicked)
+
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
