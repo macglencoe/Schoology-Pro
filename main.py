@@ -89,7 +89,7 @@ def overviewpage():
     #    login()
     #placeholder.empty()
 
-    st.image('Visual_Grader_Banner.jpg')
+    st.image('Visual_grader_banner.jpg')
     
     if st.button('Return to Home'):
         st.experimental_set_query_params(
