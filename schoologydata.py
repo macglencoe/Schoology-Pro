@@ -31,7 +31,6 @@ class Period:
         self.id = data['period_id'].replace('p','')
         self.title = data['period_title']
         self.metadata = data
-        self.grade = None
         self.modified = False
         #_periods[self.id] = self
         session_state['_periods'][self.id] = self
@@ -177,7 +176,6 @@ def twolegged(session_state):
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
     
-    
 
 def threelegged(session_state,progbar):
     auth = session_state['auth']
@@ -241,7 +239,21 @@ def save_userstate(session_state):
     sc = schoolopy.Schoology(session_state['auth'])
     uid = sc.get_me()['uid']
 
-    user_states[uid] = {key:val for (key,val) in session_state.items()}
+    #user_states[uid] = {key:val for (key,val) in session_state.items()}
+    user_states[uid] = {
+        'olist' : session_state.olist,
+        'period_mod' : session_state.period_mod,
+        'loaded_courses' : session_state.loaded_courses,
+        'me' : session_state.me,
+        'period_dfs': session_state.period_dfs,
+        '_assignments' : session_state._assignments,
+        '_categories' : session_state._categories,
+        '_periods' : session_state._periods,
+        '_courses' : session_state._courses,
+        'courselist' : session_state.courselist,
+        'dataframes' : session_state.dataframes,
+        'sc' : session_state.sc
+    }
 
 def get_userstate(session_state):
     auth = session_state['auth']
