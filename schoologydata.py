@@ -239,7 +239,7 @@ def save_userstate(session_state):
         '_courses' : session_state._courses,
         'courselist' : session_state.courselist,
         'dataframes' : session_state.dataframes,
-        'logged_in' : session_state.logged_in
+        'logged_in' : session_state.logged_in,
         'sc' : sc
     }
 
