@@ -21,6 +21,7 @@ def homepage():
     else:
         st.write('You are not logged in')
     grader_html = get_img_with_href('Visual_Grader.png')
+    gpa_html = get_img_with_href('GPA_Calculator.png')
     content = f'''
         <a href='#' id='Grader'>
             <p align="center">
@@ -29,9 +30,11 @@ def homepage():
         </a>
         <h4 align="center">View and edit your grades</h4>
         <a href='#' id='GPA'>
-            <h2 align="center">GPA (Coming Soon)</h3>
+            <p align="center">
+                {gpa_html}
+            </p>
         </a>
-        <h4 align="center">Get a GPA of selected courses</h4>
+        <h4 align="center">(Coming Soon)</h4>
         '''
 
     clicked = click_detector(content)
@@ -51,9 +54,10 @@ def homepage():
         )
         
     if clicked == 'GPA':
-        st.experimental_set_query_params(
-            page='GPA'
-        )
+        if st.session_state.debug:
+            st.experimental_set_query_params(
+                page='GPA'
+            )
 
 def login():
     if 'logged_in' not in st.session_state:
@@ -236,6 +240,7 @@ def debug_options():
             st.write([key for key in st.session_state.keys()])
     elif debug:
         st.error('Invalid User for debug')
+        st.session_state.debug = False
 
 def display_categories(m,p):
     for cat in st.session_state['_categories'].values():
