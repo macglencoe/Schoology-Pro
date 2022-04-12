@@ -233,6 +233,7 @@ def save_userstate(session_state):
         'loaded_courses' : session_state.loaded_courses,
         'me' : session_state.me,
         'period_dfs': session_state.period_dfs,
+        'period_grades': session_state.period_grades,
         '_assignments' : session_state._assignments,
         '_categories' : session_state._categories,
         '_periods' : session_state._periods,
