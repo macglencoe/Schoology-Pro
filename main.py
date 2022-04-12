@@ -501,6 +501,7 @@ def display_perchart(sec,per):
         )
     else:
         print('chart fail')
+    scdata.save_userstate(st.session_state)
 
 
 
