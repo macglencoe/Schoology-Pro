@@ -221,19 +221,6 @@ def test_auth(session_state):
         return False
     return True
 
-def save_cookie(session_state):
-    uid = session_state.me['uid']
-    session_id = session_state['session_id']
-    if uid in user_cookies:
-        del cookie_datas[user_cookies[uid]]
-        del user_cookies[uid]
-    user_cookies[uid] = session_id
-    cookie_datas[session_id] = session_state
-
-def get_session(session_id):
-    if session_id in cookie_datas:
-        return cookie_datas[session_id]
-    return False
 
 def save_userstate(session_state):
     sc = schoolopy.Schoology(session_state['auth'])
@@ -252,7 +239,7 @@ def save_userstate(session_state):
         '_courses' : session_state._courses,
         'courselist' : session_state.courselist,
         'dataframes' : session_state.dataframes,
-        'sc' : session_state.sc
+        'sc' : sc
     }
 
 def get_userstate(session_state):
