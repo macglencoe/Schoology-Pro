@@ -130,9 +130,8 @@ def overviewpage():
             scdata.save_userstate(st.session_state)
             for m in matches:
                 period_grades = []
-                st.title(m.title)
                 url = f'https://bcs.schoology.com/course/{m.id}/student_grades'
-                st.write('[Schoology](%s)'% url)
+                st.title(f'[{m.title}](%s)'% url)
                 for id in m.periods:
                     if id in st.session_state['_periods']:
                         period = st.session_state['_periods'][id]
