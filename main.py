@@ -258,7 +258,6 @@ def asg_editors(cat,per,sec):
               asg.category == cat.id and
               asg.period == per.id and
               asg.section_id == sec.id]
-    st.write(asglist)
     if len(asglist) == 0:
         st.error(
             'No assignments were found in this category!\nIf you think this is incorrect, please [tell me about it](https://github.com/macglencoe/Schoology-Pro#bugs-and-feature-requests)'
@@ -271,7 +270,6 @@ def asg_editors(cat,per,sec):
                 'Grade out of 100',
                 key = f'gradeselect {dfid}',
                 value = 0,
-                on_change = del_chart,args=([dfid])
             )
             df = pd.DataFrame([
             {
