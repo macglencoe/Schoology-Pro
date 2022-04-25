@@ -322,7 +322,7 @@ def display_catchart(m,p,c):
     )
     advanced_icon = get_img_with_href('Advanced.png',height=25)
     content = f'''
-        <a href='#' id='Advanced'>
+        <a href='#' id='Advanced' style="margin : 0; padding-top:0;">
             <p align="left">
                 {advanced_icon}
             </p>
