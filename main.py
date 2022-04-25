@@ -320,10 +320,10 @@ def display_catchart(m,p,c):
         key= f'method {dataframe_id}',
         on_change = del_chart,args=([dataframe_id])
     )
-    advanced_icon = get_img_with_href('Advanced.png',height=15)
+    advanced_icon = get_img_with_href('Advanced.png',height=25)
     content = f'''
         <a href='#' id='Advanced'>
-            <p align="center">
+            <p align="left">
                 {advanced_icon}
             </p>
         </a>
