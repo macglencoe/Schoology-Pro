@@ -605,12 +605,7 @@ def cats_DataFrame(sec,per):
             if dfid == id
         ]
         catdf_tuples.extend([(cat,df) for df in dfs])
-    
-    cats_nec = len([cat for cat in st.session_state._categories.values() if cat.course_id == sec.id])
-    #if len(catdf_tuples) != cats_nec:
-    #    return None
-    if 0 in [len(df) for cat,df in catdf_tuples]:
-        return None
+
     fill = even_catweights([cat for cat,df in catdf_tuples])
     
     daf = pd.DataFrame([
@@ -649,7 +644,8 @@ def even_catweights(categories):
         return fill_fac
     new_weight = 100 / len(categories)
     for cat in categories:
-        cat.weight = new_weight
+        #cat.weight = new_weight
+        return new_weight
     return 0
 
 def cbox_change():
