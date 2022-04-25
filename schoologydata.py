@@ -50,7 +50,7 @@ class Category:
         session_state['_categories'][self.id] = self
 
 class Assignment:
-    def __init__(self,data,section_id,session_state):
+    def __init__(self,data,section_id,period_id,session_state):
         sc = session_state['sc']
         self.enrollment_id = data['enrollment_id']
         self.section_id = section_id
@@ -82,9 +82,8 @@ class Assignment:
             self.title = metadata['title']
             self.period = metadata['grading_period']
         except requests.exceptions.HTTPError:
-        #    del self
-        #    return
-            pass
+            self.title = "Inaccessible Assignment"
+            self.period,sep,tail = period_id.partition('p')
         #_assignments[self.id] = self
         session_state['_assignments'][self.id] = self
     def reset(self):
@@ -128,7 +127,8 @@ def loadcourse(session_state):
             for asgn in period['assignment']:
                 Assignment(
                     asgn,
-                    course['section_id'],session_state
+                    course['section_id'], period['period_id'],
+                    session_state
                 )
         try:
             sc.get_grading_categories(course['section_id'])
