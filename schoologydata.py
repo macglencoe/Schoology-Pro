@@ -82,8 +82,9 @@ class Assignment:
             self.title = metadata['title']
             self.period = metadata['grading_period']
         except requests.exceptions.HTTPError:
-            del self
-            return
+        #    del self
+        #    return
+            pass
         #_assignments[self.id] = self
         session_state['_assignments'][self.id] = self
     def reset(self):
