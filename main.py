@@ -263,6 +263,27 @@ def asg_editors(cat,per,sec):
         st.error(
             'No assignments were found in this category!\nIf you think this is incorrect, please [tell me about it](https://github.com/macglencoe/Schoology-Pro#bugs-and-feature-requests)'
         )
+        if st.checkbox(
+            'Manually set score',
+            key = f'manualscore {dfid}'
+        ):
+            gradeselect = st.number_input(
+                'Grade out of 100',
+                key = f'gradeselect {dfid}',
+                value = 0,
+                on_change = del_chart,args=([dfid])
+            )
+            df = pd.DataFrame([
+            {
+                    'title' : "Should Not Be Seen",
+                    'max' : 100,
+                    'grade' : gradeselect
+                }
+            ])
+            st.session_state.dataframes[dfid] = df
+        else:
+            if dfid in st.session_state.dataframes:
+                del st.session_state.dataframes[dfid]
         return False
     select_asg = st.selectbox(
         'Select an assignment',
