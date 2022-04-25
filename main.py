@@ -258,6 +258,7 @@ def asg_editors(cat,per,sec):
               asg.category == cat.id and
               asg.period == per.id and
               asg.section_id == sec.id]
+    st.write(asglist)
     if len(asglist) == 0:
         st.error(
             'No assignments were found in this category!\nIf you think this is incorrect, please [tell me about it](https://github.com/macglencoe/Schoology-Pro#bugs-and-feature-requests)'
