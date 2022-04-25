@@ -82,7 +82,7 @@ class Assignment:
             self.title = metadata['title']
             self.period = metadata['grading_period']
         except requests.exceptions.HTTPError:
-            self.title = "Inaccessible Assignment"
+            self.title = self.id
             self.period,sep,tail = period_id.partition('p')
         #_assignments[self.id] = self
         session_state['_assignments'][self.id] = self
