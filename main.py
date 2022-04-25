@@ -609,7 +609,7 @@ def cats_DataFrame(sec,per):
     cats_nec = len([cat for cat in st.session_state._categories.values() if cat.course_id == sec.id])
     #if len(catdf_tuples) != cats_nec:
     #    return None
-    if [] in [df for tup[1] in catdf_tuples]:
+    if [] in [df for df[1] in catdf_tuples]:
         return None
     fill = even_catweights([cat for cat,df in catdf_tuples])
     
