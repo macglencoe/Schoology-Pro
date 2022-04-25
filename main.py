@@ -606,12 +606,12 @@ def cats_DataFrame(sec,per):
         ]
         catdf_tuples.extend([(cat,df) for df in dfs])
 
-    even_catweights([cat for cat,df in catdf_tuples])
+    fill = even_catweights([cat for cat,df in catdf_tuples])
     
     daf = pd.DataFrame([
         {
             'title' : cat.title,
-            'weight' : cat.weight,
+            'weight' : cat.weight + fill,
             'grade' : df['grade'].sum()/df['max'].sum() if
             cat.method == 2 else
             df['percent'].sum()/len(df)
@@ -634,12 +634,18 @@ def resetperiod(sec,per):
 
 def even_catweights(categories):
     if len(categories) == 0:
-        return
-    if sum([cat.weight for cat in categories])!=0:
-        return
+        return 0
+    weight_sum = sum([cat.weight for cat in categories])
+    if weight_sum != 0:
+        if weight_sum == 100:
+            return 0
+        remainder = 100 - weight_sum
+        fill_fac = remainder / len(categories)
+        return fill_fac
     new_weight = 100 / len(categories)
     for cat in categories:
         cat.weight = new_weight
+    return 0
 
 def cbox_change():
     st.session_state['cbox_haschanged'] = True
