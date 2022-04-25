@@ -320,15 +320,6 @@ def display_catchart(m,p,c):
         key= f'method {dataframe_id}',
         on_change = del_chart,args=([dataframe_id])
     )
-    advanced_icon = get_img_with_href('Advanced.png',height=25)
-    content = f'''
-        <a href='#' id='Advanced' style="margin : 0; padding-top:0;">
-            <p align="left">
-                {advanced_icon}
-            </p>
-        </a>
-        '''
-    clicked = click_detector(content)
     advanced = st.checkbox(
         'Advanced',
         key = f'advanced {dataframe_id}'
