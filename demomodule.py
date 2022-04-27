@@ -37,7 +37,7 @@ def overviewpage(st,params):
                 st.title(f'{m.title}')
                 for id in m.periods:
                     if id in st.session_state['_demoperiods']:
-                        period = st.session_state['_demoperiods'][id])
+                        period = st.session_state['_demoperiods'][id]
                         dfid = f'{m.id} {period.id}'
                         if st.button(
                             period.title,
