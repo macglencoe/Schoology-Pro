@@ -251,6 +251,7 @@ def demoload(
             _courses[sec[1]]
         )
         for x,per in enumerate(periods):
+            continue
             if str(x+1) not in _periods.keys():
                 DemoPeriod(str(x+1),per,session_state)
             totalweight = 100   
@@ -274,7 +275,7 @@ def demoload(
                         sec[1], str(x+1), cat[1],
                         session_state
                     )
-    #return returncourses
+    return returncourses
 
 def reloadcourse(sel_string, session_state):
     olist = session_state['olist']
