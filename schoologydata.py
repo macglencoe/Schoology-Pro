@@ -94,7 +94,7 @@ class DemoCourse:
     def __init__(self,title,id,ss):
         self.title = title
         self.id = id
-        self.periods = ['0','1','2','3']
+        self.periods = ['1','2','3','4']
         ss['loaded_democourses'].append(self.title)
         ss['_democourses'][self.id] = self
     def even_catweights(self,ss):
@@ -216,10 +216,7 @@ def demoload(
     course_titles = session_state['democourselist']
     courses = [(title,str(random.randrange(1,100))) for title in course_titles]
 
-    periods = [
-        "1st Quarter","2nd Quarter",
-        "3rd Quarter","4th Quarter"
-    ]
+    periods = ["1st Quarter","2nd Quarter","3rd Quarter","4th Quarter"]
     
     categories = [
         (f"Category {x}",str(random.randrange(1,10000))) for x in range(catcount)
@@ -252,7 +249,7 @@ def demoload(
             _courses[sec[1]]
         )
         for x,per in enumerate(periods):
-            DemoPeriod(str(x),per,session_state)
+            DemoPeriod(str(x+1),per,session_state)
             totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
