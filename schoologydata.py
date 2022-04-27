@@ -217,8 +217,8 @@ def demoload(
     courses = [(title,str(random.randrange(1,100))) for title in course_titles]
 
     periods = [
-        ("1st Quarter",'1'),("2nd Quarter",'2'),
-        ("3rd Quarter",'3'),("4th Quarter",'4')
+        "1st Quarter","2nd Quarter",
+        "3rd Quarter","4th Quarter"
     ]
     
     categories = [
@@ -251,10 +251,8 @@ def demoload(
         returncourses.append(
             _courses[sec[1]]
         )
-        for per in periods:
-            if per[1] not in _periods.keys():
-                DemoPeriod(per[1],per[0], session_state)
-            DemoPeriod(per[1],per[0], session_state)
+        for x,per in enumerate(periods):
+            DemoPeriod(str(x),per,session_state)
             totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
