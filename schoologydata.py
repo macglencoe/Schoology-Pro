@@ -252,7 +252,7 @@ def demoload(
         )
         for x,per in enumerate(periods):
             DemoPeriod(str(x+1),per,session_state)
-            st.session_state._demoperiods[str(x)] = per
+            st.session_state._demoperiods[per] = per
             totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
