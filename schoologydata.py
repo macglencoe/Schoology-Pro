@@ -251,11 +251,11 @@ def demoload(
             _courses[sec[1]]
         )
         for x,per in enumerate(periods):
-            continue
             if str(x+1) not in _periods.keys():
                 DemoPeriod(str(x+1),per,session_state)
             totalweight = 100   
             for cat in categories:
+                continue
                 isweighted = random.choice([True,False])
                 if isweighted:
                     weight = random.randint(1,totalweight)
