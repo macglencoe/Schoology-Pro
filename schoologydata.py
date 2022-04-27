@@ -213,15 +213,7 @@ def demoload(
     loaded_courses = session_state['loaded_democourses']
     matches = []
     returncourses = []
-    course_titles = [
-        "PERSONAL FINANCE", "COMP SCI", "GRAPHIC DESIGN",
-        "ENGLISH XII", "CREATIVE WRITING", "HOME ECONOMICS",
-        "SPANISH II", "FRENCH II", "ALGEBRA II", "CALCULUS",
-        "GEOMETRY", "BAND", "ORCHESTRA", "DRAMA",
-        "PHYSICAL EDUCATION", "BIOLOGY", "PHYSICS",
-        "PSYCHOLOGY", "CIVICS/GOVT", "WORLD HISTORY",
-        "PHOTOGRAPHY", "WOODWORKING", "AGRICULTURE"
-    ]
+    course_titles = session_state['democourselist']
     courses = [(title,random.randrange(1,100)) for title in course_titles]
 
     periods = [
@@ -250,7 +242,6 @@ def demoload(
         categories = [
             (f"Category {x}",random.randrange(1,10000)) for x in range(catcount)
         ]
-        totalweight = 100
 
         if sec[1] not in _courses.keys():
             DemoCourse(
@@ -262,7 +253,8 @@ def demoload(
         )
         for per in periods:
             if per[1] not in _periods.keys():
-                DemoPeriod(per[1],per[0], session_state)   
+                DemoPeriod(per[1],per[0], session_state)
+            totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
                 if isweighted:
@@ -359,11 +351,21 @@ def threelegged(session_state,progbar):
     save_userstate(session_state)
 
 def demosetup(session_state):
+    course_titles = [
+        "PERSONAL FINANCE", "COMP SCI", "GRAPHIC DESIGN",
+        "ENGLISH XII", "CREATIVE WRITING", "HOME ECONOMICS",
+        "SPANISH II", "FRENCH II", "ALGEBRA II", "CALCULUS",
+        "GEOMETRY", "BAND", "ORCHESTRA", "DRAMA",
+        "PHYSICAL EDUCATION", "BIOLOGY", "PHYSICS",
+        "PSYCHOLOGY", "CIVICS/GOVT", "WORLD HISTORY",
+        "PHOTOGRAPHY", "WOODWORKING", "AGRICULTURE"
+
     session_state['_democourses'] = {}
     session_state['_demoperiods'] = {}
     session_state['_democategories'] = {}
     session_state['_demoassignments'] = {}
     session_state['loaded_democourses'] = []
+    session_state['democourselist'] = course_titles
 
 def get_auth():
     auth = schoolopy.Auth(
