@@ -727,14 +727,23 @@ st.set_page_config(
 if 'percharts' not in st.session_state:
     st.session_state['percharts'] = {}
 
+if 'demopercharts' not in st.session_state:
+    st.session_state['demopercharts'] = {}
+
 if 'period_dfs' not in st.session_state:
     st.session_state['period_dfs'] = {}
 
 if 'charts' not in st.session_state:
     st.session_state['charts'] = {}
 
+if 'democharts' not in st.session_state:
+    st.session_state['democharts'] = {}
+
 if 'dataframes' not in st.session_state:
     st.session_state['dataframes'] = {}
+
+if 'demodataframes' not in st.session_state:
+    st.session_state['demodataframes'] = {}
 
 if 'cbox_haschanged' not in st.session_state:
     st.session_state['cbox_haschanged'] = False
@@ -791,7 +800,15 @@ if 'page' in params:
     elif params['page'] == ['DemoCourse']:
         page.empty()
         with page.container():
-            demo.demo_overviewpage(st,params)
+            demo.overviewpage(st,params)
+    elif params['page'] == ['DemoPeriod']:
+        sec_id,per_id = params['id'][0].split()
+        sec = st.session_state._courses[sec_id]
+        per = st.session_state._periods[per_id]
+        page.empty()
+        with page.container():
+            demo.display_perchart(st,params,sec,per)
+            demo.display_categories(st,params,sec,per)
     elif params['page'] == ['Login']:
         page.empty()
         with page.container():
@@ -817,7 +834,7 @@ if 'page' in params:
         per = st.session_state._periods[per_id]
         page.empty()
         with page.container():
-            display_perchart(sec,per)
+            #display_perchart(sec,per)
             display_categories(sec,per)
 else:
     page.empty()
