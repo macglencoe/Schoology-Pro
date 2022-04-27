@@ -3,6 +3,9 @@ import schoologydata as scdata
 def demo_overviewpage(st,params):
     go_home = st.button('Return to Home')
     
+    if "demo_generated" not in st.session_state:
+        scdata.demosetup(st.session_state)
+
     st.image('Visual_Grader.png',width=125)
 
     if 'title' in params:
