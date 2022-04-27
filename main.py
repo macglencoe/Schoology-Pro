@@ -803,8 +803,8 @@ if 'page' in params:
             demo.overviewpage(st,params)
     elif params['page'] == ['DemoPeriod']:
         sec_id,per_id = params['id'][0].split()
-        sec = st.session_state._courses[sec_id]
-        per = st.session_state._periods[per_id]
+        sec = st.session_state._democourses[sec_id]
+        per = st.session_state._demoperiods[per_id]
         page.empty()
         with page.container():
             demo.display_perchart(st,params,sec,per)
