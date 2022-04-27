@@ -125,7 +125,7 @@ def display_catchart(st,m,p,c):
         return
     if method == 'Point Average':
         c.method = 2
-        chart = pointaverage_chart(c,p,m)
+        chart = pointaverage_chart(st,c,p,m)
         if chart:
             st.altair_chart(
                 chart,
@@ -135,7 +135,7 @@ def display_catchart(st,m,p,c):
                 
     if method == 'Percent Average':
         c.method = 1
-        chart = percentaverage_chart(c,p,m)
+        chart = percentaverage_chart(st,c,p,m)
         if chart:
             st.altair_chart(
                 chart,
@@ -225,6 +225,115 @@ def asg_editors(st,cat,per,sec):
         asg.percent = round(asg.grade/asg.max,3)
     return True
 
+def percentaverage_chart(st,cat,per,sec):
+    dataframe_id = (f'{sec.id} {per.id} {cat.id}')
+    source = asgs_DataFrame(cat,per,sec)
+    if source is None:
+        return False
+    st.session_state.demodataframes[dataframe_id] = source
+    domainmax = len(source)
+
+    earnbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('sum(percent)',
+                 scale=alt.Scale(
+                     domain=(0,domainmax),nice = False),
+                axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    maxbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('count(percent)',
+                 scale=alt.Scale(
+                     domain=(0,domainmax),nice = False),
+                 axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    rule = alt.Chart(source).mark_rule(color='white').encode(
+        x='sum(percent)'
+    )
+    text = alt.Chart(source).transform_joinaggregate(
+        TotalMax = 'count(percent)',
+        TotalGrade = 'sum(percent)',
+    ).transform_calculate(
+        TotalPercent = 'datum.TotalGrade / datum.TotalMax * 100'
+    ).mark_text(
+        align='left',dx=5,dy=-8,color='white').encode(
+        x = 'sum(percent)',
+        text = alt.Text(
+            'TotalPercent:O',format=',.0f'
+        ),
+    )
+    earnlayer = (earnbar+rule+text)
+    bars = alt.vconcat(earnlayer,maxbar)
+    st.session_state.democharts[dataframe_id] = bars
+    return bars
+
+def pointaverage_chart(st,cat,per,sec):
+    dataframe_id = (f'{sec.id} {per.id} {cat.id}')
+    source = asgs_DataFrame(cat,per,sec)
+    if source is None:
+        return False
+    st.session_state.demodataframes[dataframe_id] = source
+    domainmax = source['max'].sum()
+    
+    earnbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('sum(grade)',
+                 scale=alt.Scale(
+                     domain=(0,domainmax),nice = False),
+                axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    maxbar = alt.Chart(source).mark_bar().encode(
+        x = alt.X('sum(max)',
+                 scale=alt.Scale(
+                     domain=(0,domainmax),nice = False),
+                 axis=alt.Axis(labels=False)),
+        color = alt.Color('title',legend=alt.Legend(
+            orient='bottom',direction='vertical',
+            columns = 1
+        ))
+    )
+    rule = alt.Chart(source).mark_rule(color='white').encode(
+        x='sum(grade)'
+    )
+    text = alt.Chart(source).transform_joinaggregate(
+        TotalMax = 'sum(max)',
+        TotalGrade = 'sum(grade)',
+    ).transform_calculate(
+        TotalPercent = 'datum.TotalGrade / datum.TotalMax * 100'
+    ).mark_text(
+        align='left',dx=5,dy=-8,color='white').encode(
+        x = 'sum(grade)',
+        text = alt.Text(
+            'TotalPercent:O',format=',.0f'
+        ),
+    )
+    earnlayer = (earnbar+rule+text)
+    bars = alt.vconcat(earnlayer,maxbar)
+    st.session_state.democharts[dataframe_id] = bars
+    return bars
+
+def asgs_DataFrame(st,cat,per,sec):
+    daf = pd.DataFrame([
+        asg.__dict__ for asg in
+        st.session_state._demoassignments.values() if
+        asg.category == cat.id and
+        asg.period == per.id and
+        asg.section_id == sec.id and
+        asg.max is not None and
+        asg.grade is not None
+    ])
+    if len(daf) == 0:
+        return None
+    return daf
 
 def del_chart(st,dataframe_id):
     sec_id,per_id,cat_id = dataframe_id.split()
