@@ -113,6 +113,8 @@ class DemoPeriod:
     def __init__(self,id,title,ss):
         self.id = id
         self.title = title
+        while self.id in ss['_demoperiods']:
+            self.id =+ '*'
         ss['_demoperiods'][self.id] = self
 
 class DemoCategory:
@@ -268,7 +270,7 @@ def demoload(
                     grade = random.randint(0,max)
                     DemoAssignment(
                         asg[1],asg[0],grade,max,
-                        sec[1], per[1], cat[1],
+                        sec[1], str(x+1), cat[1],
                         session_state
                     )
     return returncourses
