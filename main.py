@@ -807,7 +807,7 @@ if 'page' in params:
         per = st.session_state._demoperiods[per_id]
         page.empty()
         with page.container():
-            demo.display_perchart(st,params,sec,per)
+            #demo.display_perchart(st,params,sec,per)
             demo.display_categories(st,params,sec,per)
     elif params['page'] == ['Login']:
         page.empty()
@@ -834,7 +834,7 @@ if 'page' in params:
         per = st.session_state._periods[per_id]
         page.empty()
         with page.container():
-            #display_perchart(sec,per)
+            display_perchart(sec,per)
             display_categories(sec,per)
 else:
     page.empty()
