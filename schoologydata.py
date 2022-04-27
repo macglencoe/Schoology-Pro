@@ -262,12 +262,11 @@ def demoload(
                     totalweight -= weight
                 else:
                     weight = 0
-                continue
-                DemoCategory(
-                    cat[1],cat[0],sec[1],
-                    weight, random.choice([1,2]),
-                    session_state
-                )
+                #DemoCategory(
+                #    cat[1],cat[0],sec[1],
+                #    weight, random.choice([1,2]),
+                #    session_state
+                #)
                 for asg in assignments:
                     max = random.randrange(1,101)
                     grade = random.randint(0,max)
