@@ -94,7 +94,7 @@ class DemoCourse:
     def __init__(self,title,id,ss):
         self.title = title
         self.id = id
-        self.periods = ['1','2','3','4']
+        self.periods = ['0','1','2','3']
         ss['loaded_democourses'].append(self.title)
         ss['_democourses'][self.id] = self
     def even_catweights(self,ss):
