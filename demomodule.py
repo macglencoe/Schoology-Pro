@@ -40,6 +40,7 @@ def demo_overviewpage(st,params):
                 for id in m.periods:
                     if id in st.session_state['_demoperiods']:
                         period = st.session_state['_demoperiods'][id]
+                        st.write(period.id)
                         dfid = f'{m.id} {period.id}'
                         if st.button(
                             period.title,
