@@ -214,19 +214,19 @@ def demoload(
     matches = []
     returncourses = []
     course_titles = session_state['democourselist']
-    courses = [(title,random.randrange(1,100)) for title in course_titles]
+    courses = [(title,str(random.randrange(1,100))) for title in course_titles]
 
     periods = [
-        ("1st Quarter",1),("2nd Quarter",2),
-        ("3rd Quarter",3),("4th Quarter",4)
+        ("1st Quarter",'1'),("2nd Quarter",'2'),
+        ("3rd Quarter",'3'),("4th Quarter",'4')
     ]
     
     categories = [
-        (f"Category {x}",random.randrange(1,10000)) for x in range(catcount)
+        (f"Category {x}",str(random.randrange(1,10000))) for x in range(catcount)
     ]
 
     assignments = [
-        (f"Assignment {x}",random.randrange(1,10000)) for x in range(asgncount)
+        (f"Assignment {x}",str(random.randrange(1,10000))) for x in range(asgncount)
     ]
     if sel_string in loaded_courses:
         return demoreloadcourse(sel_string, session_state)
