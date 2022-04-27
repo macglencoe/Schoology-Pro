@@ -262,6 +262,7 @@ def demoload(
                     totalweight -= weight
                 else:
                     weight = 0
+                continue
                 DemoCategory(
                     cat[1],cat[0],sec[1],
                     weight, random.choice([1,2]),
