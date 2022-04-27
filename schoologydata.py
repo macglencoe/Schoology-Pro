@@ -90,6 +90,70 @@ class Assignment:
         self.grade = self.grade_original
         self.max = self.max_original
 
+class DemoCourse:
+    def __init__(self,title,id,ss):
+        self.title = title
+        self.id = id
+        self.periods = ['1','2','3','4']
+        ss['loaded_democourses'].append(self.title)
+        ss['_democourses'][self.id] = self
+    def even_catweights(self,ss):
+        categories = [
+            cat for cat in ss._democategories.values() if
+            cat.course_id == self.id and
+            cat.weight == 0
+        ]
+        if len(categories) == 0:
+            return
+        new_weight = 100 / len(categories)
+        for cat in categories:
+            cat.weight = new_weight
+
+class DemoPeriod:
+    def __init__(self,id,title,ss):
+        self.id = id
+        self.title = title
+        ss['_demoperiods'][self.id] = self
+
+class DemoCategory:
+    def __init__(
+            self,id,title,course_id,
+            weight,method,ss
+        ):
+        self.id = id
+        self.title = title
+        self.course_id = course_id
+        self.weight = weight
+        self.method = method
+        session_state['_democategories'][self.id] = self
+
+class DemoAssignment:
+    def __init__(
+            self,id,title,grade,max,
+            section_id,period_id,category_id,
+            ss
+        ):
+        self.id = id
+        self.title = title
+        self.grade = grade
+        self.grade_original = grade
+        self.max = max
+        self.max_original = max
+        self.section_id = section_id
+        self.period = period_id
+        self.category = category_id
+        if self.max and self.grade:
+            self.percent = round(
+                self.grade / self.max, 3
+            )
+        elif self.grade is 0:
+            self.percent = 0
+        else:
+            self.percent = None
+        ss['_demoassignments'][self.id] = self
+    def reset(self):
+        self.grade = self.grade_original
+        self.max = self.max_original
 
 def loadcourse(session_state):
     sc = session_state['sc']
@@ -138,6 +202,8 @@ def loadcourse(session_state):
             Category(category,session_state)
     return returncourses
 
+def democourse():
+    for 
 
     
 def reloadcourse(sel_string, session_state):
