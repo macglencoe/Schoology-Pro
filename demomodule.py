@@ -1,4 +1,3 @@
-import streamlit as st
 import schoologydata as scdata
 
 def demo_overviewpage(st,params):
