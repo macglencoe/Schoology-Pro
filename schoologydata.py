@@ -123,13 +123,14 @@ class DemoCategory:
             weight,method,ss
         ):
         self.id = id
-        if id in session_state['_democategories']:
-            return
         self.title = title
         self.course_id = course_id
         self.weight = weight
         self.method = method
-        session_state['_democategories'][self.id] = self
+        if id in session_state['_democategories']:
+            del self
+        else:
+            session_state['_democategories'][self.id] = self
 
 class DemoAssignment:
     def __init__(
@@ -266,7 +267,6 @@ def demoload(
                     weight, random.choice([1,2]),
                     session_state
                 )
-                continue
                 for asg in assignments:
                     max = random.randrange(1,101)
                     grade = random.randint(0,max)
