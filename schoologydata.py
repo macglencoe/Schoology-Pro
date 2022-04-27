@@ -200,11 +200,7 @@ def loadcourse(session_state):
             return
         for category in sc.get_grading_categories(course['section_id']):
             Category(category,session_state)
-    return returncourses
-
-def democourse():
-    for 
-
+    return returncourses 
     
 def reloadcourse(sel_string, session_state):
     olist = session_state['olist']
@@ -271,6 +267,13 @@ def threelegged(session_state,progbar):
     session_state['_assignments'] = {}
     session_state['loaded_courses'] = []
     save_userstate(session_state)
+
+def demosetup(session_state):
+    session_state['_democourses'] = {}
+    session_state['_demoperiods'] = {}
+    session_state['_democategories'] = {}
+    session_state['_demoassignments'] = {}
+    session_state['loaded_democourses'] = []
 
 def get_auth():
     auth = schoolopy.Auth(
