@@ -254,6 +254,7 @@ def demoload(
         for per in periods:
             if per[1] not in _periods.keys():
                 DemoPeriod(per[1],per[0], session_state)
+            DemoPeriod(per[1],per[0], session_state)
             totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
