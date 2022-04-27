@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import secrets
 import schoologydata as scdata
+import demomodule as demo
 import requests.exceptions
 import time
 import os
@@ -38,6 +39,10 @@ def homepage():
         '''
 
     clicked = click_detector(content)
+    if st.button("Demo Module"):
+        st.experimental_set_query_params(
+            page='DemoCourse'
+        )
     st.markdown(
         '''
         <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
@@ -740,8 +745,14 @@ if 'debug' not in st.session_state:
 if 'period_grades' not in st.session_state:
     st.session_state['period_grades'] = {}
 
+if 'demoperiod_grades' not in st.session_state:
+    st.session_state['demoperiod_grades'] = {}
+
 if 'period_mod' not in st.session_state:
     st.session_state['period_mod'] = {}
+
+if 'demoperiod_mod' not in st.session_state:
+    st.session_state['demoperiod_mod'] = {}
 
 with st.sidebar:
     st.image('logo.png')
@@ -777,6 +788,10 @@ if 'page' in params:
         page.empty()
         with page.container():
             homepage()
+    elif params['page'] == ['DemoCourse']:
+        page.empty()
+        with page.container():
+            demo.demo_overviewpage(st,params)
     elif params['page'] == ['Login']:
         page.empty()
         with page.container():
