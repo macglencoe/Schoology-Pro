@@ -35,6 +35,8 @@ def demo_overviewpage(st,params):
             for m in matches:
                 period_grades = []
                 st.title(f'{m.title}')
+                st.write(m.periods)
+                st.write(st.session_state['_demoperiods'])
                 for id in m.periods:
                     if id in st.session_state['_demoperiods']:
                         period = st.session_state['_demoperiods'][id]
