@@ -113,7 +113,7 @@ class DemoPeriod:
     def __init__(self,id,title,ss):
         self.id = id
         self.title = title
-        while self.id in ss['_demoperiods']:
+        if self.id in ss['_demoperiods']:
             self.id =+ '*'
         ss['_demoperiods'][self.id] = self
 
