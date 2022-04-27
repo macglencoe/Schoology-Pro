@@ -359,7 +359,7 @@ def demosetup(session_state):
         "PHYSICAL EDUCATION", "BIOLOGY", "PHYSICS",
         "PSYCHOLOGY", "CIVICS/GOVT", "WORLD HISTORY",
         "PHOTOGRAPHY", "WOODWORKING", "AGRICULTURE"
-
+    ]
     session_state['_democourses'] = {}
     session_state['_demoperiods'] = {}
     session_state['_democategories'] = {}
