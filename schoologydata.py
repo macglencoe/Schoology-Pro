@@ -259,7 +259,7 @@ def demoload(
                 isweighted = random.choice([True,False])
                 if isweighted:
                     weight = random.randint(1,totalweight)
-                     totalweight -= weight
+                    totalweight -= weight
                 else:
                     weight = 0
                 DemoCategory(
