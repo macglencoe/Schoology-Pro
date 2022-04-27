@@ -255,7 +255,6 @@ def demoload(
                 DemoPeriod(str(x+1),per,session_state)
             totalweight = 100   
             for cat in categories:
-                continue
                 isweighted = random.choice([True,False])
                 if isweighted:
                     weight = random.randint(1,totalweight)
@@ -267,6 +266,7 @@ def demoload(
                     weight, random.choice([1,2]),
                     session_state
                 )
+                continue
                 for asg in assignments:
                     max = random.randrange(1,101)
                     grade = random.randint(0,max)
