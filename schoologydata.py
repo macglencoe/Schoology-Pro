@@ -253,6 +253,7 @@ def demoload(
         for x,per in enumerate(periods):
             if str(x+1) not in _periods.keys():
                 DemoPeriod(str(x+1),per,session_state)
+            continue
             totalweight = 100   
             for cat in categories:
                 isweighted = random.choice([True,False])
