@@ -366,6 +366,7 @@ def demosetup(session_state):
     session_state['_demoassignments'] = {}
     session_state['loaded_democourses'] = []
     session_state['democourselist'] = course_titles
+    session_state['demo_generated'] = True
 
 def get_auth():
     auth = schoolopy.Auth(
