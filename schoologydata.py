@@ -272,7 +272,7 @@ def demoload(
                     grade = random.randint(0,max)
                     DemoAssignment(
                         asg[1],asg[0],grade,max,
-                        sec[1], per[1], cat[1]
+                        sec[1], per[1], cat[1],
                         session_state
                     )
     return returncourses
