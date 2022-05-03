@@ -77,9 +77,9 @@ def login():
         
             with st.spinner('Waiting for authorization...'):
                 authorize()
-
-        if scdata.get_userstate(st.session_state):
-            oldstate = scdata.get_userstate(st.session_state)
+        
+        oldstate = scdata.get_userstate(st.session_state)
+        if oldstate:
             st.info('Recovered session data')
             for key,val in oldstate.items():
                 st.session_state[key] = val
