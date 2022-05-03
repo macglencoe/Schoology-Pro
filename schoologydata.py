@@ -1,11 +1,10 @@
 import os
 import schoolopy
 import requests
+import exceptions
 from bs4 import BeautifulSoup
 import random
 
-class UnauthorizedCacheToken(Exception):
-    pass
 
 class Course:
     def __init__(self,data,session_state):
@@ -416,7 +415,7 @@ def get_userstate(session_state):
     try:
         me = sc.get_me()
     except requests.exceptions.HTTPError:
-        raise UnauthorizedCacheToken('Unauthorized token was retrieved from a browser-cached login attempt.')
+        raise exceptions.UnauthorizedCacheToken()
     uid = me['uid']
 
     if uid in user_states:
