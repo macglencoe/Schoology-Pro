@@ -505,7 +505,8 @@ def display_perchart(sec,per):
                 dfid = f'{sec.id} {period.id}'
                 if st.button(
                     period.title,
-                    key = f'sidebarshowper {dfid}'
+                    key = f'sidebarshowper {dfid}',
+                    disabled = True if period is per else False
                 ):
                     st.experimental_set_query_params(
                         page='Period',
