@@ -496,13 +496,54 @@ def pointaverage_chart(cat,per,sec):
 
 
 def display_perchart(sec,per):
+    with st.sidebar:
+        st.subheader(sec.title)
+        for id in sec.periods:
+            if id in st.session_state['_periods']:
+                period = st.session_state['_periods'][id]
+                dfid = f'{sec.id} {per.id}'
+                if st.button(
+                    period.title,
+                    key = f'sidebarshowper {dfid}'
+                ):
+                    st.experimental_set_query_params(
+                        page='Period',
+                        id=dfid
+                    )
+                if dfid in st.session_state.period_grades:
+                    grade = st.session_state.period_grades[dfid]
+                    st.caption(
+                        str(round(grade,4))+'%'
+                    )
+                else:
+                    grade = None
+                    st.caption('Grade not calculated yet.\nClick the button to calculate.')
+                if dfid in st.session_state.period_mod:
+                    st.caption('❗ This Grading Period is modified.')
+                period_grades.append(grade)
+        if None not in period_grades:
+            avg = sum(period_grades) / len(period_grades)
+            st.write('Semester: '+str(round(avg,2))+'%')
+            if avg < 60:
+                letter='F'
+            elif avg < 70:
+                letter='D'
+            elif avg < 80:
+                letter='C'
+            elif avg < 90:
+                letter='B'
+            else:
+                letter='A'
+            st.header(letter)
+        else:
+            st.write('All periods in semester must be calculated to show the semester grade.')
+
     if st.button('Back to Courses'):
         st.experimental_set_query_params(
             page='Course',
             title=sec.title
         )
         return
-    st.title(sec.title)
     st.header(per.title)
     dfid = f'{sec.id} {per.id}'
     resetcol,advcol,nonecol = st.columns([1,1,3])
@@ -781,10 +822,6 @@ with st.sidebar:
             st.experimental_rerun()
         else:
             st.error('Your data is either already cleared or not saved yet!')
-    if st.button('Log Out (deprecated)'):
-        get_auth_cached(reset=True)
-        st.session_state.clear()
-        st.experimental_rerun()
     st.button(
         'Debug: '+('ON' if st.session_state.debug else 'OFF'),
         on_click = toggle_debug,
