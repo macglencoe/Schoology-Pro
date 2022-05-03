@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 
-class ScDataException(Exception):
+class UnauthorizedCacheToken(Exception):
     pass
 
 class Course:
@@ -416,7 +416,7 @@ def get_userstate(session_state):
     try:
         me = sc.get_me()
     except requests.exceptions.HTTPError:
-        raise ScDataException('Unauthorized token was retrieved from a browser-cached login attempt.')
+        raise UnauthorizedCacheToken('Unauthorized token was retrieved from a browser-cached login attempt.')
     uid = me['uid']
 
     if uid in user_states:
