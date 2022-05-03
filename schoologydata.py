@@ -410,7 +410,10 @@ def save_userstate(session_state):
 def get_userstate(session_state):
     auth = session_state['auth']
     sc = schoolopy.Schoology(auth)
-    me = sc.get_me()
+    try:
+        me = sc.get_me()
+    except requests.exceptions.HTTPError:
+        raise Exception('Unauthorized token was retrieved from a browser-cached login attempt.')
     uid = me['uid']
 
     if uid in user_states:
