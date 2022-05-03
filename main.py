@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import secrets
 import schoologydata as scdata
+import exceptions
 import demomodule as demo
 import requests.exceptions
 import time
@@ -720,6 +721,7 @@ def get_img_with_href(local_img_path,height=150):
         '''
     return html_code
 
+
 st.set_page_config(
     page_title = 'Schoology', layout='wide',
     page_icon = 'favicon.ico'
@@ -831,8 +833,16 @@ if 'page' in params:
             overviewpage()
     if params['page'] == ['Period']:
         sec_id,per_id = params['id'][0].split()
-        sec = st.session_state._courses[sec_id]
-        per = st.session_state._periods[per_id]
+        try:
+            sec = st.session_state._courses[sec_id]
+        except KeyError:
+            raise exceptions.InvalidQueryParamCourse(sec_id)
+            st.stop()
+        try:
+            per = st.session_state._periods[per_id]
+        except KeyError:
+            raise exceptions.InvalidQueryParamPeriod(per_id)
+            st.stop()
         page.empty()
         with page.container():
             display_perchart(sec,per)
