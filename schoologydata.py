@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 
-class ScDataException:
+class ScDataException(Exception):
     pass
 
 class Course:
