@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import secrets
 import schoologydata as scdata
+import exceptions
 import demomodule as demo
 import requests.exceptions
 import time
@@ -720,11 +721,6 @@ def get_img_with_href(local_img_path,height=150):
         '''
     return html_code
 
-class InvalidQueryParamCourse(Exception):
-    pass
-
-class InvalidQueryParamPeriod(Exception):
-    pass
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide',
@@ -840,12 +836,12 @@ if 'page' in params:
         try:
             sec = st.session_state._courses[sec_id]
         except KeyError:
-            raise InvalidQueryParamCourse
+            raise exceptions.InvalidQueryParamCourse(sec_id)
             st.stop()
         try:
             per = st.session_state._periods[per_id]
         except KeyError:
-            raise InvalidQueryParamPeriod
+            raise exceptions.InvalidQueryParamPeriod(per_id)
             st.stop()
         page.empty()
         with page.container():
