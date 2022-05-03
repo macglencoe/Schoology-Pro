@@ -498,10 +498,11 @@ def pointaverage_chart(cat,per,sec):
 def display_perchart(sec,per):
     with st.sidebar:
         st.subheader(sec.title)
+        period_grades = []
         for id in sec.periods:
             if id in st.session_state['_periods']:
                 period = st.session_state['_periods'][id]
-                dfid = f'{sec.id} {per.id}'
+                dfid = f'{sec.id} {period.id}'
                 if st.button(
                     period.title,
                     key = f'sidebarshowper {dfid}'
