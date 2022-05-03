@@ -39,10 +39,11 @@ def homepage():
         '''
 
     clicked = click_detector(content)
-    if st.button("Demo Module"):
-        st.experimental_set_query_params(
-            page='DemoCourse'
-        )
+    if st.session_state.debug:
+        if st.button("Demo Module"):
+            st.experimental_set_query_params(
+                page='DemoCourse'
+            )
     st.markdown(
         '''
         <a href='https://github.com/macglencoe/Schoology-Pro/wiki' id='Wiki'>
