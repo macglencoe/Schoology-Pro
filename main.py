@@ -813,7 +813,7 @@ if 'demoperiod_mod' not in st.session_state:
 menu = option_menu(
     None, ['Home', 'Visual Grader', 'Settings'],
     icons=['house','bar-chart-fill','gear'],
-    menu_icon="caret-down-fill", default_index=0, orientation='horizontal'
+    menu_icon="caret-down-fill", default_index=0, orientation='vertical'
 )
 
 with st.sidebar:
