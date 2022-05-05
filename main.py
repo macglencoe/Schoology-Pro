@@ -107,7 +107,13 @@ def overviewpage():
     #with placeholder.container():
     #    login()
     #placeholder.empty()
-    go_home = st.button('Return to Home')
+    menu = option_menu(
+    None, ['Home', 'Visual Grader', 'Settings'],
+    icons=['house','bar-chart-fill','gear'],
+    menu_icon="caret-down-fill", default_index=1, orientation='horizontal'
+    )
+    go_home = True if menu == 'Home' else False
+    go_settings = True if menu == 'Settings' else False
     
     st.image('Visual_Grader.png',width=125)
 
@@ -182,6 +188,10 @@ def overviewpage():
     if go_home:
         st.experimental_set_query_params(
             page='Home'
+        )
+    elif go_settings:
+        st.experimental_set_query_params(
+            page='Settings'
         )
     print("overviewpage() ended")
 
@@ -810,11 +820,6 @@ if 'period_mod' not in st.session_state:
 if 'demoperiod_mod' not in st.session_state:
     st.session_state['demoperiod_mod'] = {}
 
-menu = option_menu(
-    None, ['Home', 'Visual Grader', 'Settings'],
-    icons=['house','bar-chart-fill','gear'],
-    menu_icon="caret-down-fill", default_index=0, orientation='vertical'
-)
 
 with st.sidebar:
     st.image('logo.png')
