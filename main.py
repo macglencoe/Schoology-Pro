@@ -74,8 +74,7 @@ def settings():
             page='Course'
         )
     if 'logged_in' in st.session_state:
-        st.write('You are logged in as %s' % st.session_state['me']['name_display'].lower().title())
-        st.header('Hello, %s!' % st.session_state['me']['name_display'])
+        st.header('Hello, %s!' % st.session_state['me']['name_display'].lower().title())
         if st.button('Log Out'):
             get_auth_cached(reset=True)
             st.session_state.clear()
