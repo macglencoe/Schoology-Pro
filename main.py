@@ -837,6 +837,7 @@ with st.sidebar:
     ):
         st.experimental_memo.clear()
         st.experimental_singleton.clear()
+        get_auth_cached(reset=True)
 params = st.experimental_get_query_params()
 page = st.empty()
 if 'page' in params:
