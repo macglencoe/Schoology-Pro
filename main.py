@@ -832,6 +832,12 @@ with st.sidebar:
     )
     if 'logged_in' in st.session_state:
         debug_options()
+    if st.button(
+        'Clear Cache'
+    ):
+        st.experimental_memo.clear()
+        st.experimental_singleton.clear()
+        get_auth_cached(reset=True)
 params = st.experimental_get_query_params()
 page = st.empty()
 if 'page' in params:
