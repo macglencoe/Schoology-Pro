@@ -15,14 +15,6 @@ import os
 import base64
 
 def homepage():
-    if 'logged_in' in st.session_state:
-        st.write('You are logged in as %s' % st.session_state['me']['name_display'])
-        if st.button('Log Out'):
-            get_auth_cached(reset=True)
-            st.session_state.clear()
-            st.experimental_rerun()
-    else:
-        st.write('You are not logged in')
     grader_html = get_img_with_href('Visual_Grader.png')
     gpa_html = get_img_with_href('GPA_Calculator.png')
     content = f'''
@@ -81,6 +73,19 @@ def settings():
         st.experimental_set_query_params(
             page='Course'
         )
+    if 'logged_in' in st.session_state:
+        st.write('You are logged in as %s' % st.session_state['me']['name_display'])
+        st.header('Hello, %s!' % st.session_state['me']['name_display'])
+        if st.button('Log Out'):
+            get_auth_cached(reset=True)
+            st.session_state.clear()
+            st.experimental_rerun()
+    else:
+        st.write('You are not logged in')
+        if st.button('Log In'):
+            st.experimental_set_query_params(
+                page='Login'
+            )
     st.header('Clear All User Data')
     if st.button(
         "Clear Data",
