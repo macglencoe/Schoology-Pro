@@ -67,12 +67,65 @@ def homepage():
                 page='GPA'
             )
 
+def settings():
+    menu = option_menu(
+    None, ['Home', 'Visual Grader', 'Settings'],
+    icons=['house','bar-chart-fill','gear'],
+    menu_icon="caret-down-fill", default_index=2, orientation='horizontal'
+    )
+    if menu == 'Home':
+        st.experimental_set_query_params(
+            page='Home'
+        )
+    if menu == 'Visual Grader':
+        st.experimental_set_query_params(
+            page='Course'
+        )
+    st.header('Clear All User Data')
+    if st.button(
+        "Clear Data",
+        disabled = False if 'logged_in' in st.session_state
+        else True
+    ):
+        cleared = scdata.del_userstate(
+            st.session_state.me['uid']
+        )
+        if cleared:
+            st.session_state.clear()
+            st.experimental_rerun()
+        else:
+            st.error('Your data is either already cleared or not saved yet!')
+    st.write('Deletes all user data (grades, courses, etc.) loaded within the app. No trace left behind!')
+    st.header('Clear Cache')
+    if st.button(
+        'Clear'
+    ):
+        st.experimental_memo.clear()
+        st.experimental_singleton.clear()
+        get_auth_cached(reset=True)
+    st.write('Clears data cached on your browser (like authentication tokens) pertaining to this app. Use this if you have trouble logging in.')
+    st.header('Debug Mode')
+    st.button(
+        'Debug: '+('ON' if st.session_state.debug else 'OFF'),
+        on_click = toggle_debug,
+        disabled = False if 'logged_in' in st.session_state
+        else True
+    )
+    st.write('Available only to testers. If you\'re on the list, this button will work for you.')
+    if 'logged_in' in st.session_state:
+        debug_options()
+    
+
 def login():
     if 'logged_in' not in st.session_state:
         #st.session_state['auth'] = scdata.get_auth()
         st.session_state['auth'] = get_auth_cached(reset=False)
 
         if not st.session_state.auth.authorize():
+            if st.button('Return Home'):
+                st.experimental_set_query_params(
+                    page='Home'
+                )
             st.header('Log in')
             st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
             st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
@@ -823,33 +876,7 @@ if 'demoperiod_mod' not in st.session_state:
 
 with st.sidebar:
     st.image('logo.png')
-    if st.button(
-        "Clear User Data",
-        disabled = False if 'logged_in' in st.session_state
-        else True
-    ):
-        cleared = scdata.del_userstate(
-            st.session_state.me['uid']
-        )
-        if cleared:
-            st.session_state.clear()
-            st.experimental_rerun()
-        else:
-            st.error('Your data is either already cleared or not saved yet!')
-    st.button(
-        'Debug: '+('ON' if st.session_state.debug else 'OFF'),
-        on_click = toggle_debug,
-        disabled = False if 'logged_in' in st.session_state
-        else True
-    )
-    if 'logged_in' in st.session_state:
-        debug_options()
-    if st.button(
-        'Clear Cache'
-    ):
-        st.experimental_memo.clear()
-        st.experimental_singleton.clear()
-        get_auth_cached(reset=True)
+    
 params = st.experimental_get_query_params()
 page = st.empty()
 if 'page' in params:
@@ -869,6 +896,10 @@ if 'page' in params:
         with page.container():
             #demo.display_perchart(st,params,sec,per)
             demo.display_categories(st,params,sec,per)
+    elif params['page'] == ['Settings']:
+        page.empty()
+        with page.container():
+            settings()
     elif params['page'] == ['Login']:
         page.empty()
         with page.container():
