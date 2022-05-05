@@ -1,6 +1,7 @@
 import streamlit as st
 import extra_streamlit_components as stx
 from st_click_detector import click_detector
+from streamlit_option_menu import option_menu
 import altair as alt
 import pandas as pd
 import numpy as np
@@ -809,14 +810,11 @@ if 'period_mod' not in st.session_state:
 if 'demoperiod_mod' not in st.session_state:
     st.session_state['demoperiod_mod'] = {}
 
-padding = 0
-st.markdown(f""" <style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem;
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-    }} </style> """, unsafe_allow_html=True)
+menu = option_menu(
+    None, ['Home', 'Visual Grader', 'Settings'],
+    icons=['house','bar-chart-fill','gear'],
+    menu_icon="caret-down-fill", default_index=0, orientation='horizontal'
+)
 
 with st.sidebar:
     st.image('logo.png')
