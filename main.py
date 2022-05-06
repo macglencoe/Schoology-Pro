@@ -850,6 +850,11 @@ def get_img_with_href(local_img_path,height=150):
         '''
     return html_code
 
+@st.cache(persist=True, allow_output_mutation=True, max_entries=1)
+def lastversion(reset=False):
+    if not reset:
+        return version
+    return None
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide',
@@ -895,6 +900,8 @@ if 'period_mod' not in st.session_state:
 if 'demoperiod_mod' not in st.session_state:
     st.session_state['demoperiod_mod'] = {}
 
+if lastversion() != version and lastversion() not None:
+    st.info(f'Updated to {version}')
 
 with st.sidebar:
     st.image('logo.png')
