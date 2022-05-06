@@ -15,7 +15,7 @@ import os
 import base64
 
 experimental = st.secrets['experimental']
-version = "1.0.0"
+version = "1.0.1"
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
