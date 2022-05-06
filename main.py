@@ -14,6 +14,8 @@ import time
 import os
 import base64
 
+experimental = True
+
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
     gpa_html = get_img_with_href('GPA_Calculator.png')
@@ -48,6 +50,17 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
+    if not experimental:
+        st.markdown(
+            '''
+            <a href='https://share.streamlit.io/macglencoe/schoology-pro/experimental/main.py' id='Experimental'>
+                <h2 align="center">Experimental Version</h2>
+            </a>
+            <h4 align="center">Want to see what's in development right now?</h2>
+            </a>
+            ''',
+            unsafe_allow_html=True
+        )
     if clicked == 'Grader':
         st.experimental_set_query_params(
             page='Course'
