@@ -15,6 +15,7 @@ import os
 import base64
 
 experimental = st.secrets['experimental']
+version = "1.0.0"
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
@@ -897,6 +898,7 @@ if 'demoperiod_mod' not in st.session_state:
 
 with st.sidebar:
     st.image('logo.png')
+    st.write(f'v{version}')
     
 params = st.experimental_get_query_params()
 page = st.empty()
