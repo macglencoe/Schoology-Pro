@@ -50,7 +50,7 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
-    if experimental == "False":
+    if experimental == "True":
         st.markdown(
             '''
             <a href='https://share.streamlit.io/macglencoe/schoology-pro/experimental/main.py' id='Experimental'>
