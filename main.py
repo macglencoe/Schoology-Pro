@@ -162,10 +162,10 @@ def login():
                 
 
     if 'logged_in' not in st.session_state:
-        with st.spinner('Loading courses...'):
+        with st.spinner('Fetching your classes...'):
             progbar = st.progress(0.0)
             st.info(
-                'Loading up all of your courses is pretty time-consuming.\nLuckily, this data is saved for you, so next time you authorize, everything should already be there for you.'
+                'This might take a while... This only needs to be done once'
             )
             scdata.threelegged(st.session_state,progbar)
             #scdata.twolegged(st.session_state)
@@ -213,7 +213,7 @@ def overviewpage():
         with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
             placeholder = st.empty()
             if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
-                placeholder.info('This might take a while, since this is the first time loading this course. Afterwards, loading this course should be instant.')
+                placeholder.info('This class is being loaded for the first time, so this might take a moment...')
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
