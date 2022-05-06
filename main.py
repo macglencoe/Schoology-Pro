@@ -14,7 +14,7 @@ import time
 import os
 import base64
 
-experimental = True
+experimental = st.secrets['experimental']
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
@@ -50,7 +50,7 @@ def homepage():
         ''',
         unsafe_allow_html=True
     )
-    if not experimental:
+    if experimental == "False":
         st.markdown(
             '''
             <a href='https://share.streamlit.io/macglencoe/schoology-pro/experimental/main.py' id='Experimental'>
