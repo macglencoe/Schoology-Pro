@@ -61,6 +61,10 @@ def homepage():
             ''',
             unsafe_allow_html=True
         )
+    if st.button('Settings'):
+        st.experimental_set_query_params(
+            page='Settings'
+        )
     if clicked == 'Grader':
         st.experimental_set_query_params(
             page='Course'
