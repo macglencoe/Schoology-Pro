@@ -14,7 +14,7 @@ import time
 import os
 import base64
 
-experimental = True
+experimental = False
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
