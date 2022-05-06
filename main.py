@@ -900,7 +900,7 @@ if 'period_mod' not in st.session_state:
 if 'demoperiod_mod' not in st.session_state:
     st.session_state['demoperiod_mod'] = {}
 
-if lastversion() != version and lastversion() not None:
+if lastversion() != version:
     st.info(f'Updated to {version}')
 
 with st.sidebar:
