@@ -15,6 +15,7 @@ import os
 import base64
 
 experimental = st.secrets['experimental']
+version = "1.0.2"
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
@@ -60,6 +61,10 @@ def homepage():
             </a>
             ''',
             unsafe_allow_html=True
+        )
+    if st.button('Settings'):
+        st.experimental_set_query_params(
+            page='Settings'
         )
     if clicked == 'Grader':
         st.experimental_set_query_params(
@@ -139,10 +144,6 @@ def login():
         st.session_state['auth'] = get_auth_cached(reset=False)
 
         if not st.session_state.auth.authorize():
-            if st.button('Return Home'):
-                st.experimental_set_query_params(
-                    page='Home'
-                )
             st.header('Log in')
             st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
             st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
@@ -158,10 +159,10 @@ def login():
                 
 
     if 'logged_in' not in st.session_state:
-        with st.spinner('Loading courses...'):
+        with st.spinner('Fetching your classes...'):
             progbar = st.progress(0.0)
             st.info(
-                'Loading up all of your courses is pretty time-consuming.\nLuckily, this data is saved for you, so next time you authorize, everything should already be there for you.'
+                'This might take a while... This only needs to be done once'
             )
             scdata.threelegged(st.session_state,progbar)
             #scdata.twolegged(st.session_state)
@@ -209,7 +210,7 @@ def overviewpage():
         with st.spinner(f'Loading Grades for: {st.session_state["selected_course"]}'):
             placeholder = st.empty()
             if st.session_state['selected_course'] not in st.session_state['loaded_courses']:
-                placeholder.info('This might take a while, since this is the first time loading this course. Afterwards, loading this course should be instant.')
+                placeholder.info('This class is being loaded for the first time, so this might take a moment...')
             matches = scdata.loadcourse(st.session_state)
             scdata.save_userstate(st.session_state)
             for m in matches:
@@ -845,6 +846,11 @@ def get_img_with_href(local_img_path,height=150):
         '''
     return html_code
 
+@st.cache(persist=True, allow_output_mutation=True, max_entries=1)
+def lastversion(reset=False):
+    if not reset:
+        return version
+    return None
 
 st.set_page_config(
     page_title = 'Schoology', layout='wide',
@@ -890,9 +896,12 @@ if 'period_mod' not in st.session_state:
 if 'demoperiod_mod' not in st.session_state:
     st.session_state['demoperiod_mod'] = {}
 
+if lastversion() != version:
+    st.info(f'Updated to {version}')
 
 with st.sidebar:
     st.image('logo.png')
+    st.write(f'v{version}')
     
 params = st.experimental_get_query_params()
 page = st.empty()
