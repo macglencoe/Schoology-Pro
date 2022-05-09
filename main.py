@@ -15,7 +15,7 @@ import os
 import base64
 
 experimental = st.secrets['experimental']
-version = "1.0.1"
+version = "1.0.2"
 
 def homepage():
     grader_html = get_img_with_href('Visual_Grader.png')
@@ -153,6 +153,10 @@ def login():
             st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
         
             with st.spinner('Waiting for authorization...'):
+                if st.button('Go back'):
+                    st.experimental_set_query_params(
+                        page='Home'
+                    )
                 authorize()
         
         oldstate = scdata.get_userstate(st.session_state)
