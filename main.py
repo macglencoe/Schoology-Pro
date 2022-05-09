@@ -153,10 +153,6 @@ def login():
             st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
         
             with st.spinner('Waiting for authorization...'):
-                if st.button('Go back'):
-                    st.experimental_set_query_params(
-                        page='Home'
-                    )
                 authorize()
         
         oldstate = scdata.get_userstate(st.session_state)
@@ -275,10 +271,15 @@ def overviewpage():
     print("overviewpage() ended")
 
 def authorize():
-    while True:
+    exit = st.button('Go Back')
+    while not exit:
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
+    st.experimental_set_query_params(
+        page='Home'
+    )
+    st.experimental_rerun()
 
 def gpapage():
     if st.button('Return to Home'):
