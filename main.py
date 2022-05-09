@@ -144,13 +144,6 @@ def login():
         st.session_state['auth'] = get_auth_cached(reset=False)
 
         if not st.session_state.auth.authorize():
-            with st.sidebar:
-                if st.button('Clear Cache'):
-                    get_auth_cached(reset=True)
-            if st.button('Return Home'):
-                st.experimental_set_query_params(
-                    page='Home'
-                )
             st.header('Log in')
             st.subheader('[Go to Schoology](%s)'% st.session_state['auth'].request_authorization())
             st.caption('Read about [Authorization](%s)'% 'https://github.com/macglencoe/Schoology-Pro/blob/main/README.md#authorization-with-oauth')
