@@ -271,8 +271,10 @@ def overviewpage():
     print("overviewpage() ended")
 
 def authorize():
-    exit = st.button('Go Back')
+    exit = None
+    ph = st.empty()
     while not exit:
+        exit = ph.button('Go back')
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
