@@ -144,6 +144,9 @@ def login():
         st.session_state['auth'] = get_auth_cached(reset=False)
 
         if not st.session_state.auth.authorize():
+            with st.sidebar:
+                if st.button('Clear Cache'):
+                    get_auth_cached(reset=True)
             if st.button('Return Home'):
                 st.experimental_set_query_params(
                     page='Home'
@@ -271,17 +274,10 @@ def overviewpage():
     print("overviewpage() ended")
 
 def authorize():
-    exit = None
-    ph = st.empty()
-    while not exit:
-        exit = ph.button('Go back')
+    while True:
         time.sleep(3)
         if st.session_state['auth'].authorize():
             return
-    st.experimental_set_query_params(
-        page='Home'
-    )
-    st.experimental_rerun()
 
 def gpapage():
     if st.button('Return to Home'):
