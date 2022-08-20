@@ -821,9 +821,6 @@ def update_session_state(key,val):
     st.session_state[key] = val
 
 def toggle_debug():
-    if st.session_state.me['name_display'] != 'LIAM MCDONALD':
-        st.session_state.debug = False
-        return
     st.session_state.debug = not st.session_state.debug
 
 @st.cache(persist=True, allow_output_mutation=True, max_entries=1)
