@@ -129,9 +129,7 @@ def settings():
     st.header('Debug Mode')
     st.button(
         'Debug: '+('ON' if st.session_state.debug else 'OFF'),
-        on_click = toggle_debug,
-        disabled = False if 'logged_in' in st.session_state
-        else True
+        on_click = toggle_debug
     )
     st.write('Available only to testers. If you\'re on the list, this button will work for you.')
     if 'logged_in' in st.session_state:
